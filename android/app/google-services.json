@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "858728453185",
+    "project_id": "fit-lovers-f0228",
+    "storage_bucket": "fit-lovers-f0228.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858728453185:android:8b4b1e28a2e412a07aa2c0",
+        "android_client_info": {
+          "package_name": "com.example.fit_lovers"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUT97QzrQfszKeM9Id_ruA-Loa2e6d24E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
