@@ -1,0 +1,13 @@
+{
+  "@@locale": "en",
+  "welcome": "Welcome!",
+  "@welcome": {},
+  "language": "Language",
+  "@language": {},
+  "register": "Register",
+  "@register": {},
+  "login": "Login",
+  "@login": {},
+  "skip": "Skip",
+  "@skip": {}
+}

@@ -1,0 +1,14 @@
+{
+  "@@locale": "sr",
+  "welcome": "Dobro dosli!",
+  "@welcome": {},
+  "jezik": "Jezik",
+  "@jezik": {},
+  "register": "Registruj se",
+  "@register": {},
+  "login": "Prijavi se",
+  "@login": {},
+  "skip": "Preskoči",
+  "@skip": {}
+}
+

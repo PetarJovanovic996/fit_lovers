@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fit_lovers/cubit/settings/language_cubit.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key, required this.title});
@@ -14,7 +16,24 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: TextStyle(color: Colors.black),
           ),
           Expanded(child: Container()),
-          DropdownButton(items: [], onChanged: (_) {})
+          DropdownButton(
+            value: Localizations.localeOf(context),
+            items: [
+              DropdownMenuItem(
+                value: Locale('en', 'US'),
+                child: Text('English'),
+              ),
+              DropdownMenuItem(
+                value: Locale('sr', 'RS'),
+                child: Text('Srpski'),
+              ),
+            ],
+            onChanged: (Locale? locale) {
+              if (locale != null) {
+                context.read<LanguageCubit>().changeLanguage(locale);
+              }
+            },
+          )
         ],
       ),
       backgroundColor: Theme.of(context).primaryColor,

@@ -1,5 +1,6 @@
 import 'package:fit_lovers/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeViewScreen extends StatelessWidget {
   const WelcomeViewScreen({super.key});
@@ -7,7 +8,8 @@ class WelcomeViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'Welcome'),
+      //prvi pokusaj prevoda
+      appBar: MyAppBar(title: (AppLocalizations.of(context)!.welcome)),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -25,7 +27,7 @@ class WelcomeViewScreen extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {},
                     child: Text(
-                      'Register',
+                      AppLocalizations.of(context)!.register,
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
@@ -35,7 +37,7 @@ class WelcomeViewScreen extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {},
                     child: Text(
-                      'Login',
+                      AppLocalizations.of(context)!.login,
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
@@ -47,7 +49,7 @@ class WelcomeViewScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 child: Text(
-                  'Skip',
+                  AppLocalizations.of(context)!.skip,
                   style: TextStyle(color: Colors.black),
                 ),
               ),
