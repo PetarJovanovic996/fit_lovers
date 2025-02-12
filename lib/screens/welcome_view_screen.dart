@@ -1,3 +1,4 @@
+import 'package:fit_lovers/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeViewScreen extends StatelessWidget {
@@ -6,6 +7,7 @@ class WelcomeViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MyAppBar(title: 'Welcome'),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -14,11 +16,42 @@ class WelcomeViewScreen extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Text(
-            'Welcome',
-            style: TextStyle(
-              color: Colors.white,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Register',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Login',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text(
+                  'Skip',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ],
           ),
         ),
       ),

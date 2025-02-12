@@ -7,7 +7,16 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title),
+      title: Row(
+        children: [
+          Text(
+            title,
+            style: TextStyle(color: Colors.black),
+          ),
+          Expanded(child: Container()),
+          DropdownButton(items: [], onChanged: (_) {})
+        ],
+      ),
       backgroundColor: Theme.of(context).primaryColor,
       iconTheme: IconThemeData(color: Colors.white),
     );

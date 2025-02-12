@@ -6,12 +6,12 @@ class MyTheme {
 
   static ThemeData get lightTheme {
     return ThemeData(
-      primaryColor: primaryColor,
-      hintColor: hintColor,
+      primaryColor: const Color.fromARGB(255, 242, 243, 245),
+      hintColor: const Color.fromARGB(255, 112, 130, 139),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       scaffoldBackgroundColor: Colors.grey,
       appBarTheme: AppBarTheme(
-        color: primaryColor,
+        color: const Color.fromARGB(255, 22, 41, 60),
         elevation: 0,
         titleTextStyle: TextStyle(
           color: Colors.white,
