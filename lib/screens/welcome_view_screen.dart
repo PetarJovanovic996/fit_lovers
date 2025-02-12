@@ -5,8 +5,23 @@ class WelcomeViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Welcome')),
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/test.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            'Welcome',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
