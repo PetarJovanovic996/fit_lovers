@@ -83,7 +83,7 @@ flutter:
   
   assets:
     - assets/images/test.jpg
-    - lib/core/l10n/
+    - lib/l10n/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

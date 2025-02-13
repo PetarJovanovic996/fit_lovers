@@ -1,3 +1,4 @@
+import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,7 +26,8 @@ class WelcomeViewScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(Routes.registerScreen),
                     child: Text(
                       AppLocalizations.of(context)!.register,
                       style: TextStyle(color: Colors.black),
@@ -35,7 +37,8 @@ class WelcomeViewScreen extends StatelessWidget {
                     width: 10,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(Routes.logInScreen),
                     child: Text(
                       AppLocalizations.of(context)!.login,
                       style: TextStyle(color: Colors.black),
@@ -47,7 +50,8 @@ class WelcomeViewScreen extends StatelessWidget {
                 height: 10,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(Routes.homeScreen),
                 child: Text(
                   AppLocalizations.of(context)!.skip,
                   style: TextStyle(color: Colors.black),
