@@ -1,7 +1,6 @@
 import 'package:fit_lovers/core/app_bloc_observer.dart';
 import 'package:fit_lovers/core/firebase_options.dart';
 import 'package:fit_lovers/core/my_theme.dart';
-import 'package:fit_lovers/data/repositories/auth_repository.dart';
 import 'package:fit_lovers/domain/cubit/authentication/auth_cubit.dart';
 import 'package:fit_lovers/domain/cubit/settings/language_cubit.dart';
 import 'package:fit_lovers/domain/cubit/settings/language_state.dart';
