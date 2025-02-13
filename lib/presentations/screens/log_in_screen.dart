@@ -1,8 +1,8 @@
 import 'package:fit_lovers/core/routes.dart';
-import 'package:fit_lovers/data/models/validation/email.dart';
-import 'package:fit_lovers/data/models/validation/password.dart';
 import 'package:fit_lovers/domain/cubit/authentication/auth_state.dart';
+import 'package:fit_lovers/presentations/widgets/email_input_field.dart';
 import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
+import 'package:fit_lovers/presentations/widgets/password_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fit_lovers/domain/cubit/authentication/auth_cubit.dart';
@@ -37,37 +37,9 @@ class LogInScreen extends StatelessWidget {
             key: _formKey,
             child: Column(
               children: [
-                // Email Field
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Email'),
-                  validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        !value.contains('@')) {
-                      return AppLocalizations.of(context)!.invalidMail;
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    context.read<AuthCubit>().email = Email.dirty(value);
-                  },
-                ),
+                EmailInputField(),
                 const SizedBox(height: 16),
-
-                // Password Field
-                TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Password'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty || value.length < 6) {
-                      return AppLocalizations.of(context)!.invalidPassword;
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    context.read<AuthCubit>().password = Password.dirty(value);
-                  },
-                ),
+                PasswordInputField(),
                 const SizedBox(height: 16),
 
                 // Login Button
@@ -80,7 +52,8 @@ class LogInScreen extends StatelessWidget {
                           );
                     }
                   },
-                  child: Text(AppLocalizations.of(context)!.login),
+                  child: Text(AppLocalizations.of(context)!.login,
+                      style: TextStyle(color: Colors.black)),
                 ),
               ],
             ),

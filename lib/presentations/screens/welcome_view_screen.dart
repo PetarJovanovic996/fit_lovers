@@ -18,48 +18,57 @@ class WelcomeViewScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(
-          child: Column(
+        child: _WelcomeButtons(),
+        // Register, Login, Skip Buttons
+      ),
+    );
+  }
+}
+
+class _WelcomeButtons extends StatelessWidget {
+  const _WelcomeButtons();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed(Routes.registerScreen),
-                    child: Text(
-                      AppLocalizations.of(context)!.register,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed(Routes.logInScreen),
-                    child: Text(
-                      AppLocalizations.of(context)!.login,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                ],
+              ElevatedButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(Routes.registerScreen),
+                child: Text(
+                  AppLocalizations.of(context)!.register,
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
               SizedBox(
-                height: 10,
+                width: 10,
               ),
               ElevatedButton(
                 onPressed: () =>
-                    Navigator.of(context).pushNamed(Routes.homeScreen),
+                    Navigator.of(context).pushNamed(Routes.logInScreen),
                 child: Text(
-                  AppLocalizations.of(context)!.skip,
+                  AppLocalizations.of(context)!.login,
                   style: TextStyle(color: Colors.black),
                 ),
               ),
             ],
           ),
-        ),
+          SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pushNamed(Routes.homeScreen),
+            child: Text(
+              AppLocalizations.of(context)!.skip,
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ],
       ),
     );
   }

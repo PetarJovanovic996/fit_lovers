@@ -1,8 +1,9 @@
-import 'package:fit_lovers/data/models/validation/email.dart';
-import 'package:fit_lovers/data/models/validation/password.dart';
 import 'package:fit_lovers/data/models/validation/confirm_password.dart';
 import 'package:fit_lovers/domain/cubit/authentication/auth_state.dart';
+import 'package:fit_lovers/presentations/widgets/consent_button.dart';
+import 'package:fit_lovers/presentations/widgets/email_input_field.dart';
 import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
+import 'package:fit_lovers/presentations/widgets/password_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fit_lovers/domain/cubit/authentication/auth_cubit.dart';
@@ -37,76 +38,17 @@ class RegisterScreen extends StatelessWidget {
             key: _formKey,
             child: Column(
               children: [
-                // Email Field
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Email'),
-                  validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        !value.contains('@')) {
-                      return AppLocalizations.of(context)!.invalidMail;
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    context.read<AuthCubit>().email = Email.dirty(value);
-                  },
-                ),
-                const SizedBox(height: 16),
-
-                // Password Field
-                TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Password'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty || value.length < 6) {
-                      return AppLocalizations.of(context)!.invalidPassword;
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    context.read<AuthCubit>().password = Password.dirty(value);
-                  },
-                ),
+                EmailInputField(),
+                SizedBox(height: 16),
+                PasswordInputField(),
                 const SizedBox(height: 16),
 
                 // Confirm Password Field
-                TextFormField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.confirmPassword),
-                  validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        value != context.read<AuthCubit>().password.value) {
-                      return AppLocalizations.of(context)!.passwordDontMatch;
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    context.read<AuthCubit>().confirmPassword =
-                        ConfirmPassword.dirty(
-                      value: value,
-                      password: context.read<AuthCubit>().password.value,
-                    );
-                  },
-                ),
+                _ConfirmPasswordField(),
                 const SizedBox(height: 16),
 
                 // Checkbox
-                BlocBuilder<AuthCubit, AuthState>(
-                  builder: (context, state) {
-                    final consent = context.read<AuthCubit>().consent;
-                    return CheckboxListTile(
-                      value: consent.value,
-                      onChanged: (value) {
-                        context.read<AuthCubit>().updateConsent(value!);
-                      },
-                      title: Text(
-                          AppLocalizations.of(context)!.termsAndConditions),
-                    );
-                  },
-                ),
+                ConsentButton(),
                 const SizedBox(height: 16),
 
                 // Register Button
@@ -121,13 +63,43 @@ class RegisterScreen extends StatelessWidget {
                           );
                     }
                   },
-                  child: Text(AppLocalizations.of(context)!.register),
+                  child: Text(
+                    AppLocalizations.of(context)!.register,
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ConfirmPasswordField extends StatelessWidget {
+  const _ConfirmPasswordField();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      obscureText: true,
+      decoration: InputDecoration(
+          labelText: AppLocalizations.of(context)!.confirmPassword),
+      validator: (value) {
+        if (value == null ||
+            value.isEmpty ||
+            value != context.read<AuthCubit>().password.value) {
+          return AppLocalizations.of(context)!.passwordDontMatch;
+        }
+        return null;
+      },
+      onChanged: (value) {
+        context.read<AuthCubit>().confirmPassword = ConfirmPassword.dirty(
+          value: value,
+          password: context.read<AuthCubit>().password.value,
+        );
+      },
     );
   }
 }

@@ -30,7 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
         passwordValidation.isNotValid ||
         confirmPasswordValidation.isNotValid ||
         consentValidation.isNotValid) {
-      emit(AuthValidationError("Please check your input fields."));
+      emit(AuthValidationError('Please check your input fields.'));
       return;
     }
 
@@ -64,7 +64,7 @@ class AuthCubit extends Cubit<AuthState> {
       );
       emit(AuthAuthenticated(userCredential.user!));
     } catch (e) {
-      emit(AuthError("Login failed: ${e.toString()}"));
+      emit(AuthError('Invalid email or password.'));
     }
   }
 
