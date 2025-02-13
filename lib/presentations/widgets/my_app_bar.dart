@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fit_lovers/cubit/settings/language_cubit.dart';
+import 'package:fit_lovers/domain/cubit/settings/language_cubit.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key, required this.title});
