@@ -9,6 +9,23 @@
   "login": "Prijavi se",
   "@login": {},
   "skip": "Preskoči",
-  "@skip": {}
+  "@skip": {},
+  "loggedIn": "Prijavljeni ste!",
+  "@loggedIn": {},
+  "emptyMail": "Molim vas unesite email",
+  "@emptyMail": {},
+  "emptyPassword": "Molim vas unesite pasvord",
+  "@emptyPassword": {},
+  "invalidMail": "Nevazeci E-mail",
+  "@invalidMail": {},
+  "invalidPassword": "Nevazeci Pasvord",
+  "@invalidPassword": {},
+  "confirmPassword": "Potvrdi Pasvord",
+  "@confirmPassword": {},
+  "passwordDontMatch": "Pasvordi nisu identicni",
+  "@passwordDontMatch": {},
+  "termsAndConditions": "Prihvatam uslove koriscenja",
+  "@termsAndConditions": {}
+
 }
 

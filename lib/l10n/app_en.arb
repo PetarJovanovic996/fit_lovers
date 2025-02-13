@@ -9,5 +9,21 @@
   "login": "Login",
   "@login": {},
   "skip": "Skip",
-  "@skip": {}
+  "@skip": {},
+  "loggedIn": "You are logged in",
+  "@loggedIn": {},
+  "emptyMail": "Enter your email, please!",
+  "@emptyMail": {},
+  "emptyPassword": "Enter your password, please!",
+  "@emptyPassword": {},
+  "invalidMail": "Invalid E-mail",
+  "@invalidMail": {},
+  "invalidPassword": "Invalid Password",
+  "@invalidPassword": {},
+  "confirmPassword": "Confirm Password",
+  "@confirmPassword": {},
+  "passwordDontMatch": "Password dont match",
+  "@passwordDontMatch": {},
+  "termsAndConditions": "I agree to the terms and conditions",
+  "@termsAndConditions": {}
 }

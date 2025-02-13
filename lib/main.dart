@@ -1,6 +1,8 @@
 import 'package:fit_lovers/core/app_bloc_observer.dart';
 import 'package:fit_lovers/core/firebase_options.dart';
 import 'package:fit_lovers/core/my_theme.dart';
+import 'package:fit_lovers/data/repositories/auth_repository.dart';
+import 'package:fit_lovers/domain/cubit/authentication/auth_cubit.dart';
 import 'package:fit_lovers/domain/cubit/settings/language_cubit.dart';
 import 'package:fit_lovers/domain/cubit/settings/language_state.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +28,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LanguageCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LanguageCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AuthCubit(),
+        ),
+      ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, state) {
           return MaterialApp(

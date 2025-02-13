@@ -1,12 +1,133 @@
+import 'package:fit_lovers/data/models/validation/email.dart';
+import 'package:fit_lovers/data/models/validation/password.dart';
+import 'package:fit_lovers/data/models/validation/confirm_password.dart';
+import 'package:fit_lovers/domain/cubit/authentication/auth_state.dart';
+import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fit_lovers/domain/cubit/authentication/auth_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fit_lovers/core/routes.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+  RegisterScreen({super.key});
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Register')),
+    return Scaffold(
+      appBar: MyAppBar(title: AppLocalizations.of(context)!.register),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is AuthAuthenticated) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(AppLocalizations.of(context)!.login)),
+              );
+              Navigator.of(context).pushReplacementNamed(Routes.logInScreen);
+            } else if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.errorMessage)),
+              );
+            }
+          },
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                // Email Field
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Email'),
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        !value.contains('@')) {
+                      return AppLocalizations.of(context)!.invalidMail;
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    context.read<AuthCubit>().email = Email.dirty(value);
+                  },
+                ),
+                const SizedBox(height: 16),
+
+                // Password Field
+                TextFormField(
+                  obscureText: true,
+                  decoration: const InputDecoration(labelText: 'Password'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value.length < 6) {
+                      return AppLocalizations.of(context)!.invalidPassword;
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    context.read<AuthCubit>().password = Password.dirty(value);
+                  },
+                ),
+                const SizedBox(height: 16),
+
+                // Confirm Password Field
+                TextFormField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)!.confirmPassword),
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        value != context.read<AuthCubit>().password.value) {
+                      return AppLocalizations.of(context)!.passwordDontMatch;
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    context.read<AuthCubit>().confirmPassword =
+                        ConfirmPassword.dirty(
+                      value: value,
+                      password: context.read<AuthCubit>().password.value,
+                    );
+                  },
+                ),
+                const SizedBox(height: 16),
+
+                // Checkbox
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    final consent = context.read<AuthCubit>().consent;
+                    return CheckboxListTile(
+                      value: consent.value,
+                      onChanged: (value) {
+                        context.read<AuthCubit>().updateConsent(value!);
+                      },
+                      title: Text(
+                          AppLocalizations.of(context)!.termsAndConditions),
+                    );
+                  },
+                ),
+                const SizedBox(height: 16),
+
+                // Register Button
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      context.read<AuthCubit>().register(
+                            context.read<AuthCubit>().email.value,
+                            context.read<AuthCubit>().password.value,
+                            context.read<AuthCubit>().confirmPassword.value,
+                            context.read<AuthCubit>().consent.value,
+                          );
+                    }
+                  },
+                  child: Text(AppLocalizations.of(context)!.register),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
