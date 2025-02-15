@@ -31,8 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.0.0  # State management (BLoC/Cubit)
-  firebase_auth: ^5.4.2  # Firebase Authentication
-  cloud_firestore: ^5.6.3  # Firestore baza podataka
+  firebase_auth: ^5.4.2 # Firebase Authentication
+  firebase_database: ^11.3.2  
   http: ^1.3.0  # API pozivi
   json_serializable: ^6.5.4  # Generisanje modela
   formz: ^0.8.0  # Validacija formi
@@ -49,6 +49,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   bloc: ^9.0.0
+  
   
 
 dev_dependencies:

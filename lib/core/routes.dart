@@ -47,7 +47,7 @@ class MyRouter {
           (Routes.welcomeViewScreen) => const WelcomeViewScreen(),
           (Routes.logInScreen) => LogInScreen(),
           (Routes.registerScreen) => RegisterScreen(),
-          (Routes.onboardingScreen) => const OnboardingScreen(),
+          (Routes.onboardingScreen) => OnboardingScreen(),
           (Routes.homeScreen) => const HomeScreen(),
           (Routes.editProfileScreen) => const EditProfileScreen(),
           // Default route

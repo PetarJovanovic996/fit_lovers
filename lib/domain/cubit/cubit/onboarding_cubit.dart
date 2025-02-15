@@ -1,15 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fit_lovers/data/repositories/user_repository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'onboarding_state.dart';
 
 class OnboardingCubit extends Cubit<OnboardingState> {
   final UserRepository userRepository;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   OnboardingCubit({required this.userRepository}) : super(OnboardingInitial());
 
@@ -43,44 +40,32 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     height = h ?? height;
   }
 
-  Future<void> saveUserData() async {
-    emit(OnboardingLoading());
+  // Future<void> saveUserData() async {
+  //   emit(OnboardingLoading());
 
-    try {
-      if (firstName.isEmpty ||
-          lastName.isEmpty ||
-          dateOfBirth == null ||
-          weight == null ||
-          height == null) {
-        emit(OnboardingError(toString()));
-        return;
-      }
-      await userRepository.saveUserData(
-        firstName: firstName,
-        lastName: lastName,
-        dateOfBirth: dateOfBirth!,
-        weight: weight!,
-        height: height!,
-      );
-      emit(OnboardingCompleted());
-    } catch (e) {
-      emit(OnboardingError(e.toString()));
-    }
-  }
+  //   try {
+  //     await userRepository.saveUserData(
+  //       firstName: firstName,
+  //       lastName: lastName,
+  //       dateOfBirth: dateOfBirth!,
+  //       weight: weight!,
+  //       height: height!,
+  //     );
+  //     await _saveOnboardingCompletedStatus(true);
+
+  //     emit(OnboardingCompleted());
+  //   } catch (e) {
+  //     emit(OnboardingError(e.toString()));
+  //   }
+  // }
 
   Future<void> checkOnboardingStatus() async {
     emit(OnboardingLoading());
     try {
-      User? user = _auth.currentUser;
-      if (user == null) {
-        emit(OnboardingRequired()); // Ako nije ulogovan, treba mu onboarding
-        return;
-      }
+      final prefs = await SharedPreferences.getInstance();
+      bool onboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;
 
-      DocumentSnapshot userDoc =
-          await _firestore.collection('users').doc(user.uid).get();
-
-      if (userDoc.exists && (userDoc['onboardingCompleted'] ?? false)) {
+      if (onboardingCompleted) {
         emit(OnboardingCompleted());
       } else {
         emit(OnboardingRequired());
@@ -93,13 +78,40 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   Future<void> completeOnboarding() async {
     emit(OnboardingLoading());
     try {
-      User? user = _auth.currentUser;
-      if (user != null) {
-        await _firestore.collection('users').doc(user.uid).update({
-          'onboardingCompleted': true,
-        });
-        emit(OnboardingCompleted());
+      await _saveOnboardingCompletedStatus(true);
+      emit(OnboardingCompleted());
+    } catch (e) {
+      emit(OnboardingError(e.toString()));
+    }
+  }
+
+  Future<void> _saveOnboardingCompletedStatus(bool status) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboardingCompleted', status);
+  }
+
+  Future<void> saveUserData() async {
+    emit(OnboardingLoading());
+
+    try {
+      if (firstName.isEmpty ||
+          lastName.isEmpty ||
+          dateOfBirth == null ||
+          weight == null ||
+          height == null) {
+        throw Exception("Some fields are missing.");
       }
+
+      await userRepository.saveUserData(
+        firstName: firstName,
+        lastName: lastName,
+        dateOfBirth: dateOfBirth!,
+        weight: weight!,
+        height: height!,
+      );
+      await _saveOnboardingCompletedStatus(true);
+
+      emit(OnboardingCompleted());
     } catch (e) {
       emit(OnboardingError(e.toString()));
     }

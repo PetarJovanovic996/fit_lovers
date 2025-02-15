@@ -1,8 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class UserRepository {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseDatabase _firebaseDatabase = FirebaseDatabase.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> saveUserData({
@@ -13,32 +13,20 @@ class UserRepository {
     required double height,
   }) async {
     try {
-      final user = _auth.currentUser;
+      final user = _auth.currentUser?.uid;
       if (user != null) {
-        await _firestore.collection('users').doc(user.uid).set({
+        await _firebaseDatabase.ref('users/$user').set({
           'firstName': firstName,
           'lastName': lastName,
           'dateOfBirth': dateOfBirth.toIso8601String(),
           'weight': weight,
           'height': height,
-          'onboardingCompleted': true,
-        }, SetOptions(merge: true));
+        });
+      } else {
+        throw Exception('User is not authenticated');
       }
     } catch (e) {
-      throw Exception("Failed to save user data");
-    }
-  }
-
-  Future<bool> isOnboardingCompleted() async {
-    try {
-      final user = _auth.currentUser;
-      if (user != null) {
-        final doc = await _firestore.collection('users').doc(user.uid).get();
-        return doc.exists && (doc.data()?['onboardingCompleted'] ?? false);
-      }
-      return false;
-    } catch (e) {
-      return false;
+      rethrow;
     }
   }
 }
