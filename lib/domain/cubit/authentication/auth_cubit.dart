@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fit_lovers/data/models/validation/confirm_password.dart';
 import 'package:fit_lovers/data/models/validation/consent.dart';
@@ -8,6 +9,7 @@ import 'package:fit_lovers/domain/cubit/authentication/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Email email = Email.pure();
   Password password = Password.pure();
@@ -95,5 +97,29 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> updateConsent(bool consentChecked) async {
     consent = Consent.dirty(consentChecked);
     emit(AuthConsentUpdated(consentChecked));
+  }
+
+//provjeri da li je onboardovan
+  Future<void> checkUserStatus() async {
+    emit(AuthLoading());
+
+    try {
+      User? user = _auth.currentUser;
+
+      if (user == null) {
+        emit(AuthNeedsOnboarding());
+      } else {
+        DocumentSnapshot userDoc =
+            await _firestore.collection('users').doc(user.uid).get();
+
+        if (userDoc.exists && (userDoc['onboardingCompleted'] ?? false)) {
+          emit(AuthAuthenticated(user));
+        } else {
+          emit(AuthNeedsOnboarding());
+        }
+      }
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
   }
 }

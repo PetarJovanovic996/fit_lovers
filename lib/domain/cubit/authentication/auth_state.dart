@@ -45,3 +45,8 @@ class AuthConsentUpdated extends AuthState {
   @override
   List<Object> get props => [consent];
 }
+
+class AuthNeedsOnboarding extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
