@@ -1,10 +1,14 @@
+import 'package:fit_lovers/core/routes.dart';
+import 'package:fit_lovers/domain/cubit/authentication/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fit_lovers/domain/cubit/settings/language_cubit.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({super.key, required this.title});
+  const MyAppBar({super.key, required this.title, this.showSignOut = false});
+
   final String title;
+  final bool showSignOut;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 context.read<LanguageCubit>().changeLanguage(locale);
               }
             },
-          )
+          ),
+          if (showSignOut)
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                context.read<AuthCubit>().signOut();
+                Navigator.of(context).pushReplacementNamed(Routes.logInScreen);
+              },
+            ),
         ],
       ),
       backgroundColor: Theme.of(context).primaryColor,
