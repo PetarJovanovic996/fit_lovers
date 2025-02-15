@@ -1,6 +1,8 @@
 import 'package:fit_lovers/core/my_theme.dart';
 import 'package:fit_lovers/core/routes.dart';
+import 'package:fit_lovers/data/repositories/user_repository.dart';
 import 'package:fit_lovers/domain/cubit/authentication/auth_cubit.dart';
+import 'package:fit_lovers/domain/cubit/cubit/onboarding_cubit.dart';
 import 'package:fit_lovers/domain/cubit/settings/language_cubit.dart';
 import 'package:fit_lovers/domain/cubit/settings/language_state.dart';
 import 'package:flutter/material.dart';
@@ -21,31 +23,46 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthCubit(),
         ),
+        BlocProvider(
+            create: (context) => OnboardingCubit(
+                  userRepository: UserRepository(),
+                ))
       ],
-      child: BlocBuilder<LanguageCubit, LanguageState>(
-        builder: (context, state) {
-          return MaterialApp(
-            locale:
-                (state is LanguageChanged) ? state.locale : Locale('en', 'US'),
-            localizationsDelegates: [
-              AppLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: [
-              Locale('en', 'US'),
-              Locale('sr', 'RS'),
-            ],
+      //jezik , tema, rute
+      child: AppConfiguration(),
+    );
+  }
+}
 
-            // locale: Locale('sr', 'RS'),
-            theme: MyTheme.lightTheme,
-            debugShowCheckedModeBanner: false,
-            title: 'Named Routes',
+class AppConfiguration extends StatelessWidget {
+  const AppConfiguration({
+    super.key,
+  });
 
-            onGenerateRoute: MyRouter.onGenerateRoute,
-          );
-        },
-      ),
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LanguageCubit, LanguageState>(
+      builder: (context, state) {
+        return MaterialApp(
+          locale: (state is LanguageChanged)
+              ? state.locale
+              : const Locale('en', 'US'),
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', 'US'),
+            Locale('sr', 'RS'),
+          ],
+          theme: MyTheme.lightTheme,
+          debugShowCheckedModeBanner: false,
+          title: 'Named Routes',
+          onGenerateRoute: MyRouter.onGenerateRoute,
+        );
+      },
     );
   }
 }

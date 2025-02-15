@@ -20,6 +20,11 @@ class OnboardingPageChanged extends OnboardingState {
   List<Object> get props => [pageIndex];
 }
 
+class OnboardingRequired extends OnboardingState {
+  @override
+  List<Object> get props => [];
+}
+
 class OnboardingCompleted extends OnboardingState {
   @override
   List<Object> get props => [];

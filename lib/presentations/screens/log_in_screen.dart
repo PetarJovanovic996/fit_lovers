@@ -1,5 +1,6 @@
 import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/domain/cubit/authentication/auth_state.dart';
+import 'package:fit_lovers/domain/cubit/cubit/onboarding_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/email_input_field.dart';
 import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
 import 'package:fit_lovers/presentations/widgets/password_input_field.dart';
@@ -25,37 +26,46 @@ class LogInScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(AppLocalizations.of(context)!.loggedIn)),
               );
-              Navigator.of(context)
-                  .pushReplacementNamed(Routes.onboardingScreen);
+              context.read<OnboardingCubit>().checkOnboardingStatus();
             } else if (state is AuthError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),
               );
             }
           },
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                EmailInputField(),
-                const SizedBox(height: 16),
-                PasswordInputField(),
-                const SizedBox(height: 16),
+          child: BlocListener<OnboardingCubit, OnboardingState>(
+            listener: (context, state) {
+              if (state is OnboardingRequired) {
+                Navigator.of(context)
+                    .pushReplacementNamed(Routes.onboardingScreen);
+              } else if (state is OnboardingCompleted) {
+                Navigator.of(context).pushReplacementNamed(Routes.homeScreen);
+              }
+            },
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  EmailInputField(),
+                  const SizedBox(height: 16),
+                  PasswordInputField(),
+                  const SizedBox(height: 16),
 
-                // Login Button
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      context.read<AuthCubit>().login(
-                            context.read<AuthCubit>().email.value,
-                            context.read<AuthCubit>().password.value,
-                          );
-                    }
-                  },
-                  child: Text(AppLocalizations.of(context)!.login,
-                      style: TextStyle(color: Colors.black)),
-                ),
-              ],
+                  // Login Button
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthCubit>().login(
+                              context.read<AuthCubit>().email.value,
+                              context.read<AuthCubit>().password.value,
+                            );
+                      }
+                    },
+                    child: Text(AppLocalizations.of(context)!.login,
+                        style: TextStyle(color: Colors.black)),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
