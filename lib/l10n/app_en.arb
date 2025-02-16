@@ -25,5 +25,18 @@
   "passwordDontMatch": "Password dont match",
   "@passwordDontMatch": {},
   "termsAndConditions": "I agree to the terms and conditions",
-  "@termsAndConditions": {}
+  "@termsAndConditions": {},
+  "onboarding": "Onboarding",
+  "@onboarding": {},
+  "onboardingWelcome": "Please fill your personal data",
+  "@onboardingWelcome": {},
+  "invalidInput": "Invalid Input",
+  "@invalidInput": {},
+  "firstName": "First Name",
+  "@firstName": {},
+  "lastName": "Last Name",
+  "@lastName": {},
+  "next": "Next",
+  "@next": {}
+  
 }

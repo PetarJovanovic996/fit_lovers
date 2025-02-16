@@ -25,7 +25,19 @@
   "passwordDontMatch": "Pasvordi nisu identicni",
   "@passwordDontMatch": {},
   "termsAndConditions": "Prihvatam uslove koriscenja",
-  "@termsAndConditions": {}
+  "@termsAndConditions": {},
+  "onboarding": "Pridruzi se",
+  "@onboarding": {},
+  "onboardingWelcome": "Molim vas unesite vase podatke",
+  "@onboardingWelcome": {},
+  "invalidInput": "Nevazeci unos",
+  "@invalidInput": {},
+  "firstName": "Vase ime",
+  "@firstName": {},
+  "lastName": "Vase prezime",
+  "@lastName": {},
+  "next": "Nastavi",
+  "@next": {}
 
 }
 

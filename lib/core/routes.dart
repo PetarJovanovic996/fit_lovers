@@ -1,7 +1,7 @@
 import 'package:fit_lovers/presentations/screens/edit_profile_screen.dart';
 import 'package:fit_lovers/presentations/screens/home_screen.dart';
 import 'package:fit_lovers/presentations/screens/log_in_screen.dart';
-import 'package:fit_lovers/presentations/screens/onboarding_screen.dart';
+import 'package:fit_lovers/presentations/screens/onboarding%20screens/onboarding_screen.dart';
 import 'package:fit_lovers/presentations/screens/register_screen.dart';
 import 'package:fit_lovers/presentations/screens/welcome_view_screen.dart';
 

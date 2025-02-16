@@ -12,12 +12,29 @@ class OnboardingLoading extends OnboardingState {
   List<Object> get props => [];
 }
 
-class OnboardingPageChanged extends OnboardingState {
-  final int pageIndex;
-  OnboardingPageChanged(this.pageIndex);
+class OnboardingDataChanged extends OnboardingState {
+  final String firstName;
+  final String lastName;
+  final DateTime? dateOfBirth;
+  final double? weight;
+  final double? height;
+
+  OnboardingDataChanged(this.firstName, this.lastName, this.dateOfBirth,
+      this.weight, this.height);
 
   @override
-  List<Object> get props => [pageIndex];
+  List<Object> get props =>
+      [firstName, lastName, dateOfBirth!, weight!, height!];
+}
+
+class OnboardingNextScreen extends OnboardingState {
+  @override
+  List<Object> get props => [];
+}
+
+class OnboardingPrevScreen extends OnboardingState {
+  @override
+  List<Object> get props => [];
 }
 
 class OnboardingRequired extends OnboardingState {

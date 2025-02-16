@@ -10,34 +10,48 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
   OnboardingCubit({required this.userRepository}) : super(OnboardingInitial());
 
-  int currentPage = 0;
   String firstName = "";
   String lastName = "";
   DateTime? dateOfBirth;
   double? weight;
   double? height;
 
-  void nextPage() {
-    if (currentPage < 3) {
-      currentPage++;
-      emit(OnboardingPageChanged(currentPage));
-    }
+  void updateFirstName(String value) {
+    firstName = value;
+    emit(OnboardingDataChanged(
+        firstName, lastName, dateOfBirth, weight, height));
   }
 
-  void previousPage() {
-    if (currentPage > 0) {
-      currentPage--;
-      emit(OnboardingPageChanged(currentPage));
-    }
+  void updateLastName(String value) {
+    lastName = value;
+    emit(OnboardingDataChanged(
+        firstName, lastName, dateOfBirth, weight, height));
   }
 
-  void updateUserData(
-      {String? fName, String? lName, DateTime? dob, double? w, double? h}) {
-    firstName = fName ?? firstName;
-    lastName = lName ?? lastName;
-    dateOfBirth = dob ?? dateOfBirth;
-    weight = w ?? weight;
-    height = h ?? height;
+  void updateDateOfBirth(DateTime value) {
+    dateOfBirth = value;
+    emit(OnboardingDataChanged(
+        firstName, lastName, dateOfBirth, weight, height));
+  }
+
+  void updateWeight(double value) {
+    weight = value;
+    emit(OnboardingDataChanged(
+        firstName, lastName, dateOfBirth, weight, height));
+  }
+
+  void updateHeight(double value) {
+    height = value;
+    emit(OnboardingDataChanged(
+        firstName, lastName, dateOfBirth, weight, height));
+  }
+
+  void nextScreen() {
+    emit(OnboardingNextScreen());
+  }
+
+  void prevScreen() {
+    emit(OnboardingPrevScreen());
   }
 
   Future<void> checkOnboardingStatus() async {
