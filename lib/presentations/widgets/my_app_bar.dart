@@ -43,7 +43,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: Icon(Icons.logout),
               onPressed: () {
                 context.read<AuthCubit>().signOut();
-                Navigator.of(context).pushReplacementNamed(Routes.logInScreen);
+                Navigator.of(context)
+                    .pushReplacementNamed(Routes.welcomeViewScreen);
               },
             ),
         ],

@@ -36,10 +36,15 @@ class LogInScreen extends StatelessWidget {
           child: BlocListener<OnboardingCubit, OnboardingState>(
             listener: (context, state) {
               if (state is OnboardingRequired) {
-                Navigator.of(context)
-                    .pushReplacementNamed(Routes.onboardingScreen);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  Routes.onboardingScreen,
+                  (Route<dynamic> route) => false,
+                );
               } else if (state is OnboardingCompleted) {
-                Navigator.of(context).pushReplacementNamed(Routes.homeScreen);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  Routes.homeScreen,
+                  (Route<dynamic> route) => false,
+                );
               }
             },
             child: Form(

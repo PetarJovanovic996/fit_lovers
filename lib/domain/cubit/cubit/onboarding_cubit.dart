@@ -40,25 +40,6 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     height = h ?? height;
   }
 
-  // Future<void> saveUserData() async {
-  //   emit(OnboardingLoading());
-
-  //   try {
-  //     await userRepository.saveUserData(
-  //       firstName: firstName,
-  //       lastName: lastName,
-  //       dateOfBirth: dateOfBirth!,
-  //       weight: weight!,
-  //       height: height!,
-  //     );
-  //     await _saveOnboardingCompletedStatus(true);
-
-  //     emit(OnboardingCompleted());
-  //   } catch (e) {
-  //     emit(OnboardingError(e.toString()));
-  //   }
-  // }
-
   Future<void> checkOnboardingStatus() async {
     emit(OnboardingLoading());
     try {
@@ -79,6 +60,16 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     emit(OnboardingLoading());
     try {
       await _saveOnboardingCompletedStatus(true);
+      emit(OnboardingCompleted());
+    } catch (e) {
+      emit(OnboardingError(e.toString()));
+    }
+  }
+
+  Future<void> skipOnboarding() async {
+    emit(OnboardingLoading());
+    try {
+      await _saveOnboardingCompletedStatus(false);
       emit(OnboardingCompleted());
     } catch (e) {
       emit(OnboardingError(e.toString()));

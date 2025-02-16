@@ -51,7 +51,7 @@ class MyRouter {
           (Routes.homeScreen) => const HomeScreen(),
           (Routes.editProfileScreen) => const EditProfileScreen(),
           // Default route
-          _ => const WelcomeViewScreen(),
+          _ => OnboardingScreen(),
         };
       },
     );
