@@ -37,7 +37,13 @@
   "lastName": "Vase prezime",
   "@lastName": {},
   "next": "Nastavi",
-  "@next": {}
+  "@next": {},
+  "selectDateOfBirth": "Unesite datum rodjenja",
+  "@selectDateOfBirth": {},
+  "back": "Nazad",
+  "@back": {},
+  "selectDateOfBirthError": "Morate unijeti datum rodjenja",
+  "@selectDateOfBirthError": {}
 
 }
 

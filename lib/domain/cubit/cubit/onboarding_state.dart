@@ -16,15 +16,20 @@ class OnboardingDataChanged extends OnboardingState {
   final String firstName;
   final String lastName;
   final DateTime? dateOfBirth;
-  final double? weight;
-  final double? height;
+  final String weight;
+  final String height;
 
   OnboardingDataChanged(this.firstName, this.lastName, this.dateOfBirth,
       this.weight, this.height);
 
   @override
-  List<Object> get props =>
-      [firstName, lastName, dateOfBirth!, weight!, height!];
+  List<Object?> get props => [
+        firstName,
+        lastName,
+        dateOfBirth,
+        weight,
+        height,
+      ];
 }
 
 class OnboardingNextScreen extends OnboardingState {

@@ -9,8 +9,8 @@ class UserRepository {
     required String firstName,
     required String lastName,
     required DateTime dateOfBirth,
-    required double weight,
-    required double height,
+    required String weight,
+    required String height,
   }) async {
     try {
       final user = _auth.currentUser?.uid;

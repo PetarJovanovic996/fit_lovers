@@ -14,7 +14,7 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: MyAppBar(
-          title: AppLocalizations.of(context)!.welcome,
+          title: AppLocalizations.of(context)!.onboarding,
           showSignOut: true,
         ),
         body: Padding(
@@ -61,7 +61,6 @@ class OnboardingScreen extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
-                        context.read<OnboardingCubit>().nextScreen();
                         Navigator.push(
                           context,
                           MaterialPageRoute(

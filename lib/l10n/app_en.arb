@@ -37,6 +37,13 @@
   "lastName": "Last Name",
   "@lastName": {},
   "next": "Next",
-  "@next": {}
+  "@next": {},
+  "selectDateOfBirth": "Select Date of Birth",
+  "@selectDateOfBirth": {},
+  "back": "Back",
+  "@back": {},
+  "selectDateOfBirthError": "You have to select date of birth",
+  "@selectDateOfBirthError": {}
+
   
 }

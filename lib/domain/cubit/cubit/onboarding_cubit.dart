@@ -13,8 +13,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   String firstName = "";
   String lastName = "";
   DateTime? dateOfBirth;
-  double? weight;
-  double? height;
+  String weight = "";
+  String height = "";
 
   void updateFirstName(String value) {
     firstName = value;
@@ -28,30 +28,26 @@ class OnboardingCubit extends Cubit<OnboardingState> {
         firstName, lastName, dateOfBirth, weight, height));
   }
 
+  bool isDateOfBirthValid() {
+    return dateOfBirth != null;
+  }
+
   void updateDateOfBirth(DateTime value) {
     dateOfBirth = value;
     emit(OnboardingDataChanged(
         firstName, lastName, dateOfBirth, weight, height));
   }
 
-  void updateWeight(double value) {
+  void updateWeight(String value) {
     weight = value;
     emit(OnboardingDataChanged(
         firstName, lastName, dateOfBirth, weight, height));
   }
 
-  void updateHeight(double value) {
+  void updateHeight(String value) {
     height = value;
     emit(OnboardingDataChanged(
         firstName, lastName, dateOfBirth, weight, height));
-  }
-
-  void nextScreen() {
-    emit(OnboardingNextScreen());
-  }
-
-  void prevScreen() {
-    emit(OnboardingPrevScreen());
   }
 
   Future<void> checkOnboardingStatus() async {
@@ -102,8 +98,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
       if (firstName.isEmpty ||
           lastName.isEmpty ||
           dateOfBirth == null ||
-          weight == null ||
-          height == null) {
+          weight.isEmpty ||
+          height.isEmpty) {
         throw Exception("Some fields are missing.");
       }
 
@@ -111,8 +107,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
         firstName: firstName,
         lastName: lastName,
         dateOfBirth: dateOfBirth!,
-        weight: weight!,
-        height: height!,
+        weight: weight,
+        height: height,
       );
       await _saveOnboardingCompletedStatus(true);
 
