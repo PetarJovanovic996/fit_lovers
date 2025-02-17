@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  static const Color primaryColor = Color(0xFF003366);
-  static const Color hintColor = Color(0xFFB0BEC5);
-
   static ThemeData get lightTheme {
     return ThemeData(
-      primaryColor: const Color.fromARGB(255, 242, 243, 245),
+      primaryColor: const Color.fromARGB(255, 224, 224, 232),
       hintColor: const Color.fromARGB(255, 112, 130, 139),
       visualDensity: VisualDensity.adaptivePlatformDensity,
-      scaffoldBackgroundColor: Colors.grey,
+      scaffoldBackgroundColor: const Color.fromARGB(255, 254, 253, 253),
       appBarTheme: AppBarTheme(
-        color: const Color.fromARGB(255, 22, 41, 60),
+        color: const Color.fromARGB(255, 140, 139, 139),
         elevation: 0,
         titleTextStyle: TextStyle(
-          color: Colors.white,
+          color: Colors.black,
           fontSize: 18,
           fontWeight: FontWeight.bold,
         ),
       ),
       textTheme: TextTheme(
         bodyLarge: TextStyle(
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: FontWeight.normal,
           color: Colors.black,
         ),
         bodyMedium: TextStyle(
-          fontSize: 12,
+          fontSize: 14,
           fontWeight: FontWeight.normal,
           color: Colors.black54,
         ),
@@ -37,7 +34,7 @@ class MyTheme {
         ),
       ),
       cardTheme: CardTheme(
-        color: Colors.grey,
+        color: const Color.fromARGB(255, 218, 216, 216),
         elevation: 4,
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

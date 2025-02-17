@@ -44,8 +44,8 @@ class MyRouter {
       builder: (BuildContext context) {
         return switch (routeSettings.name) {
           (Routes.welcomeViewScreen) => const WelcomeViewScreen(),
-          (Routes.logInScreen) => LogInScreen(),
-          (Routes.registerScreen) => RegisterScreen(),
+          // (Routes.logInScreen) => LogInScreen(),
+          // (Routes.registerScreen) => RegisterScreen(),
           (Routes.onboardingScreen) => const OnboardingScreen(),
           (Routes.homeScreen) => const HomeScreen(),
           (Routes.editProfileScreen) => const EditProfileScreen(),

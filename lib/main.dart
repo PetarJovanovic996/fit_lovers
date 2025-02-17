@@ -1,7 +1,6 @@
 import 'package:fit_lovers/core/app_bloc_observer.dart';
-import 'package:fit_lovers/core/firebase_options.dart';
 import 'package:fit_lovers/core/my_theme.dart';
-import 'package:fit_lovers/presentations/cubit/authentication/auth_cubit.dart';
+import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language_state.dart';
 import 'package:flutter/material.dart';
@@ -19,52 +18,58 @@ Future<void> main() async {
   Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
 
-  runApp(const MyApp());
+  final authenticationRepository = AuthenticationRepository();
+  await authenticationRepository.user.first;
+
+  runApp(MyApp(authenticationRepository: authenticationRepository));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    required AuthenticationRepository authenticationRepository,
+    super.key,
+  }) : _authenticationRepository = authenticationRepository;
+
+  final AuthenticationRepository _authenticationRepository;
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => LanguageCubit(),
-        ),
-        BlocProvider(
-          create: (context) => AuthCubit(),
-        ),
-      ],
-      child: BlocBuilder<LanguageCubit, LanguageState>(
-        builder: (context, state) {
-          return MaterialApp(
-            locale: (state is LanguageChanged) ? state.locale : Locale('en'),
-            localizationsDelegates: [
-              AppLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            // done: When declaring locales we can only use the language code and omit the country code
-            // Locale('sr'), Locale('en')
-            supportedLocales: [
-              Locale('en'),
-              Locale('sr'),
-            ],
+    return RepositoryProvider.value(
+      value: _authenticationRepository,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => LanguageCubit(),
+          ),
+        ],
+        child: BlocBuilder<LanguageCubit, LanguageState>(
+          builder: (context, state) {
+            return MaterialApp(
+              locale: (state is LanguageChanged) ? state.locale : Locale('en'),
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              // done: When declaring locales we can only use the language code and omit the country code
+              // Locale('sr'), Locale('en')
+              supportedLocales: [
+                Locale('en'),
+                Locale('sr'),
+              ],
 
-            // locale: Locale('sr', 'RS'),
-            theme: MyTheme.lightTheme,
-            debugShowCheckedModeBanner: false,
-            // done: This project is called Named Routes?
-            title: 'Fit Lovers',
+              // locale: Locale('sr', 'RS'),
+              theme: MyTheme.lightTheme,
+              debugShowCheckedModeBanner: false,
+              // done: This project is called Named Routes?
+              title: 'Fit Lovers',
 
-            onGenerateRoute: MyRouter.onGenerateRoute,
-          );
-        },
+              onGenerateRoute: MyRouter.onGenerateRoute,
+            );
+          },
+        ),
       ),
     );
   }
