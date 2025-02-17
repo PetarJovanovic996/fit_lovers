@@ -11,6 +11,9 @@ import 'core/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+// TODO: Cubits should not be defined / nor logically are a part of the "Domain" layer
+// Cubits handle presentation (UI) layer logic. Do not overcomplicate at the moment
+
 Future<void> main() async {
   Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +49,8 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
+            // TODO: When declaring locales we can only use the language code and omit the country code
+            // Locale('sr'), Locale('en')
             supportedLocales: [
               Locale('en', 'US'),
               Locale('sr', 'RS'),
@@ -54,6 +59,7 @@ class MyApp extends StatelessWidget {
             // locale: Locale('sr', 'RS'),
             theme: MyTheme.lightTheme,
             debugShowCheckedModeBanner: false,
+            // TODO: This project is called Named Routes?
             title: 'Named Routes',
 
             onGenerateRoute: MyRouter.onGenerateRoute,

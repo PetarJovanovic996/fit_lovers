@@ -15,6 +15,7 @@ class LogInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Check all comments left on [RegisterScreen], all apply here.
     return Scaffold(
       appBar: MyAppBar(title: AppLocalizations.of(context)!.login),
       body: Padding(

@@ -7,8 +7,12 @@ import 'package:fit_lovers/data/models/validation/password.dart';
 import 'package:fit_lovers/domain/cubit/authentication/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
+  // TODO: Is this how we communicate to a 3rd party service?
+  // TODO: What is [AuthRepository]?
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // TODO: I DID NOT KNOW THIS IS HOW WE HOLD STATE IN CUBITS?
+  // TODO: REFACTOR. ALL of the logic for handling data.
   Email email = Email.pure();
   Password password = Password.pure();
   ConfirmPassword confirmPassword = ConfirmPassword.pure(password: '');
@@ -16,6 +20,10 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit() : super(AuthInitial());
 
+  // TODO: One cubit to rule them all? Rethink if this is the best approach, to handle all authentication traffic like this
+  // Register & Login are 2 different screens, and you plan to handle both their states with 1 cubit?
+
+  // HINT: Form input values, do not define [Authenticated] or [Unauthenticated] user states inside the app.
   Future<void> register(String email, String password, String confirmPassword,
       bool consentChecked) async {
     final emailValidation = Email.dirty(email);
@@ -30,6 +38,7 @@ class AuthCubit extends Cubit<AuthState> {
         passwordValidation.isNotValid ||
         confirmPasswordValidation.isNotValid ||
         consentValidation.isNotValid) {
+      // TODO: When creating multilingual applications, no text values can be hardcoded
       emit(AuthValidationError('Please check your input fields.'));
       return;
     }
@@ -43,6 +52,7 @@ class AuthCubit extends Cubit<AuthState> {
       );
       emit(AuthAuthenticated(userCredential.user!));
     } catch (e) {
+      // TODO: When creating multilingual applications, no text values can be hardcoded
       emit(AuthError("Registration failed: ${e.toString()}"));
     }
   }
@@ -52,6 +62,7 @@ class AuthCubit extends Cubit<AuthState> {
     final passwordValidation = Password.dirty(password);
 
     if (emailValidation.isNotValid || passwordValidation.isNotValid) {
+      // TODO: When creating multilingual applications, no text values can be hardcoded
       emit(AuthValidationError("Invalid email or password."));
       return;
     }
@@ -64,6 +75,7 @@ class AuthCubit extends Cubit<AuthState> {
       );
       emit(AuthAuthenticated(userCredential.user!));
     } catch (e) {
+      // TODO: When creating multilingual applications, no text values can be hardcoded
       emit(AuthError('Invalid email or password.'));
     }
   }

@@ -2,6 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// TODO: REFACTOR. [auth_cubit.dart] line 14 & 15.
 abstract class AuthState extends Equatable {}
 
 class AuthInitial extends AuthState {

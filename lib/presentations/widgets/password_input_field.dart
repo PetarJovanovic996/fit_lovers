@@ -11,6 +11,7 @@ class PasswordInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Check comments left on EmailInputField, all apply here.
     return TextFormField(
       obscureText: true,
       decoration: const InputDecoration(labelText: 'Password'),

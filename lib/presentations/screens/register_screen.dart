@@ -17,6 +17,8 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Update colors / design, it's not user friendly at all, I can barely read what I typed in.
+    // Grey background color is not optimal in any way.
     return Scaffold(
       appBar: MyAppBar(title: AppLocalizations.of(context)!.register),
       body: Padding(
@@ -34,6 +36,8 @@ class RegisterScreen extends StatelessWidget {
               );
             }
           },
+          // TODO: Form widget and _formKey are not needed when state is handled as it should be through Cubits
+          //  Refactor
           child: Form(
             key: _formKey,
             child: Column(
@@ -52,6 +56,7 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Register Button
+                // TODO: Form validation is not supposed to be done like this.
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -82,6 +87,7 @@ class _ConfirmPasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Check comments left on EmailInputField, all apply here.
     return TextFormField(
       obscureText: true,
       decoration: InputDecoration(

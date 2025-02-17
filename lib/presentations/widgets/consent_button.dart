@@ -11,6 +11,7 @@ class ConsentButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: What is the point of this BlocBuilder?
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         final consent = context.read<AuthCubit>().consent;

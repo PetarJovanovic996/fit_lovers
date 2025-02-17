@@ -1,6 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+// TODO: Think if this is the best approach for creating LanguageState,
+// should a LanguageState have more than 1 type of state?
+// TODO: Refactor
 abstract class LanguageState extends Equatable {
   const LanguageState();
 }
