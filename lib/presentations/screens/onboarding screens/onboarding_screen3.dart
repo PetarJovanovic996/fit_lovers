@@ -1,6 +1,7 @@
 import 'package:fit_lovers/domain/cubit/cubit/onboarding_cubit.dart';
 import 'package:fit_lovers/presentations/screens/onboarding%20screens/onboarding_screen4.dart';
 import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
+import 'package:fit_lovers/presentations/widgets/my_skip_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,6 +15,7 @@ class OnboardingScreen3 extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(
         title: AppLocalizations.of(context)!.onboarding,
+        showSignOut: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -21,32 +23,65 @@ class OnboardingScreen3 extends StatelessWidget {
           key: _formKey,
           child: Column(
             children: [
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Weight'),
-                onChanged: (value) {
-                  context.read<OnboardingCubit>().updateWeight(value);
+              BlocBuilder<OnboardingCubit, OnboardingState>(
+                builder: (context, state) {
+                  String weight =
+                      (state is OnboardingDataChanged) ? state.weight : '';
+                  String height =
+                      (state is OnboardingDataChanged) ? state.height : '';
+
+                  return Column(
+                    children: [
+                      TextFormField(
+                        initialValue: weight,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.weight,
+                        ),
+                        onChanged: (value) {
+                          context.read<OnboardingCubit>().updateWeight(value);
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocalizations.of(context)!.invalidInput;
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                      ),
+                      TextFormField(
+                        initialValue: height,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.height,
+                        ),
+                        onChanged: (value) {
+                          context.read<OnboardingCubit>().updateHeight(value);
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocalizations.of(context)!.invalidInput;
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                      ),
+                    ],
+                  );
                 },
               ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Height'),
-                onChanged: (value) {
-                  context.read<OnboardingCubit>().updateHeight(value);
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty || value.length < 2) {
-                    return AppLocalizations.of(context)!.invalidInput;
-                  }
-                  return null;
-                },
+              SizedBox(
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('Back'),
+                    child: Text(
+                      AppLocalizations.of(context)!.back,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -58,10 +93,18 @@ class OnboardingScreen3 extends StatelessWidget {
                         );
                       }
                     },
-                    child: Text('Next'),
+                    child: Text(
+                      AppLocalizations.of(context)!.next,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ],
               ),
+              Spacer(),
+              MySkipButton(),
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),

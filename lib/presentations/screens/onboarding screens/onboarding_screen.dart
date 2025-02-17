@@ -28,31 +28,60 @@ class OnboardingScreen extends StatelessWidget {
                     AppLocalizations.of(context)!.onboardingWelcome,
                     style: TextStyle(fontSize: 25),
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.firstName,
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty || value.length < 2) {
-                        return AppLocalizations.of(context)!.invalidInput;
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      context.read<OnboardingCubit>().updateFirstName(value);
-                    },
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.lastName),
-                    validator: (value) {
-                      if (value == null || value.isEmpty || value.length < 2) {
-                        return AppLocalizations.of(context)!.invalidInput;
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      context.read<OnboardingCubit>().updateLastName(value);
+                  BlocBuilder<OnboardingCubit, OnboardingState>(
+                    builder: (context, state) {
+                      String firstName = (state is OnboardingDataChanged)
+                          ? state.firstName
+                          : '';
+                      String lastName = (state is OnboardingDataChanged)
+                          ? state.lastName
+                          : '';
+
+                      return Column(
+                        children: [
+                          TextFormField(
+                            initialValue: firstName,
+                            decoration: InputDecoration(
+                              labelText:
+                                  AppLocalizations.of(context)!.firstName,
+                            ),
+                            validator: (value) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  value.length < 2) {
+                                return AppLocalizations.of(context)!
+                                    .invalidInput;
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              context
+                                  .read<OnboardingCubit>()
+                                  .updateFirstName(value);
+                            },
+                          ),
+                          TextFormField(
+                            initialValue: lastName,
+                            decoration: InputDecoration(
+                                labelText:
+                                    AppLocalizations.of(context)!.lastName),
+                            validator: (value) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  value.length < 2) {
+                                return AppLocalizations.of(context)!
+                                    .invalidInput;
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              context
+                                  .read<OnboardingCubit>()
+                                  .updateLastName(value);
+                            },
+                          ),
+                        ],
+                      );
                     },
                   ),
                   SizedBox(

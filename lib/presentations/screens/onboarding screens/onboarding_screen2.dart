@@ -1,6 +1,7 @@
 import 'package:fit_lovers/domain/cubit/cubit/onboarding_cubit.dart';
 import 'package:fit_lovers/presentations/screens/onboarding%20screens/onboarding_screen3.dart';
 import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
+import 'package:fit_lovers/presentations/widgets/my_skip_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,6 +14,7 @@ class OnboardingScreen2 extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(
         title: AppLocalizations.of(context)!.onboarding,
+        showSignOut: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -27,10 +29,7 @@ class OnboardingScreen2 extends StatelessWidget {
                   lastDate: DateTime.now(),
                 );
 
-                if (pickedDate != null) {
-                  if (!context.mounted) {
-                    return;
-                  }
+                if (pickedDate != null && context.mounted) {
                   context.read<OnboardingCubit>().updateDateOfBirth(pickedDate);
                 }
               },
@@ -41,10 +40,14 @@ class OnboardingScreen2 extends StatelessWidget {
                 color: Colors.white,
                 child: BlocBuilder<OnboardingCubit, OnboardingState>(
                   builder: (context, state) {
+                    final dateOfBirth =
+                        context.read<OnboardingCubit>().dateOfBirth;
+                    final isDateValid =
+                        context.read<OnboardingCubit>().isDateOfBirthValid();
+
                     return Text(
-                      context.read<OnboardingCubit>().isDateOfBirthValid()
-                          ? '${context.watch<OnboardingCubit>().dateOfBirth?.toLocal()}'
-                              .split(' ')[0]
+                      isDateValid
+                          ? '${dateOfBirth?.toLocal()}'.split(' ')[0]
                           : AppLocalizations.of(context)!.selectDateOfBirth,
                       style: TextStyle(fontSize: 16),
                     );
@@ -92,6 +95,11 @@ class OnboardingScreen2 extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            Spacer(),
+            MySkipButton(),
+            SizedBox(
+              height: 20,
             ),
           ],
         ),

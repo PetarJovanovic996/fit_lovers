@@ -36,6 +36,8 @@
   "@firstName": {},
   "lastName": "Last Name",
   "@lastName": {},
+  "dateOfBirth": "Date of Birth",
+  "@dateOfBirth": {},
   "next": "Next",
   "@next": {},
   "selectDateOfBirth": "Select Date of Birth",
@@ -43,7 +45,16 @@
   "back": "Back",
   "@back": {},
   "selectDateOfBirthError": "You have to select date of birth",
-  "@selectDateOfBirthError": {}
+  "@selectDateOfBirthError": {},
+  "weight": "Weight",
+  "@weight": {},
+  "height": "Height",
+  "@height": {},
+  "finish": "Finish",
+  "@finish": {},
+  "checkData": "Check your data",
+  "@checkData": {}
+
 
   
 }

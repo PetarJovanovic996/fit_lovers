@@ -18,14 +18,18 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
   void updateFirstName(String value) {
     firstName = value;
-    emit(OnboardingDataChanged(
-        firstName, lastName, dateOfBirth, weight, height));
+    emit(state is OnboardingDataChanged
+        ? (state as OnboardingDataChanged).copyWith(firstName: value)
+        : OnboardingDataChanged(
+            firstName, lastName, dateOfBirth, weight, height));
   }
 
   void updateLastName(String value) {
     lastName = value;
-    emit(OnboardingDataChanged(
-        firstName, lastName, dateOfBirth, weight, height));
+    emit(state is OnboardingDataChanged
+        ? (state as OnboardingDataChanged).copyWith(lastName: value)
+        : OnboardingDataChanged(
+            firstName, lastName, dateOfBirth, weight, height));
   }
 
   bool isDateOfBirthValid() {
@@ -34,20 +38,26 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
   void updateDateOfBirth(DateTime value) {
     dateOfBirth = value;
-    emit(OnboardingDataChanged(
-        firstName, lastName, dateOfBirth, weight, height));
+    emit(state is OnboardingDataChanged
+        ? (state as OnboardingDataChanged).copyWith(dateOfBirth: value)
+        : OnboardingDataChanged(
+            firstName, lastName, dateOfBirth, weight, height));
   }
 
   void updateWeight(String value) {
     weight = value;
-    emit(OnboardingDataChanged(
-        firstName, lastName, dateOfBirth, weight, height));
+    emit(state is OnboardingDataChanged
+        ? (state as OnboardingDataChanged).copyWith(weight: value)
+        : OnboardingDataChanged(
+            firstName, lastName, dateOfBirth, weight, height));
   }
 
   void updateHeight(String value) {
     height = value;
-    emit(OnboardingDataChanged(
-        firstName, lastName, dateOfBirth, weight, height));
+    emit(state is OnboardingDataChanged
+        ? (state as OnboardingDataChanged).copyWith(height: value)
+        : OnboardingDataChanged(
+            firstName, lastName, dateOfBirth, weight, height));
   }
 
   Future<void> checkOnboardingStatus() async {

@@ -36,6 +36,8 @@
   "@firstName": {},
   "lastName": "Vase prezime",
   "@lastName": {},
+  "dateOfBirth": "Datum rodjenja",
+  "@dateOfBirth": {},
   "next": "Nastavi",
   "@next": {},
   "selectDateOfBirth": "Unesite datum rodjenja",
@@ -43,7 +45,16 @@
   "back": "Nazad",
   "@back": {},
   "selectDateOfBirthError": "Morate unijeti datum rodjenja",
-  "@selectDateOfBirthError": {}
+  "@selectDateOfBirthError": {},
+  "weight": "Tezina",
+  "@weight": {},
+  "height": "Visina",
+  "@height": {},
+  "finish": "Zavrsi",
+  "@finish": {},
+  "checkData": "Provjerite unesene podatke",
+  "@checkData": {}
+
 
 }
 

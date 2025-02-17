@@ -22,6 +22,22 @@ class OnboardingDataChanged extends OnboardingState {
   OnboardingDataChanged(this.firstName, this.lastName, this.dateOfBirth,
       this.weight, this.height);
 
+  OnboardingDataChanged copyWith({
+    String? firstName,
+    String? lastName,
+    DateTime? dateOfBirth,
+    String? weight,
+    String? height,
+  }) {
+    return OnboardingDataChanged(
+      firstName ?? this.firstName,
+      lastName ?? this.lastName,
+      dateOfBirth ?? this.dateOfBirth,
+      weight ?? this.weight,
+      height ?? this.height,
+    );
+  }
+
   @override
   List<Object?> get props => [
         firstName,
