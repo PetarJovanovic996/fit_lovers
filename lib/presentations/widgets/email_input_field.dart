@@ -1,5 +1,5 @@
 import 'package:fit_lovers/data/models/validation/email.dart';
-import 'package:fit_lovers/domain/cubit/authentication/auth_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/authentication/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

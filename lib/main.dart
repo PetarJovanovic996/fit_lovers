@@ -1,9 +1,9 @@
 import 'package:fit_lovers/core/app_bloc_observer.dart';
 import 'package:fit_lovers/core/firebase_options.dart';
 import 'package:fit_lovers/core/my_theme.dart';
-import 'package:fit_lovers/domain/cubit/authentication/auth_cubit.dart';
-import 'package:fit_lovers/domain/cubit/settings/language_cubit.dart';
-import 'package:fit_lovers/domain/cubit/settings/language_state.dart';
+import 'package:fit_lovers/presentations/cubit/authentication/auth_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/settings/language_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/settings/language_state.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +11,8 @@ import 'core/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-// TODO: Cubits should not be defined / nor logically are a part of the "Domain" layer
+// done: moved to presentation layer
+//Cubits should not be defined / nor logically are a part of the "Domain" layer
 // Cubits handle presentation (UI) layer logic. Do not overcomplicate at the moment
 
 Future<void> main() async {
@@ -42,25 +43,24 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, state) {
           return MaterialApp(
-            locale:
-                (state is LanguageChanged) ? state.locale : Locale('en', 'US'),
+            locale: (state is LanguageChanged) ? state.locale : Locale('en'),
             localizationsDelegates: [
               AppLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            // TODO: When declaring locales we can only use the language code and omit the country code
+            // done: When declaring locales we can only use the language code and omit the country code
             // Locale('sr'), Locale('en')
             supportedLocales: [
-              Locale('en', 'US'),
-              Locale('sr', 'RS'),
+              Locale('en'),
+              Locale('sr'),
             ],
 
             // locale: Locale('sr', 'RS'),
             theme: MyTheme.lightTheme,
             debugShowCheckedModeBanner: false,
-            // TODO: This project is called Named Routes?
-            title: 'Named Routes',
+            // done: This project is called Named Routes?
+            title: 'Fit Lovers',
 
             onGenerateRoute: MyRouter.onGenerateRoute,
           );

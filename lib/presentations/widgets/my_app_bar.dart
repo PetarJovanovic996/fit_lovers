@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fit_lovers/domain/cubit/settings/language_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/settings/language_cubit.dart';
 
 // TODO: MyAppBar is not clear naming?
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -35,11 +35,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               //  one when adding new languages, all the available language values for a project should come from single source of truth.
 
               DropdownMenuItem(
-                value: Locale('en', 'US'),
+                value: Locale('en'),
                 child: Text('English'),
               ),
               DropdownMenuItem(
-                value: Locale('sr', 'RS'),
+                value: Locale('sr'),
                 child: Text('Srpski'),
               ),
             ],

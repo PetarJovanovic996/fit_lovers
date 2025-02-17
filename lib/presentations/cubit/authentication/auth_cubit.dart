@@ -4,7 +4,7 @@ import 'package:fit_lovers/data/models/validation/confirm_password.dart';
 import 'package:fit_lovers/data/models/validation/consent.dart';
 import 'package:fit_lovers/data/models/validation/email.dart';
 import 'package:fit_lovers/data/models/validation/password.dart';
-import 'package:fit_lovers/domain/cubit/authentication/auth_state.dart';
+import 'package:fit_lovers/presentations/cubit/authentication/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   // TODO: Is this how we communicate to a 3rd party service?
