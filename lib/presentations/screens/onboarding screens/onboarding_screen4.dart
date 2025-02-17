@@ -1,4 +1,6 @@
+import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/domain/cubit/cubit/onboarding_cubit.dart';
+import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
 import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,8 +18,12 @@ class OnboardingScreen4 extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: BlocBuilder<OnboardingCubit, OnboardingState>(
+        child: BlocConsumer<OnboardingCubit, OnboardingState>(
           builder: (context, state) {
+            if (state is OnboardingLoading) {
+              return LoadingWidget();
+            }
+
             if (state is OnboardingDataChanged) {
               return Center(
                 child: Column(
@@ -74,7 +80,15 @@ class OnboardingScreen4 extends StatelessWidget {
                 ),
               );
             } else {
-              return Center(child: CircularProgressIndicator());
+              return LoadingWidget();
+            }
+          },
+          listener: (context, state) {
+            if (state is OnboardingCompleted) {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                Routes.homeScreen,
+                (Route<dynamic> route) => false,
+              );
             }
           },
         ),
