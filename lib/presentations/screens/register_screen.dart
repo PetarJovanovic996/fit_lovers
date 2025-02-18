@@ -73,7 +73,10 @@ class _EmailInput extends StatelessWidget {
       decoration: InputDecoration(
         labelText: 'Email',
         errorText:
-            context.read<RegisterCubit>().state.email.displayError != null
+            // smije li odje watch
+            //kad je read ne ucitava ga odma
+
+            context.watch<RegisterCubit>().state.email.displayError != null
                 ? 'invalid email'
                 : null,
       ),
@@ -86,7 +89,22 @@ class _PasswordInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return TextField(
+      obscureText: true,
+      onChanged: (password) =>
+          context.read<RegisterCubit>().enteredPassword(password),
+      keyboardType: TextInputType.visiblePassword,
+      decoration: InputDecoration(
+        labelText: 'Password',
+        errorText:
+            // smije li odje watch
+            //kad je read ne ucitava ga odma
+
+            context.watch<RegisterCubit>().state.password.displayError != null
+                ? 'invalid password'
+                : null,
+      ),
+    );
   }
 }
 
@@ -95,16 +113,23 @@ class _ConfirmPasswordInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Column();
   }
 }
 
 class _ConsentButton extends StatelessWidget {
-  const _ConsentButton({super.key});
+  const _ConsentButton();
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return CheckboxListTile(
+      title: Text(AppLocalizations.of(context)!.termsAndConditions),
+      // smije li odje watch
+      //kad je read ne ucitava ga odma
+      value: context.watch<RegisterCubit>().state.consent.value,
+      onChanged: (clickedConsent) =>
+          context.read<RegisterCubit>().consentClicked(clickedConsent!),
+    );
   }
 }
 
@@ -113,6 +138,6 @@ class _RegisterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Column();
   }
 }
