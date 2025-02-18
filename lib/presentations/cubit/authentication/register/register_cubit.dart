@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fit_lovers/data/models/validation/confirmed_password.dart';
+import 'package:fit_lovers/data/models/validation/consent.dart';
 import 'package:fit_lovers/data/models/validation/email.dart';
 import 'package:fit_lovers/data/models/validation/password.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
@@ -13,7 +14,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   final AuthenticationRepository _authenticationRepository;
 
-  void enterEmail(String value) {
+  void enteredEmail(String value) {
     final email = Email.dirty(value);
     emit(
       state.copyWith(
@@ -22,12 +23,13 @@ class RegisterCubit extends Cubit<RegisterState> {
           email,
           state.password,
           state.confirmedPassword,
+          state.consent,
         ]),
       ),
     );
   }
 
-  void enterPassword(String value) {
+  void enteredPassword(String value) {
     final password = Password.dirty(value);
     final confirmedPassword = ConfirmedPassword.dirty(
       password: password.value,
@@ -41,12 +43,13 @@ class RegisterCubit extends Cubit<RegisterState> {
           state.email,
           password,
           confirmedPassword,
+          state.consent,
         ]),
       ),
     );
   }
 
-  void confirmPassword(String value) {
+  void confirmedPassword(String value) {
     final confirmedPassword = ConfirmedPassword.dirty(
       password: state.password.value,
       value: value,
@@ -58,6 +61,22 @@ class RegisterCubit extends Cubit<RegisterState> {
           state.email,
           state.password,
           confirmedPassword,
+          state.consent,
+        ]),
+      ),
+    );
+  }
+
+  void consentClicked(bool value) {
+    final consent = Consent.dirty(value);
+    emit(
+      state.copyWith(
+        consent: consent,
+        isValid: Formz.validate([
+          state.email,
+          state.password,
+          state.confirmedPassword,
+          state.consent,
         ]),
       ),
     );

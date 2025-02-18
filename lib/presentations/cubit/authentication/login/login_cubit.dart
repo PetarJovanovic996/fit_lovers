@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   final AuthenticationRepository _authenticationRepository;
 
-  void enterEmail(String value) {
+  void enteredEmail(String value) {
     final email = Email.dirty(value);
     emit(
       state.copyWith(
@@ -31,7 +31,7 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  void enterPassword(String value) {
+  void enteredPassword(String value) {
     final password = Password.dirty(value);
     emit(
       state.copyWith(

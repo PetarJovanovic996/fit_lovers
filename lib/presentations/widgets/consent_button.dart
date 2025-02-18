@@ -1,5 +1,4 @@
-// import 'package:fit_lovers/presentations/cubit/authentication/auth_cubit.dart';
-// import 'package:fit_lovers/presentations/cubit/authentication/auth_state.dart';
+// import 'package:fit_lovers/presentations/cubit/authentication/register/register_cubit.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,17 +10,13 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     // TODO: What is the point of this BlocBuilder?
-//     return BlocBuilder<AuthCubit, AuthState>(
-//       builder: (context, state) {
-//         final consent = context.read<AuthCubit>().consent;
-//         return CheckboxListTile(
-//           value: consent.value,
-//           onChanged: (value) {
-//             context.read<AuthCubit>().updateConsent(value!);
-//           },
-//           title: Text(AppLocalizations.of(context)!.termsAndConditions),
-//         );
+//     return CheckboxListTile(
+//       title: Text('I agree to the terms and conditions'),
+//       value: state.consent.value,
+//       onChanged: (bool? value) {
+//         if (value != null) {
+//           context.read<RegisterCubit>().consentClicked(value);
+//         }
 //       },
 //     );
 //   }
