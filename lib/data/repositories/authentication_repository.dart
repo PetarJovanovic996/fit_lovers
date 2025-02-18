@@ -6,7 +6,7 @@ import 'package:fit_lovers/data/repositories/models/user.dart';
 
 class RegisterWithEmailAndPasswordFailure implements Exception {
   const RegisterWithEmailAndPasswordFailure([
-    this.message = 'An unknown exception occurred.',
+    this.message = 'Please check and update your data',
   ]);
 
   factory RegisterWithEmailAndPasswordFailure.fromCode(String code) {

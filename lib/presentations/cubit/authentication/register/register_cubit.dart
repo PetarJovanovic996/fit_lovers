@@ -16,6 +16,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   void enteredEmail(String value) {
     final email = Email.dirty(value);
+
     emit(
       state.copyWith(
         email: email,
@@ -76,14 +77,13 @@ class RegisterCubit extends Cubit<RegisterState> {
           state.email,
           state.password,
           state.confirmedPassword,
-          state.consent,
+          consent,
         ]),
       ),
     );
   }
 
   Future<void> registerFormSubmitted() async {
-    if (!state.isValid) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _authenticationRepository.register(
@@ -98,7 +98,7 @@ class RegisterCubit extends Cubit<RegisterState> {
           status: FormzSubmissionStatus.failure,
         ),
       );
-    } catch (_) {
+    } catch (e) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }

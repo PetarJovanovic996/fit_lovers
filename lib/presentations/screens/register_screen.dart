@@ -1,6 +1,7 @@
 import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/authentication/register/register_cubit.dart';
+import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -33,10 +34,14 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
+        if (state.status.isInProgress) {
+          LoadingWidget();
+        }
         if (state.status.isSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(AppLocalizations.of(context)!.login)),
           );
+
           Navigator.of(context).pushReplacementNamed(Routes.logInScreen);
         } else if (state.status.isFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -85,7 +90,7 @@ class _EmailInput extends StatelessWidget {
 }
 
 class _PasswordInput extends StatelessWidget {
-  const _PasswordInput({super.key});
+  const _PasswordInput();
 
   @override
   Widget build(BuildContext context) {
@@ -109,11 +114,31 @@ class _PasswordInput extends StatelessWidget {
 }
 
 class _ConfirmPasswordInput extends StatelessWidget {
-  const _ConfirmPasswordInput({super.key});
+  const _ConfirmPasswordInput();
 
   @override
   Widget build(BuildContext context) {
-    return const Column();
+    return TextField(
+      obscureText: true,
+      onChanged: (password) =>
+          context.read<RegisterCubit>().confirmedPassword(password),
+      keyboardType: TextInputType.visiblePassword,
+      decoration: InputDecoration(
+        labelText: 'Confirm Password',
+        errorText:
+            // smije li odje watch
+            //kad je read ne ucitava ga odma
+
+            context
+                        .watch<RegisterCubit>()
+                        .state
+                        .confirmedPassword
+                        .displayError !=
+                    null
+                ? 'Passwords are not the same'
+                : null,
+      ),
+    );
   }
 }
 
@@ -134,10 +159,14 @@ class _ConsentButton extends StatelessWidget {
 }
 
 class _RegisterButton extends StatelessWidget {
-  const _RegisterButton({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const Column();
+    return ElevatedButton(
+      onPressed: () => context.read<RegisterCubit>().registerFormSubmitted(),
+      child: const Text(
+        'Register',
+        style: TextStyle(color: Colors.black),
+      ),
+    );
   }
 }
