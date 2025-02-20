@@ -1,11 +1,15 @@
+import 'package:fit_lovers/presentations/cubit/settings/language_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fit_lovers/presentations/cubit/settings/language_cubit.dart';
 
 // TODO: MyAppBar is not clear naming?
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key, required this.title});
   final String title;
+// TODO: dodaj opciju za log out
+// TODO: dodaj opciju kada se skipa onboarding da pri novom
+// logovanju opet iskace
+// kad ga neko zavrsi / vise mu ne iskace
 
   @override
   Widget build(BuildContext context) {

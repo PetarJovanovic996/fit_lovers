@@ -1,5 +1,6 @@
 import 'package:fit_lovers/presentations/screens/edit_profile_screen.dart';
 import 'package:fit_lovers/presentations/screens/home_screen.dart';
+import 'package:fit_lovers/presentations/screens/log_in_screen.dart';
 import 'package:fit_lovers/presentations/screens/onboarding_screen.dart';
 import 'package:fit_lovers/presentations/screens/register_screen.dart';
 import 'package:fit_lovers/presentations/screens/welcome_view_screen.dart';
@@ -43,7 +44,7 @@ class MyRouter {
       builder: (BuildContext context) {
         return switch (routeSettings.name) {
           (Routes.welcomeViewScreen) => const WelcomeViewScreen(),
-          //(Routes.logInScreen) => LogInScreen(),
+          (Routes.logInScreen) => LogInScreen(),
           (Routes.registerScreen) => RegisterScreen(),
           (Routes.onboardingScreen) => const OnboardingScreen(),
           (Routes.homeScreen) => const HomeScreen(),

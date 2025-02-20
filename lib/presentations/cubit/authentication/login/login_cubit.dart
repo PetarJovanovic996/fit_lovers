@@ -16,8 +16,8 @@ part 'login_state.dart';
 // done: One cubit to rule them all? Rethink if this is the best approach, to handle all authentication traffic like this
 // Register & Login are 2 different screens, and you plan to handle both their states with 1 cubit?
 
-class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this._authenticationRepository) : super(const LoginState());
+class LogInCubit extends Cubit<LogInState> {
+  LogInCubit(this._authenticationRepository) : super(const LogInState());
 
   final AuthenticationRepository _authenticationRepository;
 
@@ -26,7 +26,9 @@ class LoginCubit extends Cubit<LoginState> {
     emit(
       state.copyWith(
         email: email,
-        isValid: Formz.validate([email, state.password]),
+        isValid: Formz.validate(
+          [email, state.password],
+        ),
       ),
     );
   }
@@ -42,6 +44,9 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> logInWithCredentials() async {
+    if (!state.isValid) {
+      return;
+    }
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _authenticationRepository.logInWithEmailAndPassword(

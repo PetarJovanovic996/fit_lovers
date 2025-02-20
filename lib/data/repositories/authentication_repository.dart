@@ -31,7 +31,7 @@ class RegisterWithEmailAndPasswordFailure implements Exception {
 
 class LogInWithEmailAndPasswordFailure implements Exception {
   const LogInWithEmailAndPasswordFailure([
-    this.message = 'An unknown exception occurred.',
+    this.message = 'Failed to LogIn. Check entered information',
   ]);
 
   factory LogInWithEmailAndPasswordFailure.fromCode(String code) {
@@ -49,6 +49,7 @@ class LogInWithEmailAndPasswordFailure implements Exception {
         return const LogInWithEmailAndPasswordFailure(
           'Incorrect password, please try again.',
         );
+      // svaki put mi vraca case wrong-password
       default:
         return const LogInWithEmailAndPasswordFailure();
     }
@@ -62,10 +63,17 @@ class LogOutFailure implements Exception {}
 class AuthenticationRepository {
   AuthenticationRepository({
     firebase_auth.FirebaseAuth? firebaseAuth,
-  }) : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
+  }) : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance {
+    initPreferences();
+  }
+
   final firebase_auth.FirebaseAuth _firebaseAuth;
 
-  late SharedPreferences _prefs;
+  SharedPreferences? _prefs;
+
+  Future<void> initPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
 
   Stream<User> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
@@ -76,15 +84,18 @@ class AuthenticationRepository {
   }
 
   Future<void> _saveUserToCache(User user) async {
-    await _prefs.setString('user_id', user.id);
-    await _prefs.setString('user_email', user.email ?? '');
-    await _prefs.setString('user_name', user.name ?? '');
+    if (_prefs == null) {
+      await initPreferences();
+    }
+    await _prefs?.setString('user_id', user.id);
+    await _prefs?.setString('user_email', user.email ?? '');
+    await _prefs?.setString('user_name', user.name ?? '');
   }
 
   User get currentUser {
-    final userId = _prefs.getString('user_id') ?? '';
-    final userEmail = _prefs.getString('user_email') ?? '';
-    final userName = _prefs.getString('user_name') ?? '';
+    final userId = _prefs?.getString('user_id') ?? '';
+    final userEmail = _prefs?.getString('user_email') ?? '';
+    final userName = _prefs?.getString('user_name') ?? '';
 
     return User(
       id: userId,
@@ -126,7 +137,7 @@ class AuthenticationRepository {
   Future<void> logOut() async {
     try {
       await _firebaseAuth.signOut();
-      await _prefs.clear();
+      await _prefs?.clear();
     } catch (_) {
       throw LogOutFailure();
     }

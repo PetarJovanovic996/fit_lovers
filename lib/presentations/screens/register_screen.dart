@@ -2,6 +2,7 @@ import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/authentication/register/register_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
+import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -13,7 +14,9 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register')),
+      appBar: MyAppBar(
+        title: (AppLocalizations.of(context)!.register),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: BlocProvider(
@@ -34,9 +37,6 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
-        if (state.status.isInProgress) {
-          LoadingWidget();
-        }
         if (state.status.isSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(AppLocalizations.of(context)!.login)),
@@ -45,7 +45,10 @@ class RegisterForm extends StatelessWidget {
           Navigator.of(context).pushReplacementNamed(Routes.logInScreen);
         } else if (state.status.isFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage ?? 'Error')),
+            SnackBar(
+              content: Text(
+                  state.errorMessage ?? AppLocalizations.of(context)!.error),
+            ),
           );
         }
       },
@@ -72,19 +75,21 @@ class _EmailInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      onChanged: (email) => context.read<RegisterCubit>().enteredEmail(email),
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        labelText: 'Email',
-        errorText:
-            // smije li odje watch
-            //kad je read ne ucitava ga odma
-
-            context.watch<RegisterCubit>().state.email.displayError != null
-                ? 'invalid email'
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      buildWhen: (prev, curr) => prev.email != curr.email,
+      builder: (context, state) {
+        return TextField(
+          onChanged: (email) =>
+              context.read<RegisterCubit>().enteredEmail(email),
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context)!.emptyMail,
+            errorText: state.email.displayError != null
+                ? AppLocalizations.of(context)!.invalidMail
                 : null,
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -94,21 +99,22 @@ class _PasswordInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      obscureText: true,
-      onChanged: (password) =>
-          context.read<RegisterCubit>().enteredPassword(password),
-      keyboardType: TextInputType.visiblePassword,
-      decoration: InputDecoration(
-        labelText: 'Password',
-        errorText:
-            // smije li odje watch
-            //kad je read ne ucitava ga odma
-
-            context.watch<RegisterCubit>().state.password.displayError != null
-                ? 'invalid password'
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      buildWhen: (prev, curr) => prev.password != curr.password,
+      builder: (context, state) {
+        return TextField(
+          obscureText: true,
+          onChanged: (password) =>
+              context.read<RegisterCubit>().enteredPassword(password),
+          keyboardType: TextInputType.visiblePassword,
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context)!.emptyPassword,
+            errorText: state.password.displayError != null
+                ? AppLocalizations.of(context)!.invalidPassword
                 : null,
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -118,26 +124,24 @@ class _ConfirmPasswordInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      obscureText: true,
-      onChanged: (password) =>
-          context.read<RegisterCubit>().confirmedPassword(password),
-      keyboardType: TextInputType.visiblePassword,
-      decoration: InputDecoration(
-        labelText: 'Confirm Password',
-        errorText:
-            // smije li odje watch
-            //kad je read ne ucitava ga odma
-
-            context
-                        .watch<RegisterCubit>()
-                        .state
-                        .confirmedPassword
-                        .displayError !=
-                    null
-                ? 'Passwords are not the same'
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      buildWhen: (prev, curr) =>
+          (prev.confirmedPassword != curr.confirmedPassword) ||
+          (prev.password != curr.password),
+      builder: (context, state) {
+        return TextField(
+          obscureText: true,
+          onChanged: (password) =>
+              context.read<RegisterCubit>().confirmedPassword(password),
+          keyboardType: TextInputType.visiblePassword,
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context)!.confirmPassword,
+            errorText: state.confirmedPassword.displayError != null
+                ? AppLocalizations.of(context)!.passwordDontMatch
                 : null,
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -147,13 +151,15 @@ class _ConsentButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-      title: Text(AppLocalizations.of(context)!.termsAndConditions),
-      // smije li odje watch
-      //kad je read ne ucitava ga odma
-      value: context.watch<RegisterCubit>().state.consent.value,
-      onChanged: (clickedConsent) =>
-          context.read<RegisterCubit>().consentClicked(clickedConsent!),
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      builder: (context, state) {
+        return CheckboxListTile(
+          title: Text(AppLocalizations.of(context)!.termsAndConditions),
+          value: state.consent.value,
+          onChanged: (clickedConsent) =>
+              context.read<RegisterCubit>().consentClicked(clickedConsent!),
+        );
+      },
     );
   }
 }
@@ -163,8 +169,8 @@ class _RegisterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => context.read<RegisterCubit>().registerFormSubmitted(),
-      child: const Text(
-        'Register',
+      child: Text(
+        AppLocalizations.of(context)!.register,
         style: TextStyle(color: Colors.black),
       ),
     );

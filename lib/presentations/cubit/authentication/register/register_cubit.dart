@@ -84,6 +84,9 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> registerFormSubmitted() async {
+    if (!state.isValid) {
+      return;
+    }
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _authenticationRepository.register(

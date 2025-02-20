@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
               localizationsDelegates: [
                 AppLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
               // done: When declaring locales we can only use the language code and omit the country code
