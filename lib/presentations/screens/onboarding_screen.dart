@@ -1,5 +1,4 @@
 import 'package:fit_lovers/core/routes.dart';
-import 'package:fit_lovers/data/repositories/user_repository.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +11,7 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => OnboardingCubit(
-        userRepository: UserRepository(),
-      ),
-      child: OnboardingFrame(),
-    );
+    return OnboardingFrame();
   }
 }
 
@@ -27,7 +21,7 @@ class OnboardingFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: (AppLocalizations.of(context)!.onboarding)),
+      appBar: CustomAppBar(title: (AppLocalizations.of(context)!.onboarding)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -93,6 +87,7 @@ class OnboardingSkipButton extends StatelessWidget {
       builder: (context, state) {
         return ElevatedButton(
           onPressed: () {
+            context.read<OnboardingCubit>().skipOnboarding();
             Navigator.of(context).pushNamed(Routes.homeScreen);
           },
           child: Text(
@@ -124,12 +119,22 @@ class OnboardingNextButton extends StatelessWidget {
                 return;
               }
             }
-
-            if (state.status == FormzSubmissionStatus.success ||
-                state.step3status == FormzSubmissionStatus.success) {
-              context.read<OnboardingCubit>().next();
+            if (state.step < 2) {
+              if (state.status == FormzSubmissionStatus.success) {
+                context.read<OnboardingCubit>().next();
+              }
+            }
+// PEKIIIIII
+// Mozes bacit pogled, morao sam da stavim <2 , jer mi nije obuhvatalo
+//step sa odabirom datuma, ako samo stavim na prvi step,odnosno na nulti
+//uglavnom radi
+            if (state.step == 2) {
+              if (state.step3status == FormzSubmissionStatus.success) {
+                context.read<OnboardingCubit>().next();
+              }
             }
           },
+          //done: SA PECOM
           //peki provjeri ovo
           //prolazi 3 korak tez i visinu, bez ikakvog unosa
           icon: Icon(

@@ -2,21 +2,14 @@ import 'package:fit_lovers/presentations/cubit/settings/language_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// TODO: MyAppBar is not clear naming?
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({super.key, required this.title});
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({super.key, required this.title, this.showSignOut = true});
   final String title;
-// TODO: dodaj opciju za log out
-// TODO: dodaj opciju kada se skipa onboarding da pri novom
-// logovanju opet iskace
-// kad ga neko zavrsi / vise mu ne iskace
+// TODO: dodaj opciju za log out / dugme i funkc u cubit
+  final bool showSignOut;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Fix error when switching a language.
-    // Error message being shown inside the console :
-    // Warning: This application's locale, sr_RS, is not supported by all of its localization delegates.
-    // Solution is very simple. Use google.
     return AppBar(
       title: Row(
         children: [
@@ -52,7 +45,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 context.read<LanguageCubit>().changeLanguage(locale);
               }
             },
-          )
+          ),
         ],
       ),
       backgroundColor: Theme.of(context).primaryColor,

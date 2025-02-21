@@ -1,7 +1,6 @@
 import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/authentication/register/register_cubit.dart';
-import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
 import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(
+      appBar: CustomAppBar(
         title: (AppLocalizations.of(context)!.register),
       ),
       body: Padding(

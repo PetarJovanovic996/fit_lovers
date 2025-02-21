@@ -1,11 +1,14 @@
 import 'package:fit_lovers/core/app_bloc_observer.dart';
 import 'package:fit_lovers/core/my_theme.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
+import 'package:fit_lovers/data/repositories/user_repository.dart';
+import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language_state.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'core/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,6 +18,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // Cubits handle presentation (UI) layer logic. Do not overcomplicate at the moment
 
 Future<void> main() async {
+  Future<void> clearData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  } // za test
+
   Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -24,6 +32,7 @@ Future<void> main() async {
   await authenticationRepository.user.first;
 
   runApp(MyApp(authenticationRepository: authenticationRepository));
+  //clearData za test
 }
 
 class MyApp extends StatelessWidget {
@@ -42,6 +51,10 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => LanguageCubit(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                OnboardingCubit(userRepository: UserRepository()),
           ),
         ],
         child: BlocBuilder<LanguageCubit, LanguageState>(

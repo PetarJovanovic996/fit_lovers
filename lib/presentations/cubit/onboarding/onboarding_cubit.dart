@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:fit_lovers/data/models/validation/email.dart';
 import 'package:fit_lovers/data/repositories/user_repository.dart';
 import 'package:formz/formz.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'onboarding_state.dart';
 
@@ -117,8 +118,57 @@ class OnboardingCubit extends Cubit<OnboardingState> {
         weight: state.weight.value,
         height: state.height.value,
       );
+      await _saveOnboardingCompletedStatus(true);
 
       emit(state.copyWith(isLoading: false));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          isLoading: false,
+          errorMessage: e.toString(),
+        ),
+      );
+    }
+  }
+
+//PEKIIIII
+//baci pogled za provjeri da li je klijent onb ili ne
+//prvo sam stavio da cuva status u sharedpref
+// provjera za logIn skrin button
+//skip button na onb skrin
+//testirano
+
+  Future<void> _saveOnboardingCompletedStatus(bool status) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboardingCompleted', status);
+  }
+
+  Future<void> checkOnboardingStatus() async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      bool onboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;
+
+      if (onboardingCompleted) {
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
+      } else {
+        emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      }
+    } catch (e) {
+      emit(
+        state.copyWith(
+          isLoading: false,
+          errorMessage: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<void> skipOnboarding() async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      await _saveOnboardingCompletedStatus(false);
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (e) {
       emit(
         state.copyWith(
