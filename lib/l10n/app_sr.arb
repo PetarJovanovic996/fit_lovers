@@ -63,5 +63,7 @@
   "error": "Greska",
   "@error": {},
   "succesfullOnboarding": "Uspjesno ste unijeli podatke",
-  "@succesfullOnboarding": {}
+  "@succesfullOnboarding": {},
+  "invalidLogOut": "Neuspjesna odjava",
+  "@invalidLogOut": {}
 }

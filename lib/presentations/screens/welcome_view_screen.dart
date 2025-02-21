@@ -10,7 +10,10 @@ class WelcomeViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       //prvi pokusaj prevoda
-      appBar: CustomAppBar(title: (AppLocalizations.of(context)!.welcome)),
+      appBar: CustomAppBar(
+        title: (AppLocalizations.of(context)!.welcome),
+        showSignOut: false,
+      ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

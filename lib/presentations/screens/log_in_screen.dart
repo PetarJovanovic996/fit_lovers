@@ -16,6 +16,7 @@ class LogInScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: (AppLocalizations.of(context)!.login),
+        showSignOut: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),

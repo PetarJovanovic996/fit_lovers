@@ -63,5 +63,7 @@
   "error": "Error",
   "@error": {},
   "succesfullOnboarding": "You are succesfuly onboarded ",
-  "@succesfullOnboarding": {}
+  "@succesfullOnboarding": {},
+  "invalidLogOut": "Invalid logOut",
+  "@invalidLogOut": {}
  }

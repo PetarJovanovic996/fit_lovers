@@ -15,6 +15,7 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: (AppLocalizations.of(context)!.register),
+        showSignOut: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
