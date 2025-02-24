@@ -29,9 +29,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 title,
                 style: TextStyle(color: Colors.black),
               ),
-              // TODO: This is not good, google [Spacer] widget
-              // TODO: Why add additional widget if we have mainAxisAlignment property in the Row widget?
-              Expanded(child: Container()),
+              // done: This is not good, google [Spacer] widget
+              Spacer(
+                flex: 8,
+              ),
               if (showSignOut)
                 IconButton(
                     onPressed: () {
@@ -42,9 +43,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       );
                     },
                     icon: Icon(Icons.logout)),
-              SizedBox(
-                width: 12,
-              ),
+              Spacer(),
               // TODO: Value declared here is not good, if we have LanguageCubit to handle languages for us, refactor.
               DropdownButton(
                 value: Localizations.localeOf(context),
@@ -87,5 +86,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  get preferredSize => Size.fromHeight(kToolbarHeight);
 }
