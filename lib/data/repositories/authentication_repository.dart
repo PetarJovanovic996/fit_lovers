@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:fit_lovers/data/repositories/models/user.dart';
+import 'package:fit_lovers/data/models/user.dart';
 
 class RegisterWithEmailAndPasswordFailure implements Exception {
   const RegisterWithEmailAndPasswordFailure([

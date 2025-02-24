@@ -1,14 +1,21 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
+import 'package:fit_lovers/data/models/language.dart';
+import 'package:flutter/rendering.dart';
 import 'language_state.dart';
 
 class LanguageCubit extends Cubit<LanguageState> {
-  LanguageCubit() : super(LanguageInitial());
+  LanguageCubit() : super(LanguageChanged(Locale('en')));
 
-  void changeLanguage(Locale locale) {
-    // done: We emit loading when something asynchronous happens, emitting a new state is not async operation?
+  void changeLanguage(String languageCode) {
+    final language = Language.supportedLanguages.firstWhere(
+      (language) => language.code == languageCode,
+      orElse: () => Language.supportedLanguages.first,
+    );
 
-    // done: Why do we have try catch here, logic of emitting new state cannot fail. Refactor
-    emit(LanguageChanged(locale));
+    emit(LanguageChanged(language.locale));
+  }
+
+  List<Map<String, String>> get availableLanguages {
+    return Language.availableLanguages;
   }
 }

@@ -72,11 +72,8 @@ class MyApp extends StatelessWidget {
                 Locale('en'),
                 Locale('sr'),
               ],
-
-              // locale: Locale('sr', 'RS'),
               theme: MyTheme.lightTheme,
               debugShowCheckedModeBanner: false,
-              // done: This project is called Named Routes?
               title: 'Fit Lovers',
 
               onGenerateRoute: MyRouter.onGenerateRoute,
