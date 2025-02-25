@@ -68,6 +68,7 @@ class MyApp extends StatelessWidget {
               ],
               // done: When declaring locales we can only use the language code and omit the country code
               // Locale('sr'), Locale('en')
+              // TODO: Why not utilize [language.dart] line: 14 ?
               supportedLocales: [
                 Locale('en'),
                 Locale('sr'),

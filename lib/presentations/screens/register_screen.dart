@@ -12,6 +12,9 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: When clicking on "Register" button without accepting terms and conditions, nothing is shown to the user.
+    // TODO: When Register is successful no message is shown to the user.
+    // TODO: There is no loading state
     return Scaffold(
       appBar: CustomAppBar(
         title: (AppLocalizations.of(context)!.register),

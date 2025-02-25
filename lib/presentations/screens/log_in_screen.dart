@@ -13,6 +13,9 @@ class LogInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: When Login is successful no message is shown to the user.
+    // TODO: There is no loading state
+    // TODO: When I restart the application, I need to login again. Missing save user session logic
     return Scaffold(
       appBar: CustomAppBar(
         title: (AppLocalizations.of(context)!.login),
