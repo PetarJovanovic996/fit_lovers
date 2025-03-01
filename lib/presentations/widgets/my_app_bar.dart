@@ -1,4 +1,5 @@
 import 'package:fit_lovers/core/routes.dart';
+import 'package:fit_lovers/data/models/language.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_state.dart';
@@ -58,17 +59,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
                 BlocBuilder<LanguageCubit, LanguageState>(
                   builder: (context, state) {
-                    String currentLanguageCode = 'en';
-                    if (state is LanguageChanged) {
-                      currentLanguageCode = state.locale.languageCode;
-                    }
+                    String currentLanguageCode = state.locale.languageCode;
 
                     return DropdownButton(
                       value: currentLanguageCode,
-                      items: context
-                          .read<LanguageCubit>()
-                          .availableLanguages
-                          .map((language) {
+                      items: Language.availableLanguages.map((language) {
                         return DropdownMenuItem(
                           value: language['code']!,
                           child: Text(language['name']!),

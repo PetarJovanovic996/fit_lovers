@@ -1,11 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-abstract class LanguageState extends Equatable {
-  const LanguageState();
+class LanguageState extends Equatable {
+  const LanguageState(this.locale);
+  final Locale locale;
+  @override
+  List<Object> get props => [locale];
 }
 
-// TODO: Just have one state. No need for [LanguageChanged] extends [LanguageState]
+// done: Just have one state. No need for [LanguageChanged] extends [LanguageState]
 // just use:
 
 // class LanguageState extends Equatable {
@@ -18,12 +21,3 @@ abstract class LanguageState extends Equatable {
 // }
 
 // and then use LanguageState everywhere throughout the app.
-
-class LanguageChanged extends LanguageState {
-  final Locale locale;
-
-  const LanguageChanged(this.locale);
-
-  @override
-  List<Object> get props => [locale];
-}

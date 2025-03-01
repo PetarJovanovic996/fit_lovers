@@ -1,5 +1,6 @@
 import 'package:fit_lovers/core/app_bloc_observer.dart';
 import 'package:fit_lovers/core/my_theme.dart';
+import 'package:fit_lovers/data/models/language.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/data/repositories/user_repository.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
         child: BlocBuilder<LanguageCubit, LanguageState>(
           builder: (context, state) {
             return MaterialApp(
-              locale: (state is LanguageChanged) ? state.locale : Locale('en'),
+              locale: state.locale,
               localizationsDelegates: [
                 AppLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
@@ -68,11 +69,10 @@ class MyApp extends StatelessWidget {
               ],
               // done: When declaring locales we can only use the language code and omit the country code
               // Locale('sr'), Locale('en')
-              // TODO: Why not utilize [language.dart] line: 14 ?
-              supportedLocales: [
-                Locale('en'),
-                Locale('sr'),
-              ],
+              // done: Why not utilize [language.dart] line: 14 ?
+              supportedLocales: Language.supportedLanguages
+                  .map((language) => language.locale)
+                  .toList(),
               theme: MyTheme.lightTheme,
               debugShowCheckedModeBanner: false,
               title: 'Fit Lovers',
