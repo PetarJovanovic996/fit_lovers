@@ -3,6 +3,7 @@ import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/authentication/login/login_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/custom_app_bar.dart';
+import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,9 +14,9 @@ class LogInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: When Login is successful no message is shown to the user.
-    // TODO: There is no loading state
-    // TODO: When I restart the application, I need to login again. Missing save user session logic
+    // done: When Login is successful no message is shown to the user.
+    // done: There is no loading state
+    // s pecom: When I restart the application, I need to login again. Missing save user session logic
     return Scaffold(
       appBar: CustomAppBar(
         title: (AppLocalizations.of(context)!.login),
@@ -39,7 +40,7 @@ class LogInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LogInCubit, LogInState>(
+    return BlocConsumer<LogInCubit, LogInState>(
       listenWhen: (previous, current) => previous.status != current.status,
       // PEKIIIIIII
       listener: (context, state) {
@@ -51,6 +52,21 @@ class LogInForm extends StatelessWidget {
                 content: Text(AppLocalizations.of(context)!.loggedIn),
               ),
             );
+          context.read<OnboardingCubit>().checkOnboardingStatus();
+          if (context.read<OnboardingCubit>().state.status ==
+              FormzSubmissionStatus.success) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.homeScreen,
+              (Route<dynamic> route) => false,
+            );
+          }
+          if (context.read<OnboardingCubit>().state.status ==
+              FormzSubmissionStatus.failure) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.onboardingScreen,
+              (Route<dynamic> route) => false,
+            );
+          }
 
 // done: definisati dje ide nakon login/a na onb ili homeS
 
@@ -69,25 +85,30 @@ class LogInForm extends StatelessWidget {
             );
         }
       },
+      //s pecom: Nije ovo dobro
       //PEKIIIIIII
       //PROVJERA
       //JE LI OKEJ OVO SLUSANJE DA LI JE KLIJENT PROSAO ONBOARDING
-      child: BlocListener<OnboardingCubit, OnboardingState>(
-        listener: (context, state) {
-          if (state.status == FormzSubmissionStatus.success) {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              Routes.homeScreen,
-              (Route<dynamic> route) => false,
-            );
-          }
-          if (state.status == FormzSubmissionStatus.failure) {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              Routes.onboardingScreen,
-              (Route<dynamic> route) => false,
-            );
-          }
-        },
-        child: Padding(
+      // child: BlocListener<OnboardingCubit, OnboardingState>(
+      //   listener: (context, state) {
+      //     if (state.status == FormzSubmissionStatus.success) {
+      //       Navigator.of(context).pushNamedAndRemoveUntil(
+      //         Routes.homeScreen,
+      //         (Route<dynamic> route) => false,
+      //       );
+      //     }
+      //     if (state.status == FormzSubmissionStatus.failure) {
+      //       Navigator.of(context).pushNamedAndRemoveUntil(
+      //         Routes.onboardingScreen,
+      //         (Route<dynamic> route) => false,
+      //       );
+      //     }
+      //   },
+      builder: (context, state) {
+        if (state.status.isInProgress) {
+          return LoadingWidget();
+        }
+        return Padding(
           padding: EdgeInsets.symmetric(horizontal: 18),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -99,8 +120,8 @@ class LogInForm extends StatelessWidget {
               _LogInButton(),
             ],
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -157,7 +178,6 @@ class _LogInButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         context.read<LogInCubit>().logInWithCredentials();
-        context.read<OnboardingCubit>().checkOnboardingStatus();
       },
       child: Text(
         AppLocalizations.of(context)!.login,

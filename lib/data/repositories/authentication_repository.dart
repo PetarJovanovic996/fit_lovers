@@ -31,7 +31,7 @@ class RegisterWithEmailAndPasswordFailure implements Exception {
 
 class LogInWithEmailAndPasswordFailure implements Exception {
   const LogInWithEmailAndPasswordFailure([
-    this.message = 'Failed to LogIn. Check entered information',
+    this.message = 'Failed to Log In',
   ]);
 
   factory LogInWithEmailAndPasswordFailure.fromCode(String code) {

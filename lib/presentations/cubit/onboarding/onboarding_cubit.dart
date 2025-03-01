@@ -143,6 +143,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     await prefs.setBool('onboardingCompleted', status);
   }
 
+// s pecom
+//ovo je pogresno
   Future<void> checkOnboardingStatus() async {
     emit(state.copyWith(isLoading: true));
     try {
