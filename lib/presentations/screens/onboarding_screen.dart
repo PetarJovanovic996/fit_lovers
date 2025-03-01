@@ -1,6 +1,6 @@
 import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
-import 'package:fit_lovers/presentations/widgets/my_app_bar.dart';
+import 'package:fit_lovers/presentations/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';

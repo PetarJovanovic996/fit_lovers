@@ -37,8 +37,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   flex: 8,
                 ),
                 if (showSignOut)
-                  // TODO: I clicked "Skip" button on [WelcomeView], and LogOut button is visible,
-                  // TODO: By clicking this button Logout logic is triggered, even though I am not logged in. Fix.
+                  // s pecom: I clicked "Skip" button on [WelcomeView], and LogOut button is visible,
+                  // s pecom: By clicking this button Logout logic is triggered, even though I am not logged in. Fix.
                   IconButton(
                       onPressed: () {
                         context.read<LogOutCubit>().logOut();
