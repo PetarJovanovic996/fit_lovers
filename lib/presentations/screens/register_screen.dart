@@ -61,9 +61,6 @@ class RegisterForm extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state.status.isInProgress) {
-          return LoadingWidget();
-        }
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -74,6 +71,8 @@ class RegisterForm extends StatelessWidget {
             _ConfirmPasswordInput(),
             const SizedBox(height: 8),
             _ConsentButton(),
+            const SizedBox(height: 8),
+            if (state.status.isInProgress) LoadingWidget(),
             const SizedBox(height: 8),
             _RegisterButton(),
           ],
@@ -91,7 +90,8 @@ class _EmailInput extends StatelessWidget {
     return BlocBuilder<RegisterCubit, RegisterState>(
       buildWhen: (prev, curr) => prev.email != curr.email,
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
+          initialValue: state.email.value,
           onChanged: (email) =>
               context.read<RegisterCubit>().enteredEmail(email),
           keyboardType: TextInputType.emailAddress,
@@ -115,8 +115,9 @@ class _PasswordInput extends StatelessWidget {
     return BlocBuilder<RegisterCubit, RegisterState>(
       buildWhen: (prev, curr) => prev.password != curr.password,
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
           obscureText: true,
+          initialValue: state.password.value,
           onChanged: (password) =>
               context.read<RegisterCubit>().enteredPassword(password),
           keyboardType: TextInputType.visiblePassword,
@@ -142,7 +143,8 @@ class _ConfirmPasswordInput extends StatelessWidget {
           (prev.confirmedPassword != curr.confirmedPassword) ||
           (prev.password != curr.password),
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
+          initialValue: state.confirmedPassword.value,
           obscureText: true,
           onChanged: (password) =>
               context.read<RegisterCubit>().confirmedPassword(password),
@@ -196,12 +198,27 @@ class _ConsentButton extends StatelessWidget {
 class _RegisterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => context.read<RegisterCubit>().registerFormSubmitted(),
-      child: Text(
-        AppLocalizations.of(context)!.register,
-        style: TextStyle(color: Colors.black),
-      ),
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      builder: (context, state) {
+        // if (!state.isValid) {
+        //   return ElevatedButton(
+        //     onPressed: null,
+        //     child: Text(
+        //       AppLocalizations.of(context)!.register,
+        //       style: TextStyle(color: Colors.black),
+        //     ),
+        //   );
+        // }
+
+        return ElevatedButton(
+          onPressed: () =>
+              context.read<RegisterCubit>().registerFormSubmitted(),
+          child: Text(
+            AppLocalizations.of(context)!.register,
+            style: TextStyle(color: Colors.black),
+          ),
+        );
+      },
     );
   }
 }
