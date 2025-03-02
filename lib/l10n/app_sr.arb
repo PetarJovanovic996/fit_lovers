@@ -65,5 +65,9 @@
   "succesfullOnboarding": "Uspjesno ste unijeli podatke",
   "@succesfullOnboarding": {},
   "invalidLogOut": "Neuspjesna odjava",
-  "@invalidLogOut": {}
+  "@invalidLogOut": {},
+  "succesfullRegistration": "Uspjesna registracija. Molim vas prijavite se!",
+  "@succesfullRegistration": {},
+  "invalidTemrsAndConditions": "Molimo vas prihvatite uslove koriscenja",
+  "@invalidTemrsAndConditions": {}
 }

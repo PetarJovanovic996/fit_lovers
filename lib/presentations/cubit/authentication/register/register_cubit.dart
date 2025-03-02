@@ -85,6 +85,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> registerFormSubmitted() async {
     if (!state.isValid) {
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
       return;
     }
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));

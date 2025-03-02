@@ -52,6 +52,9 @@ class LogInForm extends StatelessWidget {
                 content: Text(AppLocalizations.of(context)!.loggedIn),
               ),
             );
+          // s pecom
+          // nije dobro
+          // kad se resetuje app ponovo trazi onb
           context.read<OnboardingCubit>().checkOnboardingStatus();
           if (context.read<OnboardingCubit>().state.status ==
               FormzSubmissionStatus.success) {
@@ -85,25 +88,13 @@ class LogInForm extends StatelessWidget {
             );
         }
       },
-      //s pecom: Nije ovo dobro
-      //PEKIIIIIII
-      //PROVJERA
-      //JE LI OKEJ OVO SLUSANJE DA LI JE KLIJENT PROSAO ONBOARDING
-      // child: BlocListener<OnboardingCubit, OnboardingState>(
-      //   listener: (context, state) {
-      //     if (state.status == FormzSubmissionStatus.success) {
-      //       Navigator.of(context).pushNamedAndRemoveUntil(
-      //         Routes.homeScreen,
-      //         (Route<dynamic> route) => false,
-      //       );
-      //     }
-      //     if (state.status == FormzSubmissionStatus.failure) {
-      //       Navigator.of(context).pushNamedAndRemoveUntil(
-      //         Routes.onboardingScreen,
-      //         (Route<dynamic> route) => false,
-      //       );
-      //     }
-      //   },
+
+      // s pecom: proci
+      //greska je sto kad je forma validna
+      //ali postoji nek:a dr greska
+      //nakon loading/a, resetuje formu
+      //isti slucaj kod registration
+
       builder: (context, state) {
         if (state.status.isInProgress) {
           return LoadingWidget();

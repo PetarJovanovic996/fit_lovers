@@ -2,6 +2,7 @@ import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/authentication/register/register_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/custom_app_bar.dart';
+import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -12,9 +13,9 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: When clicking on "Register" button without accepting terms and conditions, nothing is shown to the user.
-    // TODO: When Register is successful no message is shown to the user.
-    // TODO: There is no loading state
+    // done: When clicking on "Register" button without accepting terms and conditions, nothing is shown to the user.
+    // done: When Register is successful no message is shown to the user.
+    // done: There is no loading state
     return Scaffold(
       appBar: CustomAppBar(
         title: (AppLocalizations.of(context)!.register),
@@ -38,15 +39,19 @@ class RegisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RegisterCubit, RegisterState>(
+    return BlocConsumer<RegisterCubit, RegisterState>(
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status.isSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(AppLocalizations.of(context)!.login)),
+            SnackBar(
+                content:
+                    Text(AppLocalizations.of(context)!.succesfullRegistration)),
           );
 
           Navigator.of(context).pushReplacementNamed(Routes.logInScreen);
-        } else if (state.status.isFailure) {
+        }
+        if (state.status.isFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -55,20 +60,25 @@ class RegisterForm extends StatelessWidget {
           );
         }
       },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _EmailInput(),
-          const SizedBox(height: 8),
-          _PasswordInput(),
-          const SizedBox(height: 8),
-          _ConfirmPasswordInput(),
-          const SizedBox(height: 8),
-          _ConsentButton(),
-          const SizedBox(height: 8),
-          _RegisterButton(),
-        ],
-      ),
+      builder: (context, state) {
+        if (state.status.isInProgress) {
+          return LoadingWidget();
+        }
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _EmailInput(),
+            const SizedBox(height: 8),
+            _PasswordInput(),
+            const SizedBox(height: 8),
+            _ConfirmPasswordInput(),
+            const SizedBox(height: 8),
+            _ConsentButton(),
+            const SizedBox(height: 8),
+            _RegisterButton(),
+          ],
+        );
+      },
     );
   }
 }
@@ -156,11 +166,27 @@ class _ConsentButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
-        return CheckboxListTile(
-          title: Text(AppLocalizations.of(context)!.termsAndConditions),
-          value: state.consent.value,
-          onChanged: (clickedConsent) =>
-              context.read<RegisterCubit>().consentClicked(clickedConsent!),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            CheckboxListTile(
+              title: Text(AppLocalizations.of(context)!.termsAndConditions),
+              value: state.consent.value,
+              onChanged: (clickedConsent) =>
+                  context.read<RegisterCubit>().consentClicked(clickedConsent!),
+            ),
+            if (!state.consent.value && state.status.isFailure)
+              Padding(
+                padding: const EdgeInsets.only(top: 4.0),
+                child: Text(
+                  AppLocalizations.of(context)!.invalidTemrsAndConditions,
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+          ],
         );
       },
     );

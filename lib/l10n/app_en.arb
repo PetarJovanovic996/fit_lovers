@@ -65,5 +65,9 @@
   "succesfullOnboarding": "You are succesfuly onboarded ",
   "@succesfullOnboarding": {},
   "invalidLogOut": "Invalid logOut",
-  "@invalidLogOut": {}
+  "@invalidLogOut": {},
+  "succesfullRegistration": "You registred succesfuly. Please log in!",
+  "@succesfullRegistration": {},
+  "invalidTemrsAndConditions": "Please accept terms and condition",
+  "@invalidTemrsAndConditions": {}
  }
