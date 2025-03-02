@@ -1,5 +1,6 @@
 import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/onboarding_status/onboarding_status_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,10 +87,7 @@ class OnboardingSkipButton extends StatelessWidget {
     return BlocBuilder<OnboardingCubit, OnboardingState>(
       builder: (context, state) {
         return ElevatedButton(
-          onPressed: () {
-            context.read<OnboardingCubit>().skipOnboarding();
-            Navigator.of(context).pushNamed(Routes.homeScreen);
-          },
+          onPressed: () => Navigator.of(context).pushNamed(Routes.homeScreen),
           child: Text(
             AppLocalizations.of(context)!.skip,
             style: TextStyle(
@@ -292,7 +290,19 @@ class OnboardingSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OnboardingCubit, OnboardingState>(
+    return BlocConsumer<OnboardingCubit, OnboardingState>(
+      listener: (context, state) {
+        if (state.isCompleted) {
+          context.read<OnboardingStatusCubit>().completeOnboarding();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content:
+                  Text(AppLocalizations.of(context)!.succesfullOnboarding)));
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            Routes.homeScreen,
+            (Route<dynamic> route) => false,
+          );
+        }
+      },
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 12),
@@ -332,16 +342,7 @@ class OnboardingSummary extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
-                  context.read<OnboardingCubit>().saveUserData();
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                          AppLocalizations.of(context)!.succesfullOnboarding)));
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    Routes.homeScreen,
-                    (Route<dynamic> route) => false,
-                  );
-                },
+                onPressed: () => context.read<OnboardingCubit>().saveUserData(),
                 child: Text(
                   AppLocalizations.of(context)!.finish,
                   style: TextStyle(color: Colors.black),
