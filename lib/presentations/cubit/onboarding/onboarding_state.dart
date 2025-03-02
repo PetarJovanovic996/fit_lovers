@@ -12,6 +12,7 @@ class OnboardingState extends Equatable {
     this.step = 0,
     this.errorMessage,
     this.isLoading = false,
+    this.isCompleted = false,
   });
 
   final NotEmptyField name;
@@ -24,6 +25,7 @@ class OnboardingState extends Equatable {
   final int step;
   final String? errorMessage;
   final bool isLoading;
+  final bool isCompleted;
 
   @override
   List<Object?> get props => [
@@ -37,6 +39,7 @@ class OnboardingState extends Equatable {
         step3status,
         errorMessage,
         isLoading,
+        isCompleted,
       ];
 
   OnboardingState copyWith({
@@ -50,6 +53,7 @@ class OnboardingState extends Equatable {
     int? step,
     String? errorMessage,
     bool? isLoading,
+    bool? isCompleted,
   }) {
     return OnboardingState(
       name: name ?? this.name,
@@ -62,6 +66,7 @@ class OnboardingState extends Equatable {
       step3status: step3status ?? this.step3status,
       errorMessage: errorMessage ?? this.errorMessage,
       isLoading: isLoading ?? this.isLoading,
+      isCompleted: isCompleted ?? this.isCompleted,
     );
   }
 }
