@@ -2,6 +2,7 @@ import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/authentication/login/login_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/onboarding_status/onboarding_status_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/custom_app_bar.dart';
 import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -52,24 +53,40 @@ class LogInForm extends StatelessWidget {
                 content: Text(AppLocalizations.of(context)!.loggedIn),
               ),
             );
-          // s pecom
-          // nije dobro
-          // kad se resetuje app ponovo trazi onb
-          context.read<OnboardingCubit>().checkOnboardingStatus();
-          if (context.read<OnboardingCubit>().state.status ==
-              FormzSubmissionStatus.success) {
+
+          final isOnboardingCompleted =
+              context.read<OnboardingStatusCubit>().state.isOnboardingCompleted;
+
+          if (isOnboardingCompleted) {
             Navigator.of(context).pushNamedAndRemoveUntil(
               Routes.homeScreen,
               (Route<dynamic> route) => false,
             );
-          }
-          if (context.read<OnboardingCubit>().state.status ==
-              FormzSubmissionStatus.failure) {
+          } else {
             Navigator.of(context).pushNamedAndRemoveUntil(
               Routes.onboardingScreen,
               (Route<dynamic> route) => false,
             );
           }
+
+          // s pecom
+          // nije dobro
+          // kad se resetuje app ponovo trazi onb
+          // context.read<OnboardingCubit>().checkOnboardingStatus();
+          // if (context.read<OnboardingCubit>().state.status ==
+          //     FormzSubmissionStatus.success) {
+          //   Navigator.of(context).pushNamedAndRemoveUntil(
+          //     Routes.homeScreen,
+          //     (Route<dynamic> route) => false,
+          //   );
+          // }
+          // if (context.read<OnboardingCubit>().state.status ==
+          //     FormzSubmissionStatus.failure) {
+          //   Navigator.of(context).pushNamedAndRemoveUntil(
+          //     Routes.onboardingScreen,
+          //     (Route<dynamic> route) => false,
+          //   );
+          // }
 
 // done: definisati dje ide nakon login/a na onb ili homeS
 
@@ -96,9 +113,6 @@ class LogInForm extends StatelessWidget {
       //isti slucaj kod registration
 
       builder: (context, state) {
-        if (state.status.isInProgress) {
-          return LoadingWidget();
-        }
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 18),
           child: Column(
@@ -107,6 +121,8 @@ class LogInForm extends StatelessWidget {
               _EmailInput(),
               const SizedBox(height: 16),
               _PasswordInput(),
+              const SizedBox(height: 16),
+              if (state.status.isInProgress) LoadingWidget(),
               const SizedBox(height: 16),
               _LogInButton(),
             ],
@@ -124,7 +140,8 @@ class _EmailInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LogInCubit, LogInState>(
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
+          initialValue: state.email.value,
           onChanged: (email) => context.read<LogInCubit>().enteredEmail(email),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
@@ -146,7 +163,8 @@ class _PasswordInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LogInCubit, LogInState>(
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
+          initialValue: state.password.value,
           obscureText: true,
           onChanged: (password) =>
               context.read<LogInCubit>().enteredPassword(password),
