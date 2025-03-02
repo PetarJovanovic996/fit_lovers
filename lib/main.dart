@@ -4,11 +4,14 @@ import 'package:fit_lovers/data/models/language.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/data/repositories/user_repository.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/onboarding_status/onboarding_status_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_state.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/util/legacy_to_async_migration_util.dart';
 import 'core/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,13 +28,41 @@ Future<void> main() async {
 
   Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
+  const SharedPreferencesOptions sharedPreferencesOptions =
+      SharedPreferencesOptions();
+  final sharedPreferences = await SharedPreferences.getInstance();
+  await migrateLegacySharedPreferencesToSharedPreferencesAsyncIfNecessary(
+    legacySharedPreferencesInstance: sharedPreferences,
+    sharedPreferencesAsyncOptions: sharedPreferencesOptions,
+    migrationCompletedKey: 'migrationCompleted',
+  );
 
   await Firebase.initializeApp();
 
   final authenticationRepository = AuthenticationRepository();
   await authenticationRepository.user.first;
 
-  runApp(MyApp(authenticationRepository: authenticationRepository));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => OnboardingStatusCubit(
+            sharedPreferences: sharedPreferences,
+          ),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (context) => LanguageCubit(
+            sharedPreferences: sharedPreferences,
+          ),
+          lazy: false,
+        ),
+      ],
+      child: MyApp(
+        authenticationRepository: authenticationRepository,
+      ),
+    ),
+  );
   //clearData za test
 }
 
@@ -49,9 +80,6 @@ class MyApp extends StatelessWidget {
       value: _authenticationRepository,
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => LanguageCubit(),
-          ),
           BlocProvider(
             create: (context) =>
                 OnboardingCubit(userRepository: UserRepository()),
