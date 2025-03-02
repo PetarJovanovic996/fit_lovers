@@ -1,19 +1,35 @@
 import 'package:bloc/bloc.dart';
 import 'package:fit_lovers/data/models/language.dart';
 import 'package:flutter/rendering.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'language_state.dart';
 
 class LanguageCubit extends Cubit<LanguageState> {
-  LanguageCubit() : super(LanguageState(Locale('en')));
+  LanguageCubit({required SharedPreferences sharedPreferences})
+      : _sharedPreferences = sharedPreferences,
+        super(LanguageState(Locale('en'))) {
+    _getDefaultLanguage();
+  }
+
+  final SharedPreferences _sharedPreferences;
+
+  void _getDefaultLanguage() {
+    final savedLanguage = _sharedPreferences.getString('__LANGUAGE_KEY__');
+
+    if (savedLanguage != null) {
+      changeLanguage(savedLanguage);
+    }
+  }
 
   // done: This logic is ok, but orElse should not be needed
   // Since you create the dropdown which provides supported languages inside the app
   // there is no need to double check if the language which was sent to [changeLanguage] is supported
-  void changeLanguage(String languageCode) {
+  Future<void> changeLanguage(String languageCode) async {
     final language = Language.supportedLanguages.firstWhere(
       (language) => language.code == languageCode,
     );
 
     emit(LanguageState(language.locale));
+    _sharedPreferences.setString('__LANGUAGE_KEY__', languageCode);
   }
 }
