@@ -1,9 +1,9 @@
-import 'package:fit_lovers/screens/edit_profile_screen.dart';
-import 'package:fit_lovers/screens/home_screen.dart';
-import 'package:fit_lovers/screens/log_in_screen.dart';
-import 'package:fit_lovers/screens/onboarding_screen.dart';
-import 'package:fit_lovers/screens/register_screen.dart';
-import 'package:fit_lovers/screens/welcome_view_screen.dart';
+import 'package:fit_lovers/presentations/screens/edit_profile_screen.dart';
+import 'package:fit_lovers/presentations/screens/home_screen.dart';
+import 'package:fit_lovers/presentations/screens/log_in_screen.dart';
+import 'package:fit_lovers/presentations/screens/onboarding_screen.dart';
+import 'package:fit_lovers/presentations/screens/register_screen.dart';
+import 'package:fit_lovers/presentations/screens/welcome_view_screen.dart';
 import 'package:flutter/material.dart';
 
 // Routes always separate words by -
@@ -25,7 +25,7 @@ import 'package:flutter/material.dart';
 // done: Replace all hardcoded route names in project with these
 class Routes {
   static const String welcomeViewScreen = 'welcome-view';
-  static const String logInScreen = 'login-screen';
+  static const String logInScreen = 'logIn-screen';
   static const String registerScreen = 'register-screen';
   static const String onboardingScreen = 'onboarding-screen';
   static const String homeScreen = 'home-screen';

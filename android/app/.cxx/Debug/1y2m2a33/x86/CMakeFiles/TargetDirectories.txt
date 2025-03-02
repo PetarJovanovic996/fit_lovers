@@ -1,0 +1,2 @@
+/Users/petarjovanovic/fit_lovers-1/android/app/.cxx/Debug/1y2m2a33/x86/CMakeFiles/edit_cache.dir
+/Users/petarjovanovic/fit_lovers-1/android/app/.cxx/Debug/1y2m2a33/x86/CMakeFiles/rebuild_cache.dir
