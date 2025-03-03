@@ -1,8 +1,7 @@
 import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/authentication/login/login_cubit.dart';
-import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
-import 'package:fit_lovers/presentations/cubit/onboarding_status/onboarding_status_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_status/onboarding_status_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/custom_app_bar.dart';
 import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';

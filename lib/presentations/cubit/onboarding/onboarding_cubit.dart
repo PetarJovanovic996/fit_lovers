@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:fit_lovers/data/models/validation/email.dart';
 import 'package:fit_lovers/data/repositories/user_repository.dart';
 import 'package:formz/formz.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'onboarding_state.dart';
 
