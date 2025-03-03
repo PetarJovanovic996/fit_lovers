@@ -4,20 +4,20 @@ part 'exercise.g.dart';
 
 @JsonSerializable()
 class Exercise {
-  final String name;
-  final String type;
-  final String muscles;
-  final String equipment;
-  final String difficulty;
-  final String instructions;
+  final String? name;
+  final String? type;
+  final String? muscles;
+  final String? equipment;
+  final String? difficulty;
+  final String? instructions;
 
   Exercise({
-    required this.name,
-    required this.type,
-    required this.muscles,
-    required this.equipment,
-    required this.difficulty,
-    required this.instructions,
+    this.name,
+    this.type,
+    this.muscles,
+    this.equipment,
+    this.difficulty,
+    this.instructions,
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) =>
