@@ -1,4 +1,3 @@
-import 'package:fit_lovers/presentations/screens/edit_profile_screen.dart';
 import 'package:fit_lovers/presentations/screens/home_screen.dart';
 import 'package:fit_lovers/presentations/screens/log_in_screen.dart';
 import 'package:fit_lovers/presentations/screens/onboarding_screen.dart';
@@ -29,7 +28,6 @@ class Routes {
   static const String registerScreen = 'register-screen';
   static const String onboardingScreen = 'onboarding-screen';
   static const String homeScreen = 'home-screen';
-  static const String editProfileScreen = 'edit-profile-screen';
 }
 
 // BONUS:
@@ -48,7 +46,6 @@ class MyRouter {
           (Routes.registerScreen) => RegisterScreen(),
           (Routes.onboardingScreen) => const OnboardingScreen(),
           (Routes.homeScreen) => const HomeScreen(),
-          (Routes.editProfileScreen) => const EditProfileScreen(),
           // Default route
           _ => const WelcomeViewScreen(),
         };

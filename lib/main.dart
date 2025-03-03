@@ -3,6 +3,7 @@ import 'package:fit_lovers/core/my_theme.dart';
 import 'package:fit_lovers/data/models/language.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/data/repositories/user_repository.dart';
+import 'package:fit_lovers/presentations/cubit/home_screen/cubit/home_screen_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_status/onboarding_status_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_cubit.dart';
@@ -57,6 +58,7 @@ Future<void> main() async {
           ),
           lazy: false,
         ),
+        BlocProvider(create: (context) => HomeScreenCubit()),
       ],
       child: MyApp(
         authenticationRepository: authenticationRepository,

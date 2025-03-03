@@ -69,5 +69,13 @@
   "succesfullRegistration": "You registred succesfuly. Please log in!",
   "@succesfullRegistration": {},
   "invalidTemrsAndConditions": "Please accept terms and condition",
-  "@invalidTemrsAndConditions": {}
+  "@invalidTemrsAndConditions": {},
+  "homeScreen": "Your exercises",
+  "@homeScreen": {},
+  "home": "Home",
+  "@home": {},
+  "favorites": "Favorites",
+  "@favorites": {},
+  "profile": "Profile",
+  "@profile": {}
  }
