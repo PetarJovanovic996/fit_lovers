@@ -6,18 +6,18 @@ part 'exercise.g.dart';
 class Exercise {
   final String name;
   final String type;
-  final String description;
   final String muscles;
   final String equipment;
   final String difficulty;
+  final String instructions;
 
   Exercise({
     required this.name,
     required this.type,
-    required this.description,
     required this.muscles,
     required this.equipment,
     required this.difficulty,
+    required this.instructions,
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) =>
