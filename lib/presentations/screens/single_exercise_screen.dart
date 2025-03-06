@@ -24,62 +24,66 @@ class SingleExerciseScreen extends StatelessWidget {
             final exercise = state.exercise;
             return Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                        child: Text(
-                      exercise.type!,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    )),
-                    Center(
-                      child: Text(
-                        exercise.difficulty!,
-                        style: TextStyle(
-                          fontSize: 20,
+              child: ListView(
+                children: [
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                            child: Text(
+                          exercise.type!,
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        )),
+                        Center(
+                          child: Text(
+                            exercise.difficulty!,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      exercise.name!,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 32,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      exercise.muscle!,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      exercise.equipment!,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      '${AppLocalizations.of(context)!.instructions}: ${exercise.instructions}',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ]),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Text(
+                          exercise.name!,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 32,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          exercise.muscle!,
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        Text(
+                          exercise.equipment!,
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Text(
+                          '${AppLocalizations.of(context)!.instructions}: ${exercise.instructions}',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ]),
+                ],
+              ),
             );
           }
           if (state is SingleExerciseError) {
