@@ -10,7 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
+//TODO: ovo mi ne treba
+// sve ima u bottomnavbar valjda vec
   @override
   Widget build(BuildContext context) {
     return Scaffold(
