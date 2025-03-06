@@ -32,7 +32,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   title,
                   style: TextStyle(color: Colors.black),
                 ),
-                // done: This is not good, google [Spacer] widget
                 Spacer(
                   flex: 8,
                 ),
@@ -49,14 +48,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       },
                       icon: Icon(Icons.logout)),
                 Spacer(),
-                // done: Value declared here is not good, if we have LanguageCubit to handle languages for us, refactor.
-                // : When working with dropdown buttons, try to keep the value of the items to be simple object
-                // Simple objects are : String, int, bool etc.
-                // Locale is not a simple object. It's a custom object
-                // : The dropdown menu items should hold String values, and then parse them further to locales.
-                // : If we hardcode the list of all supported locales like this, and have this logic in couple of places, we can forget
-                //  one when adding new languages, all the available language values for a project should come from single source of truth.
-
                 BlocBuilder<LanguageCubit, LanguageState>(
                   builder: (context, state) {
                     String currentLanguageCode = state.locale.languageCode;

@@ -16,13 +16,11 @@ class HomeTabContent extends StatelessWidget {
         }
 
         if (state is ExerciseLoaded) {
-          return Expanded(
-            child: ListView.builder(
-                itemCount: state.exercises.length,
-                itemBuilder: (context, index) => ExerciseItem(
-                      exercise: state.exercises[index],
-                    )),
-          );
+          return ListView.builder(
+              itemCount: state.exercises.length,
+              itemBuilder: (context, index) => ExerciseItem(
+                    exercise: state.exercises[index],
+                  ));
         }
 
         if (state is ExerciseError) {
