@@ -81,5 +81,7 @@
   "instructions": "Instructions",
   "@instructions": {},
   "seeDetails": "Detailed exercise",
-  "@seeDetails": {}
+  "@seeDetails": {},
+  "searchExercises": "Search Exercises",
+  "@searchExercises": {}
  }

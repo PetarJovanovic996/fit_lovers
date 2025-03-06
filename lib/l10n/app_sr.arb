@@ -81,5 +81,7 @@
   "instructions": "Instrukcije",
   "@instructions": {},
   "seeDetails": "Vjezba - detaljno",
-  "@seeDetails": {}
+  "@seeDetails": {},
+  "searchExercises": "Pretrazi vjezbe",
+  "@searchExercises": {}
 }
