@@ -4,6 +4,7 @@ import 'package:fit_lovers/presentations/screens/onboarding_screen.dart';
 import 'package:fit_lovers/presentations/screens/register_screen.dart';
 import 'package:fit_lovers/presentations/screens/welcome_view_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fit_lovers/presentations/screens/single_exercise_screen.dart';
 
 // Routes always separate words by -
 // add-new, login-screen
@@ -28,6 +29,7 @@ class Routes {
   static const String registerScreen = 'register-screen';
   static const String onboardingScreen = 'onboarding-screen';
   static const String homeScreen = 'home-screen';
+  static const String singleExerciseScreen = 'single-exercise-screen';
 }
 
 // BONUS:
@@ -46,6 +48,7 @@ class MyRouter {
           (Routes.registerScreen) => RegisterScreen(),
           (Routes.onboardingScreen) => const OnboardingScreen(),
           (Routes.homeScreen) => const HomeScreen(),
+          (Routes.singleExerciseScreen) => const SingleExerciseScreen(),
           // Default route
           _ => const WelcomeViewScreen(),
         };

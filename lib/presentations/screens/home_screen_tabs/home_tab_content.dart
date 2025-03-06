@@ -1,4 +1,4 @@
-import 'package:fit_lovers/presentations/cubit/exercises/cubit/exercise_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/exercises/exercise_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/exercise_item.dart';
 import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';

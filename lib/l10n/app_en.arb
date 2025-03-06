@@ -79,5 +79,7 @@
   "profile": "Profile",
   "@profile": {},
   "instructions": "Instructions",
-  "@instructions": {}
+  "@instructions": {},
+  "seeDetails": "Detailed exercise",
+  "@seeDetails": {}
  }

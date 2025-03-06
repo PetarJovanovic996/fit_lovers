@@ -39,10 +39,10 @@ class ExerciseService {
         throw Exception(
             "Failed to load exercise. Status code: ${response.statusCode}");
       }
-      final data = json.decode(response.body);
-      return Exercise.fromJson(data);
+      final List<dynamic> data = json.decode(response.body);
+      return Exercise.fromJson(data[0]);
     } catch (e) {
-      throw Exception("Failed to load exercices: $e");
+      throw Exception("Failed to load exercise: $e");
     }
   }
 }

@@ -79,5 +79,7 @@
   "profile": "Moj profil",
   "@profile": {},
   "instructions": "Instrukcije",
-  "@instructions": {}
+  "@instructions": {},
+  "seeDetails": "Vjezba - detaljno",
+  "@seeDetails": {}
 }
