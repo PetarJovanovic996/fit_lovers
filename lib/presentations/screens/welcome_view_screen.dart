@@ -9,7 +9,6 @@ class WelcomeViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //prvi pokusaj prevoda
       appBar: CustomAppBar(
         title: (AppLocalizations.of(context)!.welcome),
         showSignOut: false,
@@ -22,7 +21,6 @@ class WelcomeViewScreen extends StatelessWidget {
           ),
         ),
         child: _WelcomeButtons(),
-        // Register, Login, Skip Buttons
       ),
     );
   }

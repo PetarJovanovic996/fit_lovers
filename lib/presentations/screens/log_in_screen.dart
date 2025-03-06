@@ -14,8 +14,6 @@ class LogInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // done: When Login is successful no message is shown to the user.
-    // done: There is no loading state
     // s pecom: When I restart the application, I need to login again. Missing save user session logic
     return Scaffold(
       appBar: CustomAppBar(
@@ -42,7 +40,6 @@ class LogInForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<LogInCubit, LogInState>(
       listenWhen: (previous, current) => previous.status != current.status,
-      // PEKIIIIIII
       listener: (context, state) {
         if (state.status.isSuccess) {
           ScaffoldMessenger.of(context)
@@ -67,31 +64,6 @@ class LogInForm extends StatelessWidget {
               (Route<dynamic> route) => false,
             );
           }
-
-          // s pecom
-          // nije dobro
-          // kad se resetuje app ponovo trazi onb
-          // context.read<OnboardingCubit>().checkOnboardingStatus();
-          // if (context.read<OnboardingCubit>().state.status ==
-          //     FormzSubmissionStatus.success) {
-          //   Navigator.of(context).pushNamedAndRemoveUntil(
-          //     Routes.homeScreen,
-          //     (Route<dynamic> route) => false,
-          //   );
-          // }
-          // if (context.read<OnboardingCubit>().state.status ==
-          //     FormzSubmissionStatus.failure) {
-          //   Navigator.of(context).pushNamedAndRemoveUntil(
-          //     Routes.onboardingScreen,
-          //     (Route<dynamic> route) => false,
-          //   );
-          // }
-
-// done: definisati dje ide nakon login/a na onb ili homeS
-
-//done: SA PECOM! U vezi scaffold messengera/
-// kada se unesu validni podaci , a netacni
-// previse puta pokazuje messenger
         }
         if (state.status.isFailure) {
           ScaffoldMessenger.of(context)
@@ -104,13 +76,6 @@ class LogInForm extends StatelessWidget {
             );
         }
       },
-
-      // s pecom: proci
-      //greska je sto kad je forma validna
-      //ali postoji nek:a dr greska
-      //nakon loading/a, resetuje formu
-      //isti slucaj kod registration
-
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 18),

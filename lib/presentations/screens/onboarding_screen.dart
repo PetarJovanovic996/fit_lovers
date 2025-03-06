@@ -122,19 +122,13 @@ class OnboardingNextButton extends StatelessWidget {
                 context.read<OnboardingCubit>().next();
               }
             }
-// PEKIIIIII
-// Mozes bacit pogled, morao sam da stavim <2 , jer mi nije obuhvatalo
-//step sa odabirom datuma, ako samo stavim na prvi step,odnosno na nulti
-//uglavnom radi
+
             if (state.step == 2) {
               if (state.step3status == FormzSubmissionStatus.success) {
                 context.read<OnboardingCubit>().next();
               }
             }
           },
-          //done: SA PECOM
-          //peki provjeri ovo
-          //prolazi 3 korak tez i visinu, bez ikakvog unosa
           icon: Icon(
             Icons.arrow_forward,
             size: 32,

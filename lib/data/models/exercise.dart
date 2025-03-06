@@ -6,7 +6,7 @@ part 'exercise.g.dart';
 class Exercise {
   final String? name;
   final String? type;
-  final String? muscles;
+  final String? muscle;
   final String? equipment;
   final String? difficulty;
   final String? instructions;
@@ -14,7 +14,7 @@ class Exercise {
   Exercise({
     this.name,
     this.type,
-    this.muscles,
+    this.muscle,
     this.equipment,
     this.difficulty,
     this.instructions,

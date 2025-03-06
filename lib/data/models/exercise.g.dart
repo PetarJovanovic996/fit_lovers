@@ -9,7 +9,7 @@ part of 'exercise.dart';
 Exercise _$ExerciseFromJson(Map<String, dynamic> json) => Exercise(
       name: json['name'] as String?,
       type: json['type'] as String?,
-      muscles: json['muscles'] as String?,
+      muscle: json['muscle'] as String?,
       equipment: json['equipment'] as String?,
       difficulty: json['difficulty'] as String?,
       instructions: json['instructions'] as String?,
@@ -18,7 +18,7 @@ Exercise _$ExerciseFromJson(Map<String, dynamic> json) => Exercise(
 Map<String, dynamic> _$ExerciseToJson(Exercise instance) => <String, dynamic>{
       'name': instance.name,
       'type': instance.type,
-      'muscles': instance.muscles,
+      'muscle': instance.muscle,
       'equipment': instance.equipment,
       'difficulty': instance.difficulty,
       'instructions': instance.instructions,
