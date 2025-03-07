@@ -6,8 +6,14 @@ class ExerciseService {
   final String apiUrl = 'https://api.api-ninjas.com/v1/exercises';
   final String apiKey = 'Qu0a/qJJ1uBVlNpaPjB4Rw==E9r5HYyxW1uQcVSh';
 
-  Future<List<Exercise>> fetchExercises() async {
+  Future<List<Exercise>> fetchExercises({
+    String? type,
+    String? name,
+  }) async {
     try {
+      if (type != null || name != null) {
+        Uri.parse('$apiUrl?type=$type&name=$name');
+      }
       final response = await http.get(
         Uri.parse(apiUrl),
         headers: {

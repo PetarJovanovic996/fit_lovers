@@ -22,19 +22,20 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     }
   }
 
-  void searchExercises(String query) async {
-    final allExercises = await _exerciseService.fetchExercises();
+  Future<void> fetchFilteredExercises({
+    String? type,
+    String? name,
+  }) async {
     emit(ExerciseLoading());
     try {
-      final filteredExercises = allExercises
-          .where((exercise) =>
-              exercise.name!.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-      emit(ExerciseLoaded(filteredExercises));
+      final allExercises = await _exerciseService.fetchExercises(
+        type: type,
+        name: name,
+      );
+
+      emit(ExerciseLoaded(allExercises));
     } catch (e) {
-      {
-        emit(ExerciseError(e.toString()));
-      }
+      emit(ExerciseError(e.toString()));
     }
   }
 }

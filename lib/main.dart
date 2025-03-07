@@ -5,6 +5,7 @@ import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/data/repositories/user_repository.dart';
 import 'package:fit_lovers/data/services/exercises_service.dart';
 import 'package:fit_lovers/presentations/cubit/exercises/exercise_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/exercises/filters_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/exercises/single_exercise_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_status/onboarding_status_cubit.dart';
@@ -65,6 +66,9 @@ Future<void> main() async {
           create: (context) => SingleExerciseCubit(
             ExerciseService(),
           ),
+        ),
+        BlocProvider(
+          create: (context) => FiltersCubit(),
         ),
       ],
       child: MyApp(
