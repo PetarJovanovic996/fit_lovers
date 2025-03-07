@@ -64,17 +64,31 @@ class _Filters extends StatelessWidget {
               SizedBox(
                 height: 24,
               ),
-              TextFormField(
-                onChanged: (value) {
-                  context.read<FiltersCubit>().searchByName(value);
-                  context.read<ExerciseCubit>().fetchFilteredExercises(
-                        name: state.searchByName,
-                      );
-                },
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.searchExercises,
-                  prefixIcon: Icon(Icons.search),
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      initialValue: state.searchByName,
+                      // s pecom:
+                      // na reset ne micu se slova iz textformfield/a
+                      onChanged: (value) {
+                        context.read<FiltersCubit>().searchByName(value);
+                      },
+                      decoration: InputDecoration(
+                        labelText:
+                            AppLocalizations.of(context)!.searchExercises,
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        context
+                            .read<ExerciseCubit>()
+                            .fetchFilteredExercises(name: state.searchByName);
+                      },
+                      icon: Icon(Icons.filter_list_rounded)),
+                ],
               ),
               SizedBox(
                 height: 24,
@@ -99,106 +113,38 @@ class _TypeFilter extends StatelessWidget {
           child: Row(
             spacing: 8,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  context.read<FiltersCubit>().selectType(ExerciseType.cardio);
-                  context.read<ExerciseCubit>().fetchFilteredExercises(
-                        type: state.type.toString().split('.').last,
-                      );
-                },
-                child: Text(
-                  'Cardio',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  context
-                      .read<FiltersCubit>()
-                      .selectType(ExerciseType.olympic_weightlifting);
-                  context.read<ExerciseCubit>().fetchFilteredExercises(
-                        type: state.type.toString().split('.').last,
-                      );
-                },
-                child: Text(
-                  'Olympic Weightlifting',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  context
-                      .read<FiltersCubit>()
-                      .selectType(ExerciseType.plyometrics);
-                  context.read<ExerciseCubit>().fetchFilteredExercises(
-                        type: state.type.toString().split('.').last,
-                      );
-                },
-                child: Text(
-                  'Plyometrics',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  context
-                      .read<FiltersCubit>()
-                      .selectType(ExerciseType.powerlifting);
-                  context.read<ExerciseCubit>().fetchFilteredExercises(
-                        type: state.type.toString().split('.').last,
-                      );
-                },
-                child: Text(
-                  'Powerlifting',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  context
-                      .read<FiltersCubit>()
-                      .selectType(ExerciseType.strength);
-                  context.read<ExerciseCubit>().fetchFilteredExercises(
-                        type: state.type.toString().split('.').last,
-                      );
-                },
-                child: Text(
-                  'Strenght',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  context
-                      .read<FiltersCubit>()
-                      .selectType(ExerciseType.stretching);
-                  context.read<ExerciseCubit>().fetchFilteredExercises(
-                        type: state.type.toString().split('.').last,
-                      );
-                },
-                child: Text(
-                  'Stretching',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  context
-                      .read<FiltersCubit>()
-                      .selectType(ExerciseType.strongman);
-                  context.read<ExerciseCubit>().fetchFilteredExercises(
-                        type: state.type.toString().split('.').last,
-                      );
-                },
-                child: Text(
-                  'Strongman',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
+              _buildFilterButton(context, ExerciseType.cardio, 'Cardio'),
+              _buildFilterButton(context, ExerciseType.olympic_weightlifting,
+                  'Olympic Weightlifting'),
+              _buildFilterButton(
+                  context, ExerciseType.plyometrics, 'Plyometrics'),
+              _buildFilterButton(
+                  context, ExerciseType.powerlifting, 'Powerlifting'),
+              _buildFilterButton(context, ExerciseType.strength,
+                  'Strength'), // Korekcija u nazivu
+              _buildFilterButton(
+                  context, ExerciseType.stretching, 'Stretching'),
+              _buildFilterButton(context, ExerciseType.strongman, 'Strongman'),
             ],
           ),
         );
       },
+    );
+  }
+
+  ElevatedButton _buildFilterButton(
+      BuildContext context, ExerciseType type, String title) {
+    return ElevatedButton(
+      onPressed: () {
+        context.read<FiltersCubit>().selectType(type);
+        context.read<ExerciseCubit>().fetchFilteredExercises(
+              type: type.toString().split('.').last,
+            );
+      },
+      child: Text(
+        title,
+        style: TextStyle(color: Colors.black),
+      ),
     );
   }
 }

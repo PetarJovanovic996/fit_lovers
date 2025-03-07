@@ -11,11 +11,25 @@ class ExerciseService {
     String? name,
   }) async {
     try {
-      if (type != null || name != null) {
-        Uri.parse('$apiUrl?type=$type&name=$name');
+      // ToDO:
+      String url = apiUrl;
+      Map<String, String> queryParams = {};
+
+      if (type != null) {
+        queryParams['type'] = type;
       }
+
+      if (name != null) {
+        queryParams['name'] = name;
+      }
+
+      if (queryParams.isNotEmpty) {
+        url += '?${Uri(queryParameters: queryParams).query}';
+      }
+      // ...
+
       final response = await http.get(
-        Uri.parse(apiUrl),
+        Uri.parse(url),
         headers: {
           'X-Api-Key': apiKey,
         },
@@ -26,10 +40,10 @@ class ExerciseService {
         return jsonList.map((jsonItem) => Exercise.fromJson(jsonItem)).toList();
       } else {
         throw Exception(
-            'Failed to load exercises. Status code: ${response.statusCode}"');
+            'Failed to load exercises. Status code: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception("Failed to load exercices: $e");
+      throw Exception("Failed to load exercises: $e");
     }
   }
 
