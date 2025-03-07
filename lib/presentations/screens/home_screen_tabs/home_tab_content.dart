@@ -26,8 +26,10 @@ class HomeTabContent extends StatelessWidget {
                 if (state is ExerciseLoaded) {
                   return RefreshIndicator(
                     color: Colors.black,
-                    onRefresh: () =>
-                        context.read<ExerciseCubit>().fetchAllExercises(),
+                    onRefresh: () async {
+                      context.read<FiltersCubit>().clearFilters();
+                      await context.read<ExerciseCubit>().fetchAllExercises();
+                    },
                     child: ListView.builder(
                         itemCount: state.exercises.length,
                         itemBuilder: (context, index) => ExerciseItem(
@@ -69,11 +71,13 @@ class _Filters extends StatelessWidget {
                   Expanded(
                     child: TextFormField(
                       initialValue: state.searchByName,
+
                       // s pecom:
                       // na reset ne micu se slova iz textformfield/a
                       onChanged: (value) {
                         context.read<FiltersCubit>().searchByName(value);
                       },
+
                       decoration: InputDecoration(
                         labelText:
                             AppLocalizations.of(context)!.searchExercises,
@@ -120,8 +124,7 @@ class _TypeFilter extends StatelessWidget {
                   context, ExerciseType.plyometrics, 'Plyometrics'),
               _buildFilterButton(
                   context, ExerciseType.powerlifting, 'Powerlifting'),
-              _buildFilterButton(context, ExerciseType.strength,
-                  'Strength'), // Korekcija u nazivu
+              _buildFilterButton(context, ExerciseType.strength, 'Strength'),
               _buildFilterButton(
                   context, ExerciseType.stretching, 'Stretching'),
               _buildFilterButton(context, ExerciseType.strongman, 'Strongman'),

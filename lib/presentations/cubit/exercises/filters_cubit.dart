@@ -13,4 +13,8 @@ class FiltersCubit extends Cubit<FiltersState> {
   void searchByName(String value) => emit(
         state.copywith(searchByName: value),
       );
+
+  void clearFilters() {
+    emit(FiltersState());
+  }
 }
