@@ -1,6 +1,7 @@
 import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/data/models/exercise.dart';
 import 'package:fit_lovers/presentations/cubit/exercises/single_exercise_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/favourites/favourites_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -70,7 +71,26 @@ class ExerciseItem extends StatelessWidget {
             ),
           ),
         ),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border))
+        BlocBuilder<FavouritesCubit, FavouritesState>(
+          builder: (context, state) {
+            bool isFavourite = false;
+
+            if (state is FavouritesLoaded) {
+              isFavourite = state.favourites.contains(exercise.name);
+            }
+
+            return IconButton(
+              icon: Icon(
+                isFavourite ? Icons.favorite : Icons.favorite_border,
+                color:
+                    isFavourite ? const Color.fromARGB(255, 126, 34, 27) : null,
+              ),
+              onPressed: () {
+                context.read<FavouritesCubit>().toggleFavourite(exercise.name!);
+              },
+            );
+          },
+        )
       ],
     );
   }

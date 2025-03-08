@@ -1,6 +1,7 @@
 import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/authentication/login/login_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/favourites/favourites_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_status/onboarding_status_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/custom_app_bar.dart';
 import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
@@ -58,12 +59,14 @@ class LogInForm extends StatelessWidget {
               Routes.homeScreen,
               (Route<dynamic> route) => false,
             );
+            context.read<FavouritesCubit>().loadFavourites();
           } else {
             Navigator.of(context).pushNamedAndRemoveUntil(
               Routes.onboardingScreen,
               (Route<dynamic> route) => false,
             );
           }
+          context.read<FavouritesCubit>().loadFavourites();
         }
         if (state.status.isFailure) {
           ScaffoldMessenger.of(context)
