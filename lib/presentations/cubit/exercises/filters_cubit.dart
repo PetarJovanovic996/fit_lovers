@@ -4,17 +4,17 @@ import 'package:equatable/equatable.dart';
 part 'filters_state.dart';
 
 class FiltersCubit extends Cubit<FiltersState> {
-  FiltersCubit() : super(FiltersState());
+  FiltersCubit() : super(const FiltersState());
 
   void selectType(ExerciseType value) => emit(
-        state.copywith(type: value),
+        state.copyWith(type: value),
       );
 
   void searchByName(String value) => emit(
-        state.copywith(searchByName: value),
+        state.copyWith(searchByName: value),
       );
 
   void clearFilters() {
-    emit(FiltersState());
+    emit(const FiltersState());
   }
 }
