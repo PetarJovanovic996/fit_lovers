@@ -7,7 +7,17 @@ enum ExerciseType {
   powerlifting,
   strength,
   stretching,
-  strongman
+  strongman;
+
+  String get getScreenName => capitalizeEachWord(name.replaceAll('_', ' '));
+}
+
+String capitalizeEachWord(String text) {
+  if (text.isEmpty) return text;
+  return text.split(' ').map((word) {
+    if (word.isEmpty) return word;
+    return word[0].toUpperCase() + word.substring(1);
+  }).join(' ');
 }
 
 class FiltersState extends Equatable {
@@ -19,7 +29,7 @@ class FiltersState extends Equatable {
   @override
   List<Object?> get props => [type, searchByName];
 
-  FiltersState copywith({
+  FiltersState copyWith({
     ExerciseType? type,
     String? searchByName,
   }) {
