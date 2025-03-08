@@ -12,59 +12,66 @@ class ExerciseItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        context
-            .read<SingleExerciseCubit>()
-            .fetchSingleExercises(exercise.name!);
-        Navigator.of(context).pushNamed(
-          Routes.singleExerciseScreen,
-        );
-      },
-      child: Card(
-        color: const Color.fromARGB(255, 241, 238, 238),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(child: Text(exercise.type!)),
-              Center(child: Text(exercise.difficulty!)),
-              const SizedBox(
-                height: 12,
+    return Row(
+      children: [
+        Expanded(
+          child: InkWell(
+            onTap: () {
+              context
+                  .read<SingleExerciseCubit>()
+                  .fetchSingleExercises(exercise.name!);
+              Navigator.of(context).pushNamed(
+                Routes.singleExerciseScreen,
+              );
+            },
+            child: Card(
+              color: const Color.fromARGB(255, 241, 238, 238),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
               ),
-              Text(
-                exercise.name!,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(child: Text(exercise.type!)),
+                    Center(child: Text(exercise.difficulty!)),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      exercise.name!,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(exercise.muscle!),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    Text(exercise.equipment!),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    Text(
+                      '${AppLocalizations.of(context)!.instructions}: ${exercise.instructions}',
+                      style: const TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      maxLines: 2,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(exercise.muscle!),
-              const SizedBox(
-                height: 6,
-              ),
-              Text(exercise.equipment!),
-              const SizedBox(
-                height: 6,
-              ),
-              Text(
-                '${AppLocalizations.of(context)!.instructions}: ${exercise.instructions}',
-                style: const TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                ),
-                maxLines: 2,
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+        IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border))
+      ],
     );
   }
 }
