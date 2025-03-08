@@ -3,8 +3,12 @@ import 'package:fit_lovers/core/my_theme.dart';
 import 'package:fit_lovers/data/models/language.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/data/repositories/user_repository.dart';
+import 'package:fit_lovers/data/services/exercises_service.dart';
+import 'package:fit_lovers/presentations/cubit/exercises/exercise_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/exercises/filters_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/exercises/single_exercise_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
-import 'package:fit_lovers/presentations/cubit/onboarding_status/onboarding_status_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_status/onboarding_status_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_state.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +19,6 @@ import 'package:shared_preferences/util/legacy_to_async_migration_util.dart';
 import 'core/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-// done: moved to presentation layer
-//Cubits should not be defined / nor logically are a part of the "Domain" layer
-// Cubits handle presentation (UI) layer logic. Do not overcomplicate at the moment
 
 Future<void> main() async {
   // Future<void> clearData() async {
@@ -56,6 +56,19 @@ Future<void> main() async {
             sharedPreferences: sharedPreferences,
           ),
           lazy: false,
+        ),
+        BlocProvider(
+          create: (context) => ExerciseCubit(
+            ExerciseService(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => SingleExerciseCubit(
+            ExerciseService(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => FiltersCubit(),
         ),
       ],
       child: MyApp(

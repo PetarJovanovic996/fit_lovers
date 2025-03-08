@@ -1,10 +1,10 @@
-import 'package:fit_lovers/presentations/screens/edit_profile_screen.dart';
 import 'package:fit_lovers/presentations/screens/home_screen.dart';
 import 'package:fit_lovers/presentations/screens/log_in_screen.dart';
 import 'package:fit_lovers/presentations/screens/onboarding_screen.dart';
 import 'package:fit_lovers/presentations/screens/register_screen.dart';
 import 'package:fit_lovers/presentations/screens/welcome_view_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fit_lovers/presentations/screens/single_exercise_screen.dart';
 
 // Routes always separate words by -
 // add-new, login-screen
@@ -29,7 +29,7 @@ class Routes {
   static const String registerScreen = 'register-screen';
   static const String onboardingScreen = 'onboarding-screen';
   static const String homeScreen = 'home-screen';
-  static const String editProfileScreen = 'edit-profile-screen';
+  static const String singleExerciseScreen = 'single-exercise-screen';
 }
 
 // BONUS:
@@ -44,11 +44,11 @@ class MyRouter {
       builder: (BuildContext context) {
         return switch (routeSettings.name) {
           (Routes.welcomeViewScreen) => const WelcomeViewScreen(),
-          (Routes.logInScreen) => LogInScreen(),
-          (Routes.registerScreen) => RegisterScreen(),
+          (Routes.logInScreen) => const LogInScreen(),
+          (Routes.registerScreen) => const RegisterScreen(),
           (Routes.onboardingScreen) => const OnboardingScreen(),
           (Routes.homeScreen) => const HomeScreen(),
-          (Routes.editProfileScreen) => const EditProfileScreen(),
+          (Routes.singleExerciseScreen) => const SingleExerciseScreen(),
           // Default route
           _ => const WelcomeViewScreen(),
         };

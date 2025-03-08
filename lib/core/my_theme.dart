@@ -7,8 +7,8 @@ class MyTheme {
       hintColor: const Color.fromARGB(255, 112, 130, 139),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       scaffoldBackgroundColor: const Color.fromARGB(255, 254, 253, 253),
-      appBarTheme: AppBarTheme(
-        color: const Color.fromARGB(255, 140, 139, 139),
+      appBarTheme: const AppBarTheme(
+        color: Color.fromARGB(255, 140, 139, 139),
         elevation: 0,
         titleTextStyle: TextStyle(
           color: Colors.black,
@@ -16,7 +16,7 @@ class MyTheme {
           fontWeight: FontWeight.bold,
         ),
       ),
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
         bodyLarge: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.normal,
@@ -40,7 +40,7 @@ class MyTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       listTileTheme: ListTileThemeData(
-        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         tileColor: Colors.grey[50],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       ),
@@ -53,8 +53,8 @@ class MyTheme {
       hintColor: const Color.fromARGB(255, 160, 160, 160),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       scaffoldBackgroundColor: const Color.fromARGB(255, 18, 18, 18),
-      appBarTheme: AppBarTheme(
-        color: const Color.fromARGB(255, 22, 41, 60),
+      appBarTheme: const AppBarTheme(
+        color: Color.fromARGB(255, 22, 41, 60),
         elevation: 0,
         titleTextStyle: TextStyle(
           color: Colors.white,
@@ -62,7 +62,7 @@ class MyTheme {
           fontWeight: FontWeight.bold,
         ),
       ),
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
         bodyLarge: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.normal,
@@ -86,7 +86,7 @@ class MyTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       listTileTheme: ListTileThemeData(
-        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         tileColor: Colors.grey[800],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       ),

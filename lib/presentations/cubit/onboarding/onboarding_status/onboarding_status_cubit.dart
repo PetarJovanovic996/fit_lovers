@@ -7,7 +7,7 @@ part 'onboarding_status_state.dart';
 class OnboardingStatusCubit extends Cubit<OnboardingStatusState> {
   OnboardingStatusCubit({required SharedPreferences sharedPreferences})
       : _sharedPreferences = sharedPreferences,
-        super(OnboardingStatusState()) {
+        super(const OnboardingStatusState()) {
     _checkOnboardingStatus();
   }
 

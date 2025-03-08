@@ -7,7 +7,7 @@ import 'language_state.dart';
 class LanguageCubit extends Cubit<LanguageState> {
   LanguageCubit({required SharedPreferences sharedPreferences})
       : _sharedPreferences = sharedPreferences,
-        super(LanguageState(Locale('en'))) {
+        super(const LanguageState(Locale('en'))) {
     _getDefaultLanguage();
   }
 
@@ -21,9 +21,6 @@ class LanguageCubit extends Cubit<LanguageState> {
     }
   }
 
-  // done: This logic is ok, but orElse should not be needed
-  // Since you create the dropdown which provides supported languages inside the app
-  // there is no need to double check if the language which was sent to [changeLanguage] is supported
   Future<void> changeLanguage(String languageCode) async {
     final language = Language.supportedLanguages.firstWhere(
       (language) => language.code == languageCode,

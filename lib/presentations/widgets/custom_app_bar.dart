@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: BlocConsumer<LogOutCubit, LogOutState>(
         builder: (context, state) {
           if (state is LogOutLoading) {
-            return LoadingWidget();
+            return const LoadingWidget();
           }
 
           return AppBar(
@@ -30,10 +30,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
-                // done: This is not good, google [Spacer] widget
-                Spacer(
+                const Spacer(
                   flex: 8,
                 ),
                 if (showSignOut)
@@ -47,16 +46,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           (Route<dynamic> route) => false,
                         );
                       },
-                      icon: Icon(Icons.logout)),
-                Spacer(),
-                // done: Value declared here is not good, if we have LanguageCubit to handle languages for us, refactor.
-                // : When working with dropdown buttons, try to keep the value of the items to be simple object
-                // Simple objects are : String, int, bool etc.
-                // Locale is not a simple object. It's a custom object
-                // : The dropdown menu items should hold String values, and then parse them further to locales.
-                // : If we hardcode the list of all supported locales like this, and have this logic in couple of places, we can forget
-                //  one when adding new languages, all the available language values for a project should come from single source of truth.
-
+                      icon: const Icon(Icons.logout)),
+                const Spacer(),
                 BlocBuilder<LanguageCubit, LanguageState>(
                   builder: (context, state) {
                     String currentLanguageCode = state.locale.languageCode;
@@ -82,7 +73,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
             backgroundColor: Theme.of(context).primaryColor,
-            iconTheme: IconThemeData(color: Colors.black),
+            iconTheme: const IconThemeData(color: Colors.black),
           );
         },
         listener: (context, state) {
@@ -97,5 +88,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  get preferredSize => Size.fromHeight(kToolbarHeight);
+  get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

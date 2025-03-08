@@ -13,9 +13,6 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // done: When clicking on "Register" button without accepting terms and conditions, nothing is shown to the user.
-    // done: When Register is successful no message is shown to the user.
-    // done: There is no loading state
     return Scaffold(
       appBar: CustomAppBar(
         title: (AppLocalizations.of(context)!.register),
@@ -27,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
           create: (context) => RegisterCubit(
             AuthenticationRepository(),
           ),
-          child: RegisterForm(),
+          child: const RegisterForm(),
         ),
       ),
     );
@@ -64,15 +61,15 @@ class RegisterForm extends StatelessWidget {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _EmailInput(),
+            const _EmailInput(),
             const SizedBox(height: 8),
-            _PasswordInput(),
+            const _PasswordInput(),
             const SizedBox(height: 8),
-            _ConfirmPasswordInput(),
+            const _ConfirmPasswordInput(),
             const SizedBox(height: 8),
-            _ConsentButton(),
+            const _ConsentButton(),
             const SizedBox(height: 8),
-            if (state.status.isInProgress) LoadingWidget(),
+            if (state.status.isInProgress) const LoadingWidget(),
             const SizedBox(height: 8),
             _RegisterButton(),
           ],
@@ -182,7 +179,7 @@ class _ConsentButton extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 4.0),
                 child: Text(
                   AppLocalizations.of(context)!.invalidTemrsAndConditions,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.red,
                     fontSize: 14,
                   ),
@@ -215,7 +212,7 @@ class _RegisterButton extends StatelessWidget {
               context.read<RegisterCubit>().registerFormSubmitted(),
           child: Text(
             AppLocalizations.of(context)!.register,
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           ),
         );
       },

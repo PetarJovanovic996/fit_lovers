@@ -69,5 +69,19 @@
   "succesfullRegistration": "Uspjesna registracija. Molim vas prijavite se!",
   "@succesfullRegistration": {},
   "invalidTemrsAndConditions": "Molimo vas prihvatite uslove koriscenja",
-  "@invalidTemrsAndConditions": {}
+  "@invalidTemrsAndConditions": {},
+  "homeScreen": "Vasi treninzi!",
+  "@homeScreen": {},
+  "home": "Pocetni ekran",
+  "@home": {},
+  "favorites": "Omiljeni treninzi",
+  "@favorites": {},
+  "profile": "Moj profil",
+  "@profile": {},
+  "instructions": "Instrukcije",
+  "@instructions": {},
+  "seeDetails": "Vjezba - detaljno",
+  "@seeDetails": {},
+  "searchExercises": "Pretrazi vjezbe",
+  "@searchExercises": {}
 }

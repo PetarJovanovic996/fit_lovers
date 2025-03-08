@@ -7,15 +7,6 @@ import 'package:formz/formz.dart';
 
 part 'login_state.dart';
 
-// done: Is this how we communicate to a 3rd party service?
-// done : What is [AuthRepository]?
-
-// done: I DID NOT KNOW THIS IS HOW WE HOLD STATE IN CUBITS?
-// done: REFACTOR. ALL of the logic for handling data.
-
-// done: One cubit to rule them all? Rethink if this is the best approach, to handle all authentication traffic like this
-// Register & Login are 2 different screens, and you plan to handle both their states with 1 cubit?
-
 class LogInCubit extends Cubit<LogInState> {
   LogInCubit(this._authenticationRepository) : super(const LogInState());
 
