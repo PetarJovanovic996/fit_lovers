@@ -9,7 +9,7 @@ part 'onboarding_state.dart';
 class OnboardingCubit extends Cubit<OnboardingState> {
   OnboardingCubit({required UserRepository userRepository})
       : _userRepository = userRepository,
-        super(OnboardingState());
+        super(const OnboardingState());
 
   final UserRepository _userRepository;
 

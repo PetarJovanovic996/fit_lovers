@@ -17,7 +17,7 @@ class SingleExerciseScreen extends StatelessWidget {
       body: BlocBuilder<SingleExerciseCubit, SingleExerciseState>(
         builder: (context, state) {
           if (state is SingleExerciseLoading) {
-            return LoadingWidget();
+            return const LoadingWidget();
           }
 
           if (state is SingleExerciseLoaded) {
@@ -32,52 +32,52 @@ class SingleExerciseScreen extends StatelessWidget {
                         Center(
                             child: Text(
                           exercise.type!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                           ),
                         )),
                         Center(
                           child: Text(
                             exercise.difficulty!,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         Text(
                           exercise.name!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 32,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
                         Text(
                           exercise.muscle!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 6,
                         ),
                         Text(
                           exercise.equipment!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         Text(
                           '${AppLocalizations.of(context)!.instructions}: ${exercise.instructions}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                           ),
                         ),

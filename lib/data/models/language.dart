@@ -13,8 +13,8 @@ class Language {
 
   static List<Language> get supportedLanguages {
     return [
-      Language(code: 'en', locale: Locale('en'), name: 'English'),
-      Language(code: 'sr', locale: Locale('sr'), name: 'Srpski'),
+      Language(code: 'en', locale: const Locale('en'), name: 'English'),
+      Language(code: 'sr', locale: const Locale('sr'), name: 'Srpski'),
       // Language(code: 'ge', locale: Locale('ge'), name: 'Germ') testa radi
     ];
   }

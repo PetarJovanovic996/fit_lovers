@@ -7,7 +7,7 @@ import 'language_state.dart';
 class LanguageCubit extends Cubit<LanguageState> {
   LanguageCubit({required SharedPreferences sharedPreferences})
       : _sharedPreferences = sharedPreferences,
-        super(LanguageState(Locale('en'))) {
+        super(const LanguageState(Locale('en'))) {
     _getDefaultLanguage();
   }
 

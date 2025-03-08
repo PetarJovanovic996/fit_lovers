@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: BlocConsumer<LogOutCubit, LogOutState>(
         builder: (context, state) {
           if (state is LogOutLoading) {
-            return LoadingWidget();
+            return const LoadingWidget();
           }
 
           return AppBar(
@@ -30,9 +30,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
-                Spacer(
+                const Spacer(
                   flex: 8,
                 ),
                 if (showSignOut)
@@ -46,8 +46,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           (Route<dynamic> route) => false,
                         );
                       },
-                      icon: Icon(Icons.logout)),
-                Spacer(),
+                      icon: const Icon(Icons.logout)),
+                const Spacer(),
                 BlocBuilder<LanguageCubit, LanguageState>(
                   builder: (context, state) {
                     String currentLanguageCode = state.locale.languageCode;
@@ -73,7 +73,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
             backgroundColor: Theme.of(context).primaryColor,
-            iconTheme: IconThemeData(color: Colors.black),
+            iconTheme: const IconThemeData(color: Colors.black),
           );
         },
         listener: (context, state) {
@@ -88,5 +88,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  get preferredSize => Size.fromHeight(kToolbarHeight);
+  get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

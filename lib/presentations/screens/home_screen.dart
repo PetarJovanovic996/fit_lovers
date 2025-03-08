@@ -38,15 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: _onTabSelected,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
             label: AppLocalizations.of(context)!.home,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: const Icon(Icons.favorite),
             label: AppLocalizations.of(context)!.favorites,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: const Icon(Icons.person),
             label: AppLocalizations.of(context)!.profile,
           ),
         ],
@@ -58,12 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
 Widget _tabContent(int index) {
   switch (index) {
     case 0:
-      return HomeTabContent();
+      return const HomeTabContent();
     case 1:
-      return FavouritesTabContent();
+      return const FavouritesTabContent();
     case 2:
-      return ProfileTabContent();
+      return const ProfileTabContent();
     default:
-      return HomeTabContent();
+      return const HomeTabContent();
   }
 }

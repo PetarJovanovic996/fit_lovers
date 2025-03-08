@@ -12,7 +12,7 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OnboardingFrame();
+    return const OnboardingFrame();
   }
 }
 
@@ -31,17 +31,17 @@ class OnboardingFrame extends StatelessWidget {
               BlocBuilder<OnboardingCubit, OnboardingState>(
                 builder: (context, state) {
                   if (state.step == 0) {
-                    return Expanded(child: OnboardingStep1());
+                    return const Expanded(child: OnboardingStep1());
                   } else if (state.step == 1) {
-                    return Expanded(child: OnboardingStep2());
+                    return const Expanded(child: OnboardingStep2());
                   } else if (state.step == 2) {
-                    return Expanded(child: OnboardingStep3());
+                    return const Expanded(child: OnboardingStep3());
                   }
-                  return Expanded(child: OnboardingSummary());
+                  return const Expanded(child: OnboardingSummary());
                 },
               ),
               const SizedBox(height: 24),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   OnboardingBackButton(),
@@ -65,11 +65,11 @@ class OnboardingBackButton extends StatelessWidget {
     return BlocBuilder<OnboardingCubit, OnboardingState>(
       builder: (context, state) {
         if (state.step == 0) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
         return IconButton(
           onPressed: () => context.read<OnboardingCubit>().previous(),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             size: 32,
           ),
@@ -90,7 +90,7 @@ class OnboardingSkipButton extends StatelessWidget {
           onPressed: () => Navigator.of(context).pushNamed(Routes.homeScreen),
           child: Text(
             AppLocalizations.of(context)!.skip,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
             ),
           ),
@@ -129,7 +129,7 @@ class OnboardingNextButton extends StatelessWidget {
               }
             }
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_forward,
             size: 32,
           ),
@@ -147,7 +147,7 @@ class OnboardingStep1 extends StatelessWidget {
     return BlocBuilder<OnboardingCubit, OnboardingState>(
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -156,7 +156,7 @@ class OnboardingStep1 extends StatelessWidget {
               TextFormField(
                 initialValue: state.name.value,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   hintText: (AppLocalizations.of(context)!.name),
                   errorText: state.name.displayError != null
                       ? AppLocalizations.of(context)!.invalidEntry
@@ -170,7 +170,7 @@ class OnboardingStep1 extends StatelessWidget {
                 initialValue: state.lastName.value,
                 decoration: InputDecoration(
                   hintText: (AppLocalizations.of(context)!.lastName),
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: state.lastName.displayError != null
                       ? AppLocalizations.of(context)!.invalidEntry
                       : null,
@@ -201,7 +201,7 @@ class OnboardingStep2 extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(100, 75),
+                  minimumSize: const Size(100, 75),
                 ),
                 onPressed: () async {
                   final pickedDate = await showDatePicker(
@@ -217,7 +217,7 @@ class OnboardingStep2 extends StatelessWidget {
                 child: Text(
                   state.dob?.toString().split(' ')[0] ??
                       AppLocalizations.of(context)!.selectDateOfBirthError,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                   ),
                 ),
@@ -238,7 +238,7 @@ class OnboardingStep3 extends StatelessWidget {
     return BlocBuilder<OnboardingCubit, OnboardingState>(
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -249,7 +249,7 @@ class OnboardingStep3 extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.weight,
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: state.weight.displayError != null
                       ? AppLocalizations.of(context)!.invalidEntry
                       : null,
@@ -263,7 +263,7 @@ class OnboardingStep3 extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.height,
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: state.height.displayError != null
                       ? AppLocalizations.of(context)!.invalidEntry
                       : null,
@@ -299,15 +299,15 @@ class OnboardingSummary extends StatelessWidget {
       },
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 AppLocalizations.of(context)!.checkData,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               TextFormField(
@@ -339,7 +339,7 @@ class OnboardingSummary extends StatelessWidget {
                 onPressed: () => context.read<OnboardingCubit>().saveUserData(),
                 child: Text(
                   AppLocalizations.of(context)!.finish,
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
               ),
             ],

@@ -33,30 +33,30 @@ class ExerciseItem extends StatelessWidget {
             children: [
               Center(child: Text(exercise.type!)),
               Center(child: Text(exercise.difficulty!)),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               Text(
                 exercise.name!,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Text(exercise.muscle!),
-              SizedBox(
+              const SizedBox(
                 height: 6,
               ),
               Text(exercise.equipment!),
-              SizedBox(
+              const SizedBox(
                 height: 6,
               ),
               Text(
                 '${AppLocalizations.of(context)!.instructions}: ${exercise.instructions}',
-                style: TextStyle(
+                style: const TextStyle(
                   overflow: TextOverflow.ellipsis,
                 ),
                 maxLines: 2,

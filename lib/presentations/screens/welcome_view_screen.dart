@@ -14,13 +14,13 @@ class WelcomeViewScreen extends StatelessWidget {
         showSignOut: false,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/test.jpg"),
             fit: BoxFit.cover,
           ),
         ),
-        child: _WelcomeButtons(),
+        child: const _WelcomeButtons(),
       ),
     );
   }
@@ -43,10 +43,10 @@ class _WelcomeButtons extends StatelessWidget {
                     Navigator.of(context).pushNamed(Routes.registerScreen),
                 child: Text(
                   AppLocalizations.of(context)!.register,
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               ElevatedButton(
@@ -54,19 +54,19 @@ class _WelcomeButtons extends StatelessWidget {
                     Navigator.of(context).pushNamed(Routes.logInScreen),
                 child: Text(
                   AppLocalizations.of(context)!.login,
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                 ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pushNamed(Routes.homeScreen),
             child: Text(
               AppLocalizations.of(context)!.skip,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             ),
           ),
         ],
