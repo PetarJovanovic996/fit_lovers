@@ -1,6 +1,5 @@
 import 'package:fit_lovers/core/routes.dart';
 import 'package:fit_lovers/data/models/language.dart';
-import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_state.dart';
 import 'package:fit_lovers/presentations/cubit/settings/user_settings/log_out/log_out_cubit.dart';
@@ -12,79 +11,75 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.title, this.showSignOut = true});
   final String title;
-// done: dodaj opciju za log out / dugme i funkc u cubit
   final bool showSignOut;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LogOutCubit(AuthenticationRepository()),
-      child: BlocConsumer<LogOutCubit, LogOutState>(
-        builder: (context, state) {
-          if (state is LogOutLoading) {
-            return const LoadingWidget();
-          }
+    return BlocConsumer<LogOutCubit, LogOutState>(
+      builder: (context, state) {
+        if (state is LogOutLoading) {
+          return const LoadingWidget();
+        }
 
-          return AppBar(
-            title: Row(
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(color: Colors.black),
-                ),
-                const Spacer(
-                  flex: 8,
-                ),
-                if (showSignOut)
-                  // s pecom: I clicked "Skip" button on [WelcomeView], and LogOut button is visible,
-                  // s pecom: By clicking this button Logout logic is triggered, even though I am not logged in. Fix.
-                  // s pecom: Nakon dodavanja favorita, singOuta/a => skip button / ostaju favoriti prikazani
-                  IconButton(
-                      onPressed: () {
-                        context.read<LogOutCubit>().logOut();
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                          Routes.welcomeViewScreen,
-                          (Route<dynamic> route) => false,
-                        );
-                      },
-                      icon: const Icon(Icons.logout)),
-                const Spacer(),
-                BlocBuilder<LanguageCubit, LanguageState>(
-                  builder: (context, state) {
-                    String currentLanguageCode = state.locale.languageCode;
+        return AppBar(
+          title: Row(
+            children: [
+              Text(
+                title,
+                style: const TextStyle(color: Colors.black),
+              ),
+              const Spacer(
+                flex: 8,
+              ),
+              if (showSignOut)
+                // s pecom: I clicked "Skip" button on [WelcomeView], and LogOut button is visible,
+                // s pecom: By clicking this button Logout logic is triggered, even though I am not logged in. Fix.
+                // s pecom: Nakon dodavanja favorita, singOuta/a => skip button / ostaju favoriti prikazani
+                IconButton(
+                    onPressed: () {
+                      context.read<LogOutCubit>().logOut();
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        Routes.welcomeViewScreen,
+                        (Route<dynamic> route) => false,
+                      );
+                    },
+                    icon: const Icon(Icons.logout)),
+              const Spacer(),
+              BlocBuilder<LanguageCubit, LanguageState>(
+                builder: (context, state) {
+                  String currentLanguageCode = state.locale.languageCode;
 
-                    return DropdownButton(
-                      value: currentLanguageCode,
-                      items: Language.availableLanguages.map((language) {
-                        return DropdownMenuItem(
-                          value: language['code']!,
-                          child: Text(language['name']!),
-                        );
-                      }).toList(),
-                      onChanged: (String? languageCode) {
-                        if (languageCode != null) {
-                          context
-                              .read<LanguageCubit>()
-                              .changeLanguage(languageCode);
-                        }
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-            backgroundColor: Theme.of(context).primaryColor,
-            iconTheme: const IconThemeData(color: Colors.black),
-          );
-        },
-        listener: (context, state) {
-          if (state is LogOutErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(AppLocalizations.of(context)!.invalidLogOut)));
-            return;
-          }
-        },
-      ),
+                  return DropdownButton(
+                    value: currentLanguageCode,
+                    items: Language.availableLanguages.map((language) {
+                      return DropdownMenuItem(
+                        value: language['code']!,
+                        child: Text(language['name']!),
+                      );
+                    }).toList(),
+                    onChanged: (String? languageCode) {
+                      if (languageCode != null) {
+                        context
+                            .read<LanguageCubit>()
+                            .changeLanguage(languageCode);
+                      }
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+          backgroundColor: Theme.of(context).primaryColor,
+          iconTheme: const IconThemeData(color: Colors.black),
+        );
+      },
+      listener: (context, state) {
+        if (state is LogOutErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(AppLocalizations.of(context)!.invalidLogOut)));
+          return;
+        }
+      },
     );
   }
 
