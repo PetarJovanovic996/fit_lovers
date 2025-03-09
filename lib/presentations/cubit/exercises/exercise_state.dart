@@ -15,10 +15,23 @@ class ExerciseLoading extends ExerciseState {
 }
 
 class ExerciseLoaded extends ExerciseState {
-  const ExerciseLoaded(this.exercises);
+  const ExerciseLoaded({
+    required this.exercises,
+    required this.allExercises,
+  });
+
+  // Holds [EITHER] list of all exercises or list of filtered exercises,
+  // This List is used to display items on [HomeTabContent]
   final List<Exercise> exercises;
+  // Holds the list of all exercises at all times
+  // We use this list, to ensure we can extract favourites properly.
+  final List<Exercise> allExercises;
+
   @override
-  List<Object?> get props => [exercises];
+  List<Object?> get props => [
+        exercises,
+        allExercises,
+      ];
 }
 
 class ExerciseError extends ExerciseState {

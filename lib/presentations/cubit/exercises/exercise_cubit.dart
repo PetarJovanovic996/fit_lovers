@@ -16,7 +16,11 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     try {
       final allExercises = await _exerciseService.fetchExercises();
 
-      emit(ExerciseLoaded(allExercises));
+      // When fetching all exercises, both [exercises] and [allExercises] are the same
+      emit(ExerciseLoaded(
+        allExercises: allExercises,
+        exercises: allExercises,
+      ));
     } catch (e) {
       emit(ExerciseError(e.toString()));
     }
@@ -26,14 +30,23 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     String? type,
     String? name,
   }) async {
+    // Before emitting Loading state, extract [allExercises] from the current state
+    final allExercises = (state as ExerciseLoaded).allExercises;
+
     emit(ExerciseLoading());
     try {
-      final allExercises = await _exerciseService.fetchExercises(
+      final filteredExercises = await _exerciseService.fetchExercises(
         type: type,
         name: name,
       );
 
-      emit(ExerciseLoaded(allExercises));
+      emit(
+        ExerciseLoaded(
+          exercises: filteredExercises,
+          // Copy allExercises from previous state, to the new one
+          allExercises: allExercises,
+        ),
+      );
     } catch (e) {
       emit(ExerciseError(e.toString()));
     }
