@@ -1,4 +1,3 @@
-import 'package:fit_lovers/presentations/cubit/exercises/exercise_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/exercise_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,8 +23,10 @@ class FavouritesTabContent extends StatelessWidget {
               itemBuilder: (context, index) {
                 final exercise = state.favourites[index];
 
-                return ExerciseItem(
-                  exercise: exercise,
+                return Center(
+                  child: Text(
+                    exercise,
+                  ),
                 );
               },
             );
