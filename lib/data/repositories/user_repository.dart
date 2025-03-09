@@ -29,4 +29,48 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future<List<String>> getFavourites() async {
+    try {
+      final user = _auth.currentUser?.uid;
+      if (user != null) {
+        final myFavourites =
+            await _firebaseDatabase.ref('users/$user/favourites').get();
+        if (myFavourites.exists) {
+          return List<String>.from(myFavourites.value as List);
+        } else {
+          return [];
+        }
+      } else {
+        throw Exception('User is not authenticated');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> toggleFavourite(String exerciseName) async {
+    try {
+      final user = _auth.currentUser?.uid;
+      if (user != null) {
+        final favouritesRef = _firebaseDatabase.ref('users/$user/favourites');
+        final myFavourites = await favouritesRef.get();
+        List<String> favourites = myFavourites.exists
+            ? List<String>.from(myFavourites.value as List)
+            : [];
+
+        if (favourites.contains(exerciseName)) {
+          favourites.remove(exerciseName);
+        } else {
+          favourites.add(exerciseName);
+        }
+
+        await favouritesRef.set(favourites);
+      } else {
+        throw Exception('User is not authenticated');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
