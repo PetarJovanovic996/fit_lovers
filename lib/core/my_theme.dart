@@ -49,12 +49,12 @@ class MyTheme {
 
   static ThemeData get darkTheme {
     return ThemeData(
-      primaryColor: const Color.fromARGB(255, 30, 30, 30),
-      hintColor: const Color.fromARGB(255, 160, 160, 160),
+      primaryColor: const Color.fromARGB(255, 213, 212, 212),
+      hintColor: const Color.fromARGB(255, 9, 9, 9),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       scaffoldBackgroundColor: const Color.fromARGB(255, 18, 18, 18),
       appBarTheme: const AppBarTheme(
-        color: Color.fromARGB(255, 22, 41, 60),
+        color: Color.fromARGB(255, 244, 245, 246),
         elevation: 0,
         titleTextStyle: TextStyle(
           color: Colors.white,
@@ -71,23 +71,23 @@ class MyTheme {
         bodyMedium: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.normal,
-          color: Colors.white70,
+          color: Color.fromARGB(179, 5, 5, 5),
         ),
         titleLarge: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: Color.fromARGB(255, 15, 14, 14),
         ),
       ),
       cardTheme: CardTheme(
-        color: Colors.grey[850],
+        color: const Color.fromARGB(255, 236, 233, 233),
         elevation: 4,
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       listTileTheme: ListTileThemeData(
         contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        tileColor: Colors.grey[800],
+        tileColor: const Color.fromARGB(255, 239, 237, 237),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       ),
     );

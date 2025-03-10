@@ -1,4 +1,5 @@
 import 'package:fit_lovers/core/routes.dart';
+import 'package:fit_lovers/presentations/cubit/settings/cubit/theme_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_state.dart';
 import 'package:fit_lovers/presentations/cubit/settings/user_settings/log_out/log_out_cubit.dart';
@@ -66,7 +67,9 @@ class ProfileTabContent extends StatelessWidget {
             AppLocalizations.of(context)!.switchTheme,
             style: const TextStyle(color: Colors.black, fontSize: 20),
           ),
-          onPressed: () {},
+          onPressed: () {
+            context.read<ThemeCubit>().toggleTheme();
+          },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(250, 60),
             maximumSize: const Size(250, 60),
