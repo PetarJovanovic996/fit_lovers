@@ -16,11 +16,13 @@ class ProfileTabContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton.icon(
-          label: const Text(
-            'Edit Profile',
-            style: TextStyle(color: Colors.black, fontSize: 20),
+          label: Text(
+            AppLocalizations.of(context)!.editProfile,
+            style: const TextStyle(color: Colors.black, fontSize: 20),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(Routes.editProfileScreen);
+          },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(250, 60),
             maximumSize: const Size(250, 60),
@@ -42,8 +44,8 @@ class ProfileTabContent extends StatelessWidget {
                   currentLanguageCode == 'en' ? 'sr' : 'en';
               context.read<LanguageCubit>().changeLanguage(nextLanguageCode);
             },
-            label: const Text(
-              'Switch language',
+            label: Text(
+              AppLocalizations.of(context)!.switchLanguage,
               style: const TextStyle(color: Colors.black, fontSize: 20),
             ),
             style: ElevatedButton.styleFrom(
@@ -60,9 +62,9 @@ class ProfileTabContent extends StatelessWidget {
           height: 24,
         ),
         ElevatedButton.icon(
-          label: const Text(
-            'Switch Theme',
-            style: TextStyle(color: Colors.black, fontSize: 20),
+          label: Text(
+            AppLocalizations.of(context)!.switchTheme,
+            style: const TextStyle(color: Colors.black, fontSize: 20),
           ),
           onPressed: () {},
           style: ElevatedButton.styleFrom(
@@ -78,9 +80,9 @@ class ProfileTabContent extends StatelessWidget {
           height: 24,
         ),
         ElevatedButton.icon(
-          label: const Text(
-            'Log Out',
-            style: TextStyle(color: Colors.black, fontSize: 20),
+          label: Text(
+            AppLocalizations.of(context)!.logOut,
+            style: const TextStyle(color: Colors.black, fontSize: 20),
           ),
           onPressed: () {
             context.read<LogOutCubit>().logOut();
@@ -102,9 +104,9 @@ class ProfileTabContent extends StatelessWidget {
           height: 24,
         ),
         ElevatedButton.icon(
-          label: const Text(
-            'Delete Account',
-            style: TextStyle(color: Colors.black, fontSize: 20),
+          label: Text(
+            AppLocalizations.of(context)!.deleteAccount,
+            style: const TextStyle(color: Colors.black, fontSize: 20),
           ),
           onPressed: () {},
           style: ElevatedButton.styleFrom(

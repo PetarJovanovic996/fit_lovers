@@ -83,5 +83,15 @@
   "seeDetails": "Detailed exercise",
   "@seeDetails": {},
   "searchExercises": "Search Exercises",
-  "@searchExercises": {}
+  "@searchExercises": {},
+  "switchLanguage": "Switch Language",
+  "@switchLanguage": {},
+  "switchTheme": "Switch Theme",
+  "@switchTheme": {},
+  "logOut": "Log Out",
+  "@logOut": {},
+  "deleteAccount": "Delete Account",
+  "@deleteAccount": {},
+  "editProfile": "Edit Profile",
+  "@editProfile": {}
  }

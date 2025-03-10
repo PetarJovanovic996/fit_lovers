@@ -2,6 +2,7 @@ part of 'filters_cubit.dart';
 
 enum ExerciseType {
   cardio,
+  // ignore: constant_identifier_names
   olympic_weightlifting,
   plyometrics,
   powerlifting,

@@ -83,5 +83,15 @@
   "seeDetails": "Vjezba - detaljno",
   "@seeDetails": {},
   "searchExercises": "Pretrazi vjezbe",
-  "@searchExercises": {}
+  "@searchExercises": {},
+  "switchLanguage": "Promijeni jezik",
+  "@switchLanguage": {},
+  "switchTheme": "Promijeni temu",
+  "@switchTheme": {},
+  "logOut": "Odjavi se",
+  "@logOut": {},
+  "deleteAccount": "Obrisi nalog",
+  "@deleteAccount": {},
+  "editProfile": "Uredi profil",
+  "@editProfile": {}
 }
