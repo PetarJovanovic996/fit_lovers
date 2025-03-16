@@ -18,4 +18,6 @@ class LogOutCubit extends Cubit<LogOutState> {
       emit(LogOutErrorState(e.toString()));
     }
   }
+
+  void reset() => emit(LogOutInitial());
 }
