@@ -1,3 +1,5 @@
+import 'package:fit_lovers/data/repositories/authentication_repository.dart';
+import 'package:fit_lovers/presentations/cubit/settings/user_settings/log_out/log_out_cubit.dart';
 import 'package:fit_lovers/presentations/screens/edit_profile_screen.dart';
 import 'package:fit_lovers/presentations/screens/home_screen.dart';
 import 'package:fit_lovers/presentations/screens/log_in_screen.dart';
@@ -6,6 +8,9 @@ import 'package:fit_lovers/presentations/screens/register_screen.dart';
 import 'package:fit_lovers/presentations/screens/welcome_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_lovers/presentations/screens/single_exercise_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../data/models/user.dart';
 
 // Routes always separate words by -
 // add-new, login-screen
@@ -44,18 +49,38 @@ class MyRouter {
   static Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
     return MaterialPageRoute(
       builder: (BuildContext context) {
-        return switch (routeSettings.name) {
-          (Routes.welcomeViewScreen) => const WelcomeViewScreen(),
-          (Routes.logInScreen) => const LogInScreen(),
-          (Routes.registerScreen) => const RegisterScreen(),
-          (Routes.onboardingScreen) => const OnboardingScreen(),
-          (Routes.homeScreen) => const HomeScreen(),
-          (Routes.singleExerciseScreen) => const SingleExerciseScreen(),
-          (Routes.editProfileScreen) => const EditProfileScreen(),
+        return BlocBuilder<LogOutCubit, LogOutState>(
+          buildWhen: (_, curr) => curr is LogOutCompleted,
+          builder: (context, logoutState) {
+            return StreamBuilder(
+              stream: context.read<AuthenticationRepository>().user,
+              builder: (context, snapshot) {
+                bool isLoggedIn =
+                    snapshot.hasData ? snapshot.data != User.empty : false;
 
-          // Default route
-          _ => const WelcomeViewScreen(),
-        };
+                if (!isLoggedIn) {
+                  if (logoutState is LogOutCompleted) {
+                    context.read<LogOutCubit>().reset();
+                    return const WelcomeViewScreen();
+                  }
+                }
+
+                return switch (routeSettings.name) {
+                  (Routes.welcomeViewScreen) => const WelcomeViewScreen(),
+                  (Routes.logInScreen) => const LogInScreen(),
+                  (Routes.registerScreen) => const RegisterScreen(),
+                  (Routes.onboardingScreen) => const OnboardingScreen(),
+                  (Routes.homeScreen) => const HomeScreen(),
+                  (Routes.singleExerciseScreen) => const SingleExerciseScreen(),
+                  (Routes.editProfileScreen) => const EditProfileScreen(),
+
+                  // Default route
+                  _ => const WelcomeViewScreen(),
+                };
+              },
+            );
+          },
+        );
       },
     );
   }
