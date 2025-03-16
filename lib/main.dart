@@ -10,8 +10,11 @@ import 'package:fit_lovers/presentations/cubit/exercises/single_exercise_cubit.d
 import 'package:fit_lovers/presentations/cubit/favourites/favourites_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/onboarding/onboarding_status/onboarding_status_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/settings/cubit/theme_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/settings/cubit/theme_state.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_state.dart';
+import 'package:fit_lovers/presentations/cubit/settings/user_settings/log_out/log_out_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +23,8 @@ import 'package:shared_preferences/util/legacy_to_async_migration_util.dart';
 import 'core/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'data/models/user.dart';
 
 Future<void> main() async {
   // Future<void> clearData() async {
@@ -41,7 +46,9 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   final authenticationRepository = AuthenticationRepository();
-  await authenticationRepository.user.first;
+
+  // await authenticationRepository.logOut();
+  final isLoggedIn = (await authenticationRepository.user.first) != User.empty;
 
   runApp(
     MultiBlocProvider(
@@ -73,10 +80,15 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (context) => FavouritesCubit(UserRepository()),
-        )
+        ),
+        BlocProvider(
+          create: (context) => LogOutCubit(AuthenticationRepository()),
+        ),
+        BlocProvider(create: (context) => ThemeCubit()),
       ],
       child: MyApp(
         authenticationRepository: authenticationRepository,
+        isLoggedIn: isLoggedIn,
       ),
     ),
   );
@@ -86,10 +98,12 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({
     required AuthenticationRepository authenticationRepository,
+    this.isLoggedIn = false,
     super.key,
   }) : _authenticationRepository = authenticationRepository;
 
   final AuthenticationRepository _authenticationRepository;
+  final bool isLoggedIn;
 
   @override
   Widget build(BuildContext context) {
@@ -104,25 +118,33 @@ class MyApp extends StatelessWidget {
         ],
         child: BlocBuilder<LanguageCubit, LanguageState>(
           builder: (context, state) {
-            return MaterialApp(
-              locale: state.locale,
-              localizationsDelegates: [
-                AppLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              // done: When declaring locales we can only use the language code and omit the country code
-              // Locale('sr'), Locale('en')
-              // done: Why not utilize [language.dart] line: 14 ?
-              supportedLocales: Language.supportedLanguages
-                  .map((language) => language.locale)
-                  .toList(),
-              theme: MyTheme.lightTheme,
-              debugShowCheckedModeBanner: false,
-              title: 'Fit Lovers',
+            return BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, themeState) {
+                return MaterialApp(
+                  locale: state.locale,
+                  localizationsDelegates: [
+                    AppLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  // done: When declaring locales we can only use the language code and omit the country code
+                  // Locale('sr'), Locale('en')
+                  // done: Why not utilize [language.dart] line: 14 ?
+                  supportedLocales: Language.supportedLanguages
+                      .map((language) => language.locale)
+                      .toList(),
+                  theme: themeState.appTheme == AppTheme.light
+                      ? MyTheme.lightTheme
+                      : MyTheme.darkTheme,
 
-              onGenerateRoute: MyRouter.onGenerateRoute,
+                  debugShowCheckedModeBanner: false,
+                  title: 'Fit Lovers',
+                  initialRoute:
+                      isLoggedIn ? Routes.homeScreen : Routes.welcomeViewScreen,
+                  onGenerateRoute: MyRouter.onGenerateRoute,
+                );
+              },
             );
           },
         ),
