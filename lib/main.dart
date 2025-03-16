@@ -24,6 +24,8 @@ import 'core/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'data/models/user.dart';
+
 Future<void> main() async {
   // Future<void> clearData() async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -44,7 +46,9 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   final authenticationRepository = AuthenticationRepository();
-  await authenticationRepository.user.first;
+
+  // await authenticationRepository.logOut();
+  final isLoggedIn = (await authenticationRepository.user.first) != User.empty;
 
   runApp(
     MultiBlocProvider(
@@ -84,6 +88,7 @@ Future<void> main() async {
       ],
       child: MyApp(
         authenticationRepository: authenticationRepository,
+        isLoggedIn: isLoggedIn,
       ),
     ),
   );
@@ -93,10 +98,12 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({
     required AuthenticationRepository authenticationRepository,
+    this.isLoggedIn = false,
     super.key,
   }) : _authenticationRepository = authenticationRepository;
 
   final AuthenticationRepository _authenticationRepository;
+  final bool isLoggedIn;
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +140,8 @@ class MyApp extends StatelessWidget {
 
                   debugShowCheckedModeBanner: false,
                   title: 'Fit Lovers',
-
+                  initialRoute:
+                      isLoggedIn ? Routes.homeScreen : Routes.welcomeViewScreen,
                   onGenerateRoute: MyRouter.onGenerateRoute,
                 );
               },
