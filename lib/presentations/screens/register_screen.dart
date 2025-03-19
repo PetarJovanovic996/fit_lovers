@@ -24,7 +24,17 @@ class RegisterScreen extends StatelessWidget {
           create: (context) => RegisterCubit(
             AuthenticationRepository(),
           ),
-          child: const RegisterForm(),
+          child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/reg.jpg'),
+                  fit: BoxFit.cover,
+                  invertColors: true,
+                  colorFilter: ColorFilter.mode(
+                      Color.fromARGB(255, 29, 11, 11), BlendMode.hardLight),
+                ),
+              ),
+              child: const RegisterForm()),
         ),
       ),
     );
@@ -59,7 +69,6 @@ class RegisterForm extends StatelessWidget {
       },
       builder: (context, state) {
         return Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
             const _EmailInput(),
             const SizedBox(height: 8),

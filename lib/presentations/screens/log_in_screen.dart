@@ -27,7 +27,17 @@ class LogInScreen extends StatelessWidget {
           create: (context) => LogInCubit(
             AuthenticationRepository(),
           ),
-          child: const LogInForm(),
+          child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/reg.jpg'),
+                  fit: BoxFit.cover,
+                  invertColors: true,
+                  colorFilter: ColorFilter.mode(
+                      Color.fromARGB(255, 29, 11, 11), BlendMode.hardLight),
+                ),
+              ),
+              child: const LogInForm()),
         ),
       ),
     );

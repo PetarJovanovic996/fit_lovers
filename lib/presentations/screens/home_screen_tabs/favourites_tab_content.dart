@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fit_lovers/presentations/cubit/favourites/favourites_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FavouritesTabContent extends StatelessWidget {
   const FavouritesTabContent({super.key});
@@ -34,11 +35,24 @@ class FavouritesTabContent extends StatelessWidget {
                     .where((exercise) => favourites.contains(exercise.name))
                     .toList();
 
-                return ListView.builder(
-                  itemCount: state.favourites.length,
-                  itemBuilder: (context, index) => ExerciseItem(
-                    exercise: favouriteExercises[index],
-                  ),
+                return Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.favorites,
+                      style: const TextStyle(fontSize: 25, color: Colors.black),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: state.favourites.length,
+                        itemBuilder: (context, index) => ExerciseItem(
+                          exercise: favouriteExercises[index],
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               }
 

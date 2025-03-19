@@ -22,67 +22,81 @@ class SingleExerciseScreen extends StatelessWidget {
 
           if (state is SingleExerciseLoaded) {
             final exercise = state.exercise;
-            return Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: ListView(
-                children: [
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                            child: Text(
-                          exercise.type!,
-                          style: const TextStyle(
-                            fontSize: 20,
-                          ),
-                        )),
-                        Center(
-                          child: Text(
-                            exercise.difficulty!,
+            return Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/test2.jpg"),
+                      fit: BoxFit.cover,
+                      invertColors: true,
+                      colorFilter: ColorFilter.mode(
+                          Color.fromARGB(255, 33, 26, 26),
+                          BlendMode.hardLight))),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: ListView(
+                  children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                              child: Text(
+                            exercise.type!,
                             style: const TextStyle(
-                              fontSize: 20,
+                                fontSize: 20, color: Colors.black),
+                          )),
+                          Center(
+                            child: Text(
+                              exercise.difficulty!,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Text(
-                          exercise.name!,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 32,
+                          const SizedBox(
+                            height: 12,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text(
-                          exercise.muscle!,
-                          style: const TextStyle(
-                            fontSize: 20,
+                          Text(
+                            exercise.name!,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 32,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Text(
-                          exercise.equipment!,
-                          style: const TextStyle(
-                            fontSize: 20,
+                          const SizedBox(
+                            height: 16,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Text(
-                          '${AppLocalizations.of(context)!.instructions}: ${exercise.instructions}',
-                          style: const TextStyle(
-                            fontSize: 16,
+                          Text(
+                            exercise.muscle!,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                      ]),
-                ],
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          Text(
+                            exercise.equipment!,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Text(
+                            '${AppLocalizations.of(context)!.instructions}: ${exercise.instructions}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ]),
+                  ],
+                ),
               ),
             );
           }

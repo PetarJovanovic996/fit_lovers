@@ -38,10 +38,23 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: CustomAppBar(
         title: AppLocalizations.of(context)!.homeScreen,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: _tabContent(_selectedIndex),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/test3.jpg"),
+            fit: BoxFit.cover,
+            invertColors: true,
+            colorFilter: ColorFilter.mode(
+              Color.fromARGB(255, 212, 88, 88),
+              BlendMode.colorBurn,
+            ),
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: _tabContent(_selectedIndex),
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

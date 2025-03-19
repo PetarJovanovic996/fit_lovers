@@ -92,6 +92,11 @@ flutter:
   
   assets:
     - assets/images/test.jpg
+    - assets/images/test2.jpg
+    - assets/images/test3.jpg
+    - assets/images/reg.jpg
+
+
     - lib/l10n/
 
 

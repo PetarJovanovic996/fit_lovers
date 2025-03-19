@@ -23,33 +23,42 @@ class OnboardingFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: (AppLocalizations.of(context)!.onboarding)),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              BlocBuilder<OnboardingCubit, OnboardingState>(
-                builder: (context, state) {
-                  if (state.step == 0) {
-                    return const Expanded(child: OnboardingStep1());
-                  } else if (state.step == 1) {
-                    return const Expanded(child: OnboardingStep2());
-                  } else if (state.step == 2) {
-                    return const Expanded(child: OnboardingStep3());
-                  }
-                  return const Expanded(child: OnboardingSummary());
-                },
-              ),
-              const SizedBox(height: 24),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  OnboardingBackButton(),
-                  OnboardingSkipButton(),
-                  OnboardingNextButton(),
-                ],
-              ),
-            ],
+      body: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/test2.jpg"),
+                fit: BoxFit.cover,
+                invertColors: true,
+                colorFilter: ColorFilter.mode(
+                    Color.fromARGB(255, 33, 26, 26), BlendMode.hardLight))),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: [
+                BlocBuilder<OnboardingCubit, OnboardingState>(
+                  builder: (context, state) {
+                    if (state.step == 0) {
+                      return const Expanded(child: OnboardingStep1());
+                    } else if (state.step == 1) {
+                      return const Expanded(child: OnboardingStep2());
+                    } else if (state.step == 2) {
+                      return const Expanded(child: OnboardingStep3());
+                    }
+                    return const Expanded(child: OnboardingSummary());
+                  },
+                ),
+                const SizedBox(height: 24),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    OnboardingBackButton(),
+                    OnboardingSkipButton(),
+                    OnboardingNextButton(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -305,33 +314,51 @@ class OnboardingSummary extends StatelessWidget {
             children: [
               Text(
                 AppLocalizations.of(context)!.checkData,
-                style: const TextStyle(fontSize: 20),
+                style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 24,
               ),
               TextFormField(
                 initialValue: state.name.value,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
                 enabled: false,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 initialValue: state.lastName.value,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
                 enabled: false,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 initialValue: state.dob.toString().split(' ')[0],
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
                 enabled: false,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 initialValue: state.weight.value,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
                 enabled: false,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 initialValue: state.height.value,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
                 enabled: false,
               ),
               const SizedBox(height: 24),
