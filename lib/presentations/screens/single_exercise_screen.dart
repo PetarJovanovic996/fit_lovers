@@ -94,6 +94,27 @@ class SingleExerciseScreen extends StatelessWidget {
                               color: Colors.black,
                             ),
                           ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              // dodati da kada se klikne ide u zavrsene vjezbe
+                            },
+                            label: Text(
+                              AppLocalizations.of(context)!.completedExercises,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 20),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(250, 60),
+                              maximumSize: const Size(275, 60),
+                            ),
+                            icon: const Icon(
+                              Icons.done,
+                              color: Colors.black,
+                            ),
+                          ),
                         ]),
                   ],
                 ),

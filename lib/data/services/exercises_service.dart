@@ -11,7 +11,6 @@ class ExerciseService {
     String? name,
   }) async {
     try {
-      // ToDO:
       String url = apiUrl;
       Map<String, String> queryParams = {};
 

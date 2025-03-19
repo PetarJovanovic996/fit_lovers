@@ -15,7 +15,6 @@ class LogInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // s pecom: When I restart the application, I need to login again. Missing save user session logic
     return Scaffold(
       appBar: CustomAppBar(
         title: (AppLocalizations.of(context)!.login),

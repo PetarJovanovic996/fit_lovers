@@ -93,5 +93,7 @@
   "deleteAccount": "Delete Account",
   "@deleteAccount": {},
   "editProfile": "Edit Profile",
-  "@editProfile": {}
+  "@editProfile": {},
+  "completedExercises": "Completed Exercise",
+  "@completedExercises": {}
  }

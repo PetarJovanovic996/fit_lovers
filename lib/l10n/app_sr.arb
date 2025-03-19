@@ -93,5 +93,7 @@
   "deleteAccount": "Obrisi nalog",
   "@deleteAccount": {},
   "editProfile": "Uredi profil",
-  "@editProfile": {}
+  "@editProfile": {},
+  "completedExercises": "Zavrsen trening",
+  "@completedExercises": {}
 }
