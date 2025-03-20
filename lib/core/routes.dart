@@ -1,5 +1,6 @@
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/presentations/cubit/settings/user_settings/log_out/log_out_cubit.dart';
+import 'package:fit_lovers/presentations/screens/completed_exercises_screen.dart';
 import 'package:fit_lovers/presentations/screens/edit_profile_screen.dart';
 import 'package:fit_lovers/presentations/screens/home_screen.dart';
 import 'package:fit_lovers/presentations/screens/log_in_screen.dart';
@@ -37,6 +38,7 @@ class Routes {
   static const String homeScreen = 'home-screen';
   static const String singleExerciseScreen = 'single-exercise-screen';
   static const String editProfileScreen = 'edit-profile-screen';
+  static const String completedExercisesScreen = 'completed-exercises-screen';
 }
 
 // BONUS:
@@ -73,6 +75,8 @@ class MyRouter {
                   (Routes.homeScreen) => const HomeScreen(),
                   (Routes.singleExerciseScreen) => const SingleExerciseScreen(),
                   (Routes.editProfileScreen) => const EditProfileScreen(),
+                  (Routes.completedExercisesScreen) =>
+                    const CompletedExercisesScreen(),
 
                   // Default route
                   _ => const WelcomeViewScreen(),

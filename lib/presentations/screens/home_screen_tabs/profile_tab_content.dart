@@ -31,7 +31,8 @@ class ProfileTabContent extends StatelessWidget {
                     style: const TextStyle(color: Colors.black, fontSize: 20),
                   ),
                   onPressed: () {
-                    // ToDo: ovdje cuvati sve koji su kliknuti da su kompleted na singleExerciseScreenu
+                    Navigator.of(context)
+                        .pushNamed(Routes.completedExercisesScreen);
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(250, 60),

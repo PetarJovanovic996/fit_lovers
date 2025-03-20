@@ -94,6 +94,10 @@
   "@deleteAccount": {},
   "editProfile": "Uredi profil",
   "@editProfile": {},
-  "completedExercises": "Zavrsen trening",
-  "@completedExercises": {}
+  "completedExercises": "Sacuvaj kao zavrsen trening",
+  "@completedExercises": {},
+  "completedExercises2": "Zavrsen trening",
+  "@completedExercises2": {},
+  "delete": "Izbrisi",
+  "@delete": {}
 }

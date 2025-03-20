@@ -1,3 +1,4 @@
+import 'package:fit_lovers/presentations/cubit/completed/completed_exercises_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/exercises/single_exercise_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/custom_app_bar.dart';
 import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
@@ -97,23 +98,38 @@ class SingleExerciseScreen extends StatelessWidget {
                           const SizedBox(
                             height: 24,
                           ),
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              // dodati da kada se klikne ide u zavrsene vjezbe
+                          BlocBuilder<CompletedExercisesCubit,
+                              CompletedExercisesState>(
+                            builder: (context, state) {
+                              bool isCompleted = false;
+                              if (state is CompletedExercisesLoaded) {
+                                isCompleted =
+                                    state.completed.contains(exercise.name);
+                              }
+
+                              return ElevatedButton.icon(
+                                onPressed: isCompleted
+                                    ? null
+                                    : () {
+                                        context
+                                            .read<CompletedExercisesCubit>()
+                                            .addCompleted(exercise.name!);
+                                      },
+                                label: Text(
+                                  AppLocalizations.of(context)!
+                                      .completedExercises,
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 20),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(1, 80),
+                                ),
+                                icon: const Icon(
+                                  Icons.done,
+                                  color: Colors.black,
+                                ),
+                              );
                             },
-                            label: Text(
-                              AppLocalizations.of(context)!.completedExercises,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 20),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(250, 60),
-                              maximumSize: const Size(275, 60),
-                            ),
-                            icon: const Icon(
-                              Icons.done,
-                              color: Colors.black,
-                            ),
                           ),
                         ]),
                   ],

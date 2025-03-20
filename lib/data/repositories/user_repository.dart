@@ -73,4 +73,67 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future<List<String>> getCompleted() async {
+    try {
+      final user = _auth.currentUser?.uid;
+      if (user != null) {
+        final myCompleted =
+            await _firebaseDatabase.ref('users/$user/completed').get();
+        if (myCompleted.exists) {
+          return List<String>.from(myCompleted.value as List);
+        } else {
+          return [];
+        }
+      } else {
+        throw Exception('User is not authenticated');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> addCompleted(String exerciseName) async {
+    try {
+      final user = _auth.currentUser?.uid;
+      if (user != null) {
+        final completedRef = _firebaseDatabase.ref('users/$user/completed');
+        final myCompleted = await completedRef.get();
+        List<String> completed = myCompleted.exists
+            ? List<String>.from(myCompleted.value as List)
+            : [];
+
+        if (!completed.contains(exerciseName)) {
+          completed.add(exerciseName);
+          await completedRef.set(completed);
+        }
+      } else {
+        throw Exception('User is not authenticated');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> removeCompleted(String exerciseName) async {
+    try {
+      final user = _auth.currentUser?.uid;
+      if (user != null) {
+        final completedRef = _firebaseDatabase.ref('users/$user/completed');
+        final myCompleted = await completedRef.get();
+        List<String> completed = myCompleted.exists
+            ? List<String>.from(myCompleted.value as List)
+            : [];
+
+        if (completed.contains(exerciseName)) {
+          completed.remove(exerciseName);
+          await completedRef.set(completed);
+        }
+      } else {
+        throw Exception('User is not authenticated');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

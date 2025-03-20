@@ -4,6 +4,7 @@ import 'package:fit_lovers/data/models/language.dart';
 import 'package:fit_lovers/data/repositories/authentication_repository.dart';
 import 'package:fit_lovers/data/repositories/user_repository.dart';
 import 'package:fit_lovers/data/services/exercises_service.dart';
+import 'package:fit_lovers/presentations/cubit/completed/completed_exercises_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/exercises/exercise_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/exercises/filters_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/exercises/single_exercise_cubit.dart';
@@ -85,6 +86,8 @@ Future<void> main() async {
           create: (context) => LogOutCubit(AuthenticationRepository()),
         ),
         BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(
+            create: (context) => CompletedExercisesCubit(UserRepository())),
       ],
       child: MyApp(
         authenticationRepository: authenticationRepository,

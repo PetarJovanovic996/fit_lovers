@@ -94,6 +94,10 @@
   "@deleteAccount": {},
   "editProfile": "Edit Profile",
   "@editProfile": {},
-  "completedExercises": "Completed Exercise",
-  "@completedExercises": {}
+  "completedExercises": "Save As Completed Exercise",
+  "@completedExercises": {},
+  "completedExercises2": "Completed Exercise",
+  "@completedExercises2": {},
+  "delete": "Remove",
+  "@delete": {}
  }
