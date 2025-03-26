@@ -1,8 +1,9 @@
+import 'package:fit_lovers/core/routes.dart';
+import 'package:fit_lovers/presentations/cubit/exercises/single_exercise_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/training%20circle/training_circle_cubit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fit_lovers/data/models/exercise.dart';
-import 'package:fit_lovers/presentations/cubit/completed/completed_exercises_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/exercises/exercise_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/custom_app_bar.dart';
 import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
@@ -96,10 +97,17 @@ class _TrainingCircleItems extends StatelessWidget {
             ),
             const Spacer(),
             TextButton(
-              onPressed: () {},
-              child: const Text(
-                'see details',
-                style: TextStyle(
+              onPressed: () {
+                context
+                    .read<SingleExerciseCubit>()
+                    .fetchSingleExercises(exercise.name!);
+                Navigator.of(context).pushNamed(
+                  Routes.singleExerciseScreen,
+                );
+              },
+              child: Text(
+                AppLocalizations.of(context)!.seeDetails2,
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w200,
                   fontSize: 16,

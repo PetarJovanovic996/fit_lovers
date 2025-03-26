@@ -103,5 +103,7 @@
   "addTrainingCircle": "Add to your training circle",
   "@addTrainingCircle": {},
   "trainingCircle": "Training Circle",
-  "@trainingCircle": {}
+  "@trainingCircle": {},
+  "seeDetails2": "see details",
+  "@seeDetails2": {}
  }

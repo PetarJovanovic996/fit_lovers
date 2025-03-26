@@ -103,5 +103,7 @@
   "addTrainingCircle": "Dodaj u kruzni trening",
   "@addTrainingCircle": {},
   "trainingCircle": "Kruzni trening",
-  "@trainingCircle": {}
+  "@trainingCircle": {},
+  "seeDetails2": "detalji vjezbe",
+  "@seeDetails2": {}
 }
