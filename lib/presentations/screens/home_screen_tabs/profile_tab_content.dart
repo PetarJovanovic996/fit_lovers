@@ -27,6 +27,28 @@ class ProfileTabContent extends StatelessWidget {
               if (isLoggedIn)
                 ElevatedButton.icon(
                   label: Text(
+                    AppLocalizations.of(context)!.trainingCircle,
+                    style: const TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(Routes.trainingCircleScreen);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(250, 60),
+                    maximumSize: const Size(275, 60),
+                  ),
+                  icon: const Icon(
+                    Icons.sports_gymnastics_rounded,
+                    color: Colors.black,
+                  ),
+                ),
+              const SizedBox(
+                height: 24,
+              ),
+              if (isLoggedIn)
+                ElevatedButton.icon(
+                  label: Text(
                     AppLocalizations.of(context)!.completedExercises,
                     style: const TextStyle(color: Colors.black, fontSize: 20),
                   ),

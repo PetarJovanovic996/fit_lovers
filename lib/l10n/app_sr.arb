@@ -99,5 +99,9 @@
   "completedExercises2": "Zavrsen trening",
   "@completedExercises2": {},
   "delete": "Izbrisi",
-  "@delete": {}
+  "@delete": {},
+  "addTrainingCircle": "Dodaj u kruzni trening",
+  "@addTrainingCircle": {},
+  "trainingCircle": "Kruzni trening",
+  "@trainingCircle": {}
 }

@@ -136,4 +136,69 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future<List<String>> getTrainingCircle() async {
+    try {
+      final user = _auth.currentUser?.uid;
+      if (user != null) {
+        final myTrainingCircle =
+            await _firebaseDatabase.ref('users/$user/trainingCircle').get();
+        if (myTrainingCircle.exists) {
+          return List<String>.from(myTrainingCircle.value as List);
+        } else {
+          return [];
+        }
+      } else {
+        throw Exception('User is not authenticated');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> addTrainingCircle(String exerciseName) async {
+    try {
+      final user = _auth.currentUser?.uid;
+      if (user != null) {
+        final trainingCircleRef =
+            _firebaseDatabase.ref('users/$user/trainingCircle');
+        final myTrainingCircle = await trainingCircleRef.get();
+        List<String> trainingCircle = myTrainingCircle.exists
+            ? List<String>.from(myTrainingCircle.value as List)
+            : [];
+
+        if (!trainingCircle.contains(exerciseName)) {
+          trainingCircle.add(exerciseName);
+          await trainingCircleRef.set(trainingCircle);
+        }
+      } else {
+        throw Exception('User is not authenticated');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> removeTrainingCircle(String exerciseName) async {
+    try {
+      final user = _auth.currentUser?.uid;
+      if (user != null) {
+        final trainingCircleRef =
+            _firebaseDatabase.ref('users/$user/trainingCircle');
+        final myTrainingCircle = await trainingCircleRef.get();
+        List<String> trainingCircle = myTrainingCircle.exists
+            ? List<String>.from(myTrainingCircle.value as List)
+            : [];
+
+        if (!trainingCircle.contains(exerciseName)) {
+          trainingCircle.remove(exerciseName);
+          await trainingCircleRef.set(trainingCircle);
+        }
+      } else {
+        throw Exception('User is not authenticated');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

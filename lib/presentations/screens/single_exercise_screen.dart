@@ -1,5 +1,6 @@
 import 'package:fit_lovers/presentations/cubit/completed/completed_exercises_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/exercises/single_exercise_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/training%20circle/training_circle_cubit.dart';
 import 'package:fit_lovers/presentations/widgets/custom_app_bar.dart';
 import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -107,27 +108,69 @@ class SingleExerciseScreen extends StatelessWidget {
                                     state.completed.contains(exercise.name);
                               }
 
-                              return ElevatedButton.icon(
-                                onPressed: isCompleted
-                                    ? null
-                                    : () {
-                                        context
-                                            .read<CompletedExercisesCubit>()
-                                            .addCompleted(exercise.name!);
-                                      },
-                                label: Text(
-                                  AppLocalizations.of(context)!
-                                      .completedExercises,
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 20),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(1, 80),
-                                ),
-                                icon: const Icon(
-                                  Icons.done,
-                                  color: Colors.black,
-                                ),
+                              return Column(
+                                children: [
+                                  ElevatedButton.icon(
+                                    onPressed: isCompleted
+                                        ? null
+                                        : () {
+                                            context
+                                                .read<CompletedExercisesCubit>()
+                                                .addCompleted(exercise.name!);
+                                          },
+                                    label: Text(
+                                      AppLocalizations.of(context)!
+                                          .completedExercises,
+                                      style: const TextStyle(
+                                          color: Colors.black, fontSize: 20),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: const Size(1, 80),
+                                    ),
+                                    icon: const Icon(
+                                      Icons.done,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 24,
+                                  ),
+                                  //ToDo: odavde
+                                  BlocBuilder<TrainingCircleCubit,
+                                      TrainingCircleState>(
+                                    builder: (context, state) {
+                                      bool isSelected = false;
+                                      if (state is TrainingCircleLoaded) {
+                                        isSelected = state.trainingCircle
+                                            .contains(exercise.name);
+                                      }
+                                      return ElevatedButton.icon(
+                                        onPressed: isSelected
+                                            ? null
+                                            : () {
+                                                context
+                                                    .read<TrainingCircleCubit>()
+                                                    .addTrainingCircle(
+                                                        exercise.name!);
+                                              },
+                                        label: Text(
+                                          AppLocalizations.of(context)!
+                                              .addTrainingCircle,
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          minimumSize: const Size(1, 80),
+                                        ),
+                                        icon: const Icon(
+                                          Icons.sports_gymnastics_sharp,
+                                          color: Colors.black,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
                               );
                             },
                           ),

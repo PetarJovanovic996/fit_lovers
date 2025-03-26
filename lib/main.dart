@@ -16,6 +16,7 @@ import 'package:fit_lovers/presentations/cubit/settings/cubit/theme_state.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_cubit.dart';
 import 'package:fit_lovers/presentations/cubit/settings/language/language_state.dart';
 import 'package:fit_lovers/presentations/cubit/settings/user_settings/log_out/log_out_cubit.dart';
+import 'package:fit_lovers/presentations/cubit/training%20circle/training_circle_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,6 +89,8 @@ Future<void> main() async {
         BlocProvider(create: (context) => ThemeCubit()),
         BlocProvider(
             create: (context) => CompletedExercisesCubit(UserRepository())),
+        BlocProvider(
+            create: (context) => TrainingCircleCubit(UserRepository())),
       ],
       child: MyApp(
         authenticationRepository: authenticationRepository,

@@ -6,6 +6,7 @@ import 'package:fit_lovers/presentations/screens/home_screen.dart';
 import 'package:fit_lovers/presentations/screens/log_in_screen.dart';
 import 'package:fit_lovers/presentations/screens/onboarding_screen.dart';
 import 'package:fit_lovers/presentations/screens/register_screen.dart';
+import 'package:fit_lovers/presentations/screens/training_circle_screen.dart';
 import 'package:fit_lovers/presentations/screens/welcome_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_lovers/presentations/screens/single_exercise_screen.dart';
@@ -39,6 +40,7 @@ class Routes {
   static const String singleExerciseScreen = 'single-exercise-screen';
   static const String editProfileScreen = 'edit-profile-screen';
   static const String completedExercisesScreen = 'completed-exercises-screen';
+  static const String trainingCircleScreen = 'training-circle-screen';
 }
 
 // BONUS:
@@ -77,6 +79,7 @@ class MyRouter {
                   (Routes.editProfileScreen) => const EditProfileScreen(),
                   (Routes.completedExercisesScreen) =>
                     const CompletedExercisesScreen(),
+                  (Routes.trainingCircleScreen) => const TrainingCircleScreen(),
 
                   // Default route
                   _ => const WelcomeViewScreen(),

@@ -99,5 +99,9 @@
   "completedExercises2": "Completed Exercise",
   "@completedExercises2": {},
   "delete": "Remove",
-  "@delete": {}
+  "@delete": {},
+  "addTrainingCircle": "Add to your training circle",
+  "@addTrainingCircle": {},
+  "trainingCircle": "Training Circle",
+  "@trainingCircle": {}
  }
