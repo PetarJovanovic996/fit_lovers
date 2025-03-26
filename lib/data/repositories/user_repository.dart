@@ -143,11 +143,16 @@ class UserRepository {
       if (user != null) {
         final myTrainingCircle =
             await _firebaseDatabase.ref('users/$user/trainingCircle').get();
+
         if (myTrainingCircle.exists) {
-          return List<String>.from(myTrainingCircle.value as List);
-        } else {
-          return [];
+          if (myTrainingCircle.value is Map) {
+            return (myTrainingCircle.value as Map)
+                .keys
+                .map((key) => key.toString())
+                .toList();
+          }
         }
+        return [];
       } else {
         throw Exception('User is not authenticated');
       }
@@ -162,15 +167,8 @@ class UserRepository {
       if (user != null) {
         final trainingCircleRef =
             _firebaseDatabase.ref('users/$user/trainingCircle');
-        final myTrainingCircle = await trainingCircleRef.get();
-        List<String> trainingCircle = myTrainingCircle.exists
-            ? List<String>.from(myTrainingCircle.value as List)
-            : [];
 
-        if (!trainingCircle.contains(exerciseName)) {
-          trainingCircle.add(exerciseName);
-          await trainingCircleRef.set(trainingCircle);
-        }
+        await trainingCircleRef.child(exerciseName).set(true);
       } else {
         throw Exception('User is not authenticated');
       }
@@ -179,21 +177,14 @@ class UserRepository {
     }
   }
 
-  Future<void> removeTrainingCircle(String exerciseName) async {
+  Future<void> removeTrainingCircle() async {
     try {
       final user = _auth.currentUser?.uid;
       if (user != null) {
         final trainingCircleRef =
             _firebaseDatabase.ref('users/$user/trainingCircle');
-        final myTrainingCircle = await trainingCircleRef.get();
-        List<String> trainingCircle = myTrainingCircle.exists
-            ? List<String>.from(myTrainingCircle.value as List)
-            : [];
 
-        if (!trainingCircle.contains(exerciseName)) {
-          trainingCircle.remove(exerciseName);
-          await trainingCircleRef.set(trainingCircle);
-        }
+        await trainingCircleRef.remove();
       } else {
         throw Exception('User is not authenticated');
       }

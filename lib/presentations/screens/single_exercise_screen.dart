@@ -135,7 +135,6 @@ class SingleExerciseScreen extends StatelessWidget {
                                   const SizedBox(
                                     height: 24,
                                   ),
-                                  //ToDo: odavde
                                   BlocBuilder<TrainingCircleCubit,
                                       TrainingCircleState>(
                                     builder: (context, state) {

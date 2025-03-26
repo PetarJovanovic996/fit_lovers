@@ -105,5 +105,7 @@
   "trainingCircle": "Kruzni trening",
   "@trainingCircle": {},
   "seeDetails2": "detalji vjezbe",
-  "@seeDetails2": {}
+  "@seeDetails2": {},
+  "deleteTrainingCircle": "Obrisi kruzni trening",
+  "@deleteTrainingCircle": {}
 }

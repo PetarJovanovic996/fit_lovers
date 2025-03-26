@@ -105,5 +105,7 @@
   "trainingCircle": "Training Circle",
   "@trainingCircle": {},
   "seeDetails2": "see details",
-  "@seeDetails2": {}
+  "@seeDetails2": {},
+  "deleteTrainingCircle": "Delete Training Circle",
+  "@deleteTrainingCircle": {}
  }
