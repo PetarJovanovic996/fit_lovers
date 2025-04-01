@@ -24,6 +24,10 @@ class TrainingCircleScreen extends StatelessWidget {
 
           if (state is TrainingCircleLoaded) {
             final trainingCircle = state.trainingCircle;
+            if (trainingCircle.isEmpty) {
+              return Center(
+                  child: Text(AppLocalizations.of(context)!.noTrainingsLeft));
+            }
             return Container(
               decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -44,7 +48,6 @@ class TrainingCircleScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  //ToDo: sto se desi kad sve obrises i nema vise / poruku dodati
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           minimumSize: const Size(10, 80)),

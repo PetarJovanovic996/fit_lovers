@@ -107,5 +107,7 @@
   "seeDetails2": "see details",
   "@seeDetails2": {},
   "deleteTrainingCircle": "Delete Training Circle",
-  "@deleteTrainingCircle": {}
+  "@deleteTrainingCircle": {},
+  "noTrainingsLeft": "There is no training circles created",
+  "@noTrainingsLeft": {}
  }
