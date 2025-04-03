@@ -109,5 +109,9 @@
   "deleteTrainingCircle": "Delete Training Circle",
   "@deleteTrainingCircle": {},
   "noTrainingsLeft": "There is no training circles created",
-  "@noTrainingsLeft": {}
+  "@noTrainingsLeft": {},
+ "addRepetitionNumber": "Add repetition number",
+  "@addRepetitionNumber": {},
+  "repetitionNumber": "Repetition number",
+  "@repetitionNumber": {}
  }

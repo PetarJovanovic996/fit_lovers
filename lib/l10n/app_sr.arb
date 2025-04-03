@@ -109,5 +109,9 @@
   "deleteTrainingCircle": "Obrisi kruzni trening",
   "@deleteTrainingCircle": {},
   "noTrainingsLeft": "Ne postoje kreirani kruzni treninzi",
-  "@noTrainingsLeft": {}
+  "@noTrainingsLeft": {},
+  "addRepetitionNumber": "Unesite broj ponavljanja",
+  "@addRepetitionNumber": {},
+  "repetitionNumber": "Repetition number",
+  "@repetitionNumber": {}
 }
