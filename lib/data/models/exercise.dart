@@ -10,15 +10,16 @@ class Exercise {
   final String? equipment;
   final String? difficulty;
   final String? instructions;
+  final int? repetitionNumber;
 
-  Exercise({
-    this.name,
-    this.type,
-    this.muscle,
-    this.equipment,
-    this.difficulty,
-    this.instructions,
-  });
+  Exercise(
+      {this.name,
+      this.type,
+      this.muscle,
+      this.equipment,
+      this.difficulty,
+      this.instructions,
+      this.repetitionNumber});
 
   factory Exercise.fromJson(Map<String, dynamic> json) =>
       _$ExerciseFromJson(json);

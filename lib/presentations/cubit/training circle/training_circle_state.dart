@@ -16,7 +16,7 @@ class TrainingCircleLoading extends TrainingCircleState {
 
 class TrainingCircleLoaded extends TrainingCircleState {
   const TrainingCircleLoaded(this.trainingCircle);
-  final List<String> trainingCircle;
+  final List<Map<String, dynamic>> trainingCircle;
   @override
   List<Object?> get props => [trainingCircle];
 }

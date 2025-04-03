@@ -13,6 +13,7 @@ Exercise _$ExerciseFromJson(Map<String, dynamic> json) => Exercise(
       equipment: json['equipment'] as String?,
       difficulty: json['difficulty'] as String?,
       instructions: json['instructions'] as String?,
+      repetitionNumber: (json['repetitionNumber'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$ExerciseToJson(Exercise instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$ExerciseToJson(Exercise instance) => <String, dynamic>{
       'equipment': instance.equipment,
       'difficulty': instance.difficulty,
       'instructions': instance.instructions,
+      'repetitionNumber': instance.repetitionNumber,
     };

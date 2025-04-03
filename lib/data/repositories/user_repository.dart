@@ -137,7 +137,7 @@ class UserRepository {
     }
   }
 
-  Future<List<String>> getTrainingCircle() async {
+  Future<List<Map<String, dynamic>>> getTrainingCircle() async {
     try {
       final user = _auth.currentUser?.uid;
       if (user != null) {
@@ -147,8 +147,11 @@ class UserRepository {
         if (myTrainingCircle.exists) {
           if (myTrainingCircle.value is Map) {
             return (myTrainingCircle.value as Map)
-                .keys
-                .map((key) => key.toString())
+                .entries
+                .map((entry) => {
+                      'exerciseName': entry.key,
+                      'repetitionNumber': entry.value['repetitionNumber'],
+                    })
                 .toList();
           }
         }
@@ -161,14 +164,16 @@ class UserRepository {
     }
   }
 
-  Future<void> addTrainingCircle(String exerciseName) async {
+  Future<void> addTrainingCircle(
+      String exerciseName, int repetitionNumber) async {
     try {
       final user = _auth.currentUser?.uid;
       if (user != null) {
         final trainingCircleRef =
             _firebaseDatabase.ref('users/$user/trainingCircle');
-
-        await trainingCircleRef.child(exerciseName).set(true);
+        await trainingCircleRef.child(exerciseName).set({
+          'repetitionNumber': repetitionNumber,
+        });
       } else {
         throw Exception('User is not authenticated');
       }

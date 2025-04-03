@@ -113,5 +113,7 @@
  "addRepetitionNumber": "Add repetition number",
   "@addRepetitionNumber": {},
   "repetitionNumber": "Repetition number",
-  "@repetitionNumber": {}
+  "@repetitionNumber": {},
+  "succesfullAddedTrainingCircle": "Succesfully added Training Circle",
+  "@succesfullAddedTrainingCircle": {}
  }

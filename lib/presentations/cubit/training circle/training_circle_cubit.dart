@@ -8,6 +8,7 @@ class TrainingCircleCubit extends Cubit<TrainingCircleState> {
   final UserRepository _userRepository;
 
   TrainingCircleCubit(this._userRepository) : super(TrainingCircleInitial());
+
   Future<void> loadTrainingCircle() async {
     emit(TrainingCircleLoading());
     try {
@@ -18,9 +19,10 @@ class TrainingCircleCubit extends Cubit<TrainingCircleState> {
     }
   }
 
-  Future<void> addTrainingCircle(String exerciseName) async {
+  Future<void> addTrainingCircle(
+      String exerciseName, int repetitionNumber) async {
     try {
-      await _userRepository.addTrainingCircle(exerciseName);
+      await _userRepository.addTrainingCircle(exerciseName, repetitionNumber);
       loadTrainingCircle();
     } catch (e) {
       emit(TrainingCircleError(e.toString()));

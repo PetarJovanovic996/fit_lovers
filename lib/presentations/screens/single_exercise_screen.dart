@@ -252,12 +252,16 @@ class AddRepetitonNumberWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String repetitionNumber = '1';
     return AlertDialog(
       title: Text(AppLocalizations.of(context)!.addRepetitionNumber),
       content: TextFormField(
-        initialValue: '1',
+        initialValue: repetitionNumber,
         keyboardType: const TextInputType.numberWithOptions(),
         autofocus: true,
+        onChanged: (value) {
+          repetitionNumber = value;
+        },
         decoration: const InputDecoration(prefix: Text('x ')),
       ),
       actions: <Widget>[
@@ -269,11 +273,20 @@ class AddRepetitonNumberWidget extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
+            final int repetitions = int.tryParse(repetitionNumber) ?? 1;
             context
                 .read<TrainingCircleCubit>()
-                .addTrainingCircle(exercise.name!);
+                .addTrainingCircle(exercise.name!, repetitions);
 
             Navigator.of(context).pop();
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(AppLocalizations.of(context)!
+                      .succesfullAddedTrainingCircle),
+                ),
+              );
           },
           child: Text(AppLocalizations.of(context)!.addTrainingCircle),
         ),

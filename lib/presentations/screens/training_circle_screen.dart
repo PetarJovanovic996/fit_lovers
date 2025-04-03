@@ -43,8 +43,13 @@ class TrainingCircleScreen extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: trainingCircle.length,
                       itemBuilder: (context, index) {
-                        final exerciseName = trainingCircle[index];
-                        return TrainingCircleList(exerciseName: exerciseName);
+                        final exercise = trainingCircle[index];
+                        final exerciseName = exercise['exerciseName'];
+                        final repetitionNumber =
+                            exercise['repetitionNumber'].toString();
+                        return TrainingCircleList(
+                            exerciseName: exerciseName,
+                            repetitionNumber: repetitionNumber);
                       },
                     ),
                   ),
@@ -84,19 +89,17 @@ class TrainingCircleList extends StatelessWidget {
   const TrainingCircleList({
     super.key,
     required this.exerciseName,
+    required this.repetitionNumber,
   });
 
   final String exerciseName;
+  final String repetitionNumber;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(exerciseName),
-      //ToDo: broj ponavljanja implementirati i dodati
-      //predlog: broj ponavljanja se definise kad se klika dugme na
-      //signle exer skrin
-
-      subtitle: Text('x4'),
+      subtitle: Text('x$repetitionNumber'),
       trailing: TextButton(
         child: Text(
           AppLocalizations.of(context)!.seeDetails2,
