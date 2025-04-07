@@ -7,6 +7,10 @@ import 'package:fit_lovers/presentations/widgets/loading_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+//ToDo:
+//Napraviti podjelu po folderima
+//da moze vise kruznih treninga da se pravi
+
 class TrainingCircleScreen extends StatelessWidget {
   const TrainingCircleScreen({super.key});
 
